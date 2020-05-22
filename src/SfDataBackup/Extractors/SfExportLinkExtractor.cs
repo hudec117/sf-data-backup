@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Security;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 
 namespace SfDataBackup.Extractors
@@ -16,8 +13,6 @@ namespace SfDataBackup.Extractors
         private SfExportLinkExtractorConfig config;
         private HttpClient httpClient;
 
-        private const string exportServicePath = "/ui/setup/export/DataExportPage/d?setupid=DataManagementExport";
-
         public SfExportLinkExtractor(ILogger<SfExportLinkExtractor> logger, SfExportLinkExtractorConfig config, IHttpClientFactory httpClientFactory)
         {
             this.logger = logger;
@@ -27,16 +22,16 @@ namespace SfDataBackup.Extractors
 
         public Task<SfExportLinkExtractorResult> ExtractAsync()
         {
-            var requestUrl = new Uri(config.ServerUrl, exportServicePath);
+            var requestUrl = new Uri(config.OrganisationUrl, config.ExportServicePath);
 
             // Construct headers with cookie for Salesforce
             var cookieContainer = new CookieContainer();
             var oidCookie = new Cookie("oid", config.OrganisationId);
             var sidCookie = new Cookie("sid", config.AccessToken);
-            cookieContainer.Add(oidCookie);
-            cookieContainer.Add(sidCookie);
+            cookieContainer.Add(requestUrl, oidCookie);
+            cookieContainer.Add(requestUrl, sidCookie);
 
-            var cookieHeader = cookieContainer.GetCookieHeader(config.ServerUrl);
+            var cookieHeader = cookieContainer.GetCookieHeader(requestUrl);
 
             // Get the export data page
             var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
@@ -48,11 +43,15 @@ namespace SfDataBackup.Extractors
 
     public class SfExportLinkExtractorConfig
     {
-        public Uri ServerUrl { get; set; }
+        public Uri OrganisationUrl { get; set; }
+
+        public string OrganisationId { get; set; }
 
         public string AccessToken { get; set; }
 
-        public string OrganisationId { get; set; }
+        public string ExportServicePath { get; set; }
+
+        public string ExportServiceRegex { get; set; }
     }
 
     public class SfExportLinkExtractorResult
