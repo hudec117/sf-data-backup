@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Security;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
@@ -10,11 +11,13 @@ namespace SfDataBackup.Extractors
 {
     public class SfExportLinkExtractor : ISfExportLinkExtractor
     {
-        public SfExportLinkExtractorConfig Config { get; set; }
+        private SfExportLinkExtractorConfig config;
+        private HttpClient httpClient;
 
-        public SfExportLinkExtractor(SfExportLinkExtractorConfig config)
+        public SfExportLinkExtractor(SfExportLinkExtractorConfig config, HttpClient httpClient)
         {
-            Config = config;
+            this.config = config;
+            this.httpClient = httpClient;
         }
 
         public Task<SfExportLinkExtractorResult> ExtractAsync()

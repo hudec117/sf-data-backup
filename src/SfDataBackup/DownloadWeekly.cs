@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
@@ -18,9 +19,15 @@ namespace SfDataBackup
         }
 
         [FunctionName(nameof(DownloadWeekly))]
-        public void Run([TimerTrigger("0 0 16 * * Fri", RunOnStartup = true)]TimerInfo timer)
+        public async Task RunAsync([TimerTrigger("0 0 16 * * Fri", RunOnStartup = true)]TimerInfo timer)
         {
-            logger.LogInformation("Test");
+            logger.LogInformation("Extracting ZIP links from Salesforce");
+
+            await linkExtractor.ExtractAsync();
+
+            logger.LogInformation("Started downloading ZIP files");
+
+            logger.LogInformation("Consolidating ZIP files");
         }
     }
 }

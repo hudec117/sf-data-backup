@@ -12,17 +12,17 @@ namespace SfDataBackup
 
             builder.Services.AddHttpClient();
 
-            builder.Services.AddScoped<ISfExportLinkExtractor>(serviceProvider =>
+            builder.Services.AddSingleton(serviceProvider =>
             {
-                var config = new SfExportLinkExtractorConfig
+                return new SfExportLinkExtractorConfig
                 {
                     ServerUrl = "",
                     AccessToken = "",
                     OrganisationId = ""
                 };
-
-                return new SfExportLinkExtractor(config);
             });
+
+            builder.Services.AddTransient<ISfExportLinkExtractor, SfExportLinkExtractor>();
         }
     }
 }
