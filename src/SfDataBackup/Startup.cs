@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using SfDataBackup.Extractors;
@@ -12,17 +13,17 @@ namespace SfDataBackup
 
             builder.Services.AddHttpClient();
 
-            builder.Services.AddSingleton(serviceProvider =>
+            builder.Services.AddSingleton<SfExportLinkExtractorConfig>(serviceProvider =>
             {
                 return new SfExportLinkExtractorConfig
                 {
-                    ServerUrl = "",
+                    ServerUrl = new Uri("https://ahudecdevopstools-dev-ed.my.salesforce.com"),
                     AccessToken = "",
-                    OrganisationId = ""
+                    OrganisationId = "00D4J000000CuzU"
                 };
             });
 
-            builder.Services.AddTransient<ISfExportLinkExtractor, SfExportLinkExtractor>();
+            builder.Services.AddSingleton<ISfExportLinkExtractor, SfExportLinkExtractor>();
         }
     }
 }

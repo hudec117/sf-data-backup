@@ -23,7 +23,7 @@ namespace SfDataBackup
         {
             logger.LogInformation("Extracting ZIP links from Salesforce");
 
-            await linkExtractor.ExtractAsync();
+            var result = await linkExtractor.ExtractAsync();
 
             logger.LogInformation("Started downloading ZIP files");
 

@@ -8,7 +8,7 @@ using SfDataBackup.Extractors;
 
 namespace SfDataBackup.Tests
 {
-    public class Tests
+    public class DownloadWeeklyTests
     {
         private Mock<ILogger<DownloadWeekly>> loggerMock;
         private Mock<ISfExportLinkExtractor> extractorMock;
