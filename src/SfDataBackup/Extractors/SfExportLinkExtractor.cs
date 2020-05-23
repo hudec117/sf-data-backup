@@ -11,16 +11,18 @@ namespace SfDataBackup.Extractors
     {
         private ILogger<SfExportLinkExtractor> logger;
         private SfExportLinkExtractorConfig config;
+        private IHttpClientFactory httpClientFactory;
         private HttpClient httpClient;
 
         public SfExportLinkExtractor(ILogger<SfExportLinkExtractor> logger, SfExportLinkExtractorConfig config, IHttpClientFactory httpClientFactory)
         {
             this.logger = logger;
             this.config = config;
+            this.httpClientFactory = httpClientFactory;
             this.httpClient = httpClientFactory.CreateClient();
         }
 
-        public Task<SfExportLinkExtractorResult> ExtractAsync()
+        public async Task<SfExportLinkExtractorResult> ExtractAsync()
         {
             var requestUrl = new Uri(config.OrganisationUrl, config.ExportServicePath);
 
@@ -33,31 +35,39 @@ namespace SfDataBackup.Extractors
 
             var cookieHeader = cookieContainer.GetCookieHeader(requestUrl);
 
-            // Get the export data page
+            // Create request to the export service page
             var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
             request.Headers.Add("Cookie", cookieHeader);
 
-            return Task.FromResult(new SfExportLinkExtractorResult());
+            // Create HTTP client and send request
+            var client = this.httpClientFactory.CreateClient("Default");
+            var response = await client.SendAsync(request);
+
+            return new SfExportLinkExtractorResult(true, null);
         }
     }
 
-    public class SfExportLinkExtractorConfig
+    public class SfExportLinkExtractorConfig : SfConfig
     {
-        public Uri OrganisationUrl { get; set; }
-
-        public string OrganisationId { get; set; }
-
-        public string AccessToken { get; set; }
+        public SfExportLinkExtractorConfig(SfConfig config)
+        {
+            OrganisationUrl = config.OrganisationUrl;
+            OrganisationId = config.OrganisationId;
+            AccessToken = config.AccessToken;
+        }
 
         public string ExportServicePath { get; set; }
 
         public string ExportServiceRegex { get; set; }
     }
 
-    public class SfExportLinkExtractorResult
+    public class SfExportLinkExtractorResult : SfResult
     {
-        public bool Success { get; set; }
-
         public IList<string> Links { get; set; }
+
+        public SfExportLinkExtractorResult(bool success, IList<string> links) : base(success)
+        {
+            Links = links;
+        }
     }
 }

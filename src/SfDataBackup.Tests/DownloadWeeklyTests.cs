@@ -23,6 +23,9 @@ namespace SfDataBackup.Tests
             loggerMock = new Mock<ILogger<DownloadWeekly>>();
 
             extractorMock = new Mock<ISfExportLinkExtractor>();
+            var dummyResult = new SfExportLinkExtractorResult(true, null);
+            extractorMock.Setup(x => x.ExtractAsync())
+                         .ReturnsAsync(dummyResult);
 
             var schedule = new DailySchedule();
             var status = new ScheduleStatus();

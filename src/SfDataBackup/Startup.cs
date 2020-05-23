@@ -14,15 +14,21 @@ namespace SfDataBackup
 
             builder.Services.AddHttpClient();
 
+            var organisationUrl = Environment.GetEnvironmentVariable("SALESFORCE_ORG_URL");
+
+            var config = new SfConfig
+            {
+                OrganisationUrl = new Uri(organisationUrl),
+                OrganisationId = Environment.GetEnvironmentVariable("SALESFORCE_ORG_ID"),
+                AccessToken = "dummy.jwt.token"
+            };
+
+            builder.Services.AddSingleton<SfConfig>(config);
+
             builder.Services.AddSingleton<SfExportLinkExtractorConfig>(serviceProvider =>
             {
-                var organisationUrl = Environment.GetEnvironmentVariable("SALESFORCE_ORG_URL");
-
-                return new SfExportLinkExtractorConfig
+                return new SfExportLinkExtractorConfig(config)
                 {
-                    OrganisationUrl = new Uri(organisationUrl),
-                    OrganisationId = Environment.GetEnvironmentVariable("SALESFORCE_ORG_ID"),
-                    AccessToken = "dummy.jwt.token",
                     ExportServicePath = Environment.GetEnvironmentVariable("EXPORT_SERVICE_PATH"),
                     ExportServiceRegex = Environment.GetEnvironmentVariable("EXPORT_SERVICE_REGEX")
                 };

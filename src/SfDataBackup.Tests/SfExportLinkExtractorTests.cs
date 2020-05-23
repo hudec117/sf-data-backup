@@ -1,10 +1,10 @@
-using System;
+using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Timers;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Moq.Protected;
 using NUnit.Framework;
 using SfDataBackup.Extractors;
 
@@ -13,9 +13,11 @@ namespace SfDataBackup.Tests
     public class SfExportLinkExtractorTests
     {
         private Mock<ILogger<SfExportLinkExtractor>> loggerMock;
+
+        private Mock<HttpMessageHandler> httpMessageHandlerMock;
         private Mock<IHttpClientFactory> httpClientFactoryMock;
 
-        private SfExportLinkExtractorConfig dummyConfig;
+        private SfExportLinkExtractorConfig dummyExtractorConfig;
 
         private SfExportLinkExtractor extractor;
 
@@ -23,16 +25,26 @@ namespace SfDataBackup.Tests
         public void Setup()
         {
             loggerMock = new Mock<ILogger<SfExportLinkExtractor>>();
-            httpClientFactoryMock = new Mock<IHttpClientFactory>();
 
-            dummyConfig = new SfExportLinkExtractorConfig
+            httpMessageHandlerMock = new Mock<HttpMessageHandler>();
+            httpMessageHandlerMock.Protected()
+                                  .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                                  .ReturnsAsync(new HttpResponseMessage
+                                  {
+                                      StatusCode = HttpStatusCode.OK
+                                  });
+
+            httpClientFactoryMock = new Mock<IHttpClientFactory>();
+            httpClientFactoryMock.Setup(x => x.CreateClient("Default"))
+                                 .Returns(new HttpClient(httpMessageHandlerMock.Object));
+
+            dummyExtractorConfig = new SfExportLinkExtractorConfig(SharedData.Config)
             {
-                OrganisationUrl = new Uri("https://abcd123.my.salesforce.com"),
-                AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-                OrganisationId = "00D4J000000CuzU"
+                ExportServicePath = "/dummy/export/service/path",
+                ExportServiceRegex = "dummyexportregex"
             };
 
-            extractor = new SfExportLinkExtractor(loggerMock.Object, dummyConfig, httpClientFactoryMock.Object);
+            extractor = new SfExportLinkExtractor(loggerMock.Object, dummyExtractorConfig, httpClientFactoryMock.Object);
         }
 
         [Test]
@@ -42,6 +54,29 @@ namespace SfDataBackup.Tests
             await extractor.ExtractAsync();
 
             // Assert
+            httpMessageHandlerMock.Protected()
+                                  .Verify(
+                                      "SendAsync",
+                                      Times.Once(),
+                                      ItExpr.Is<HttpRequestMessage>(message => message.RequestUri.PathAndQuery == dummyExtractorConfig.ExportServicePath),
+                                      ItExpr.IsAny<CancellationToken>()
+                                  );
+        }
+
+        [Test]
+        public async Task ExtractAsync_RequestsExportServicePageWithCookie()
+        {
+            // Act
+            await extractor.ExtractAsync();
+
+            // Assert
+            httpMessageHandlerMock.Protected()
+                                  .Verify(
+                                      "SendAsync",
+                                      Times.Once(),
+                                      ItExpr.Is<HttpRequestMessage>(message => message.Headers.Contains("Cookie")),
+                                      ItExpr.IsAny<CancellationToken>()
+                                  );
         }
     }
 }
