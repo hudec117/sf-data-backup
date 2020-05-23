@@ -17,4 +17,10 @@
     <ProjectReference Include="..\SfDataBackup\SfDataBackup.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data/ExportPageSingleExportAvailable.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

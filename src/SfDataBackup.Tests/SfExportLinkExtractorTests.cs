@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -29,9 +30,12 @@ namespace SfDataBackup.Tests
             httpMessageHandlerMock = new Mock<HttpMessageHandler>();
             httpMessageHandlerMock.Protected()
                                   .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
-                                  .ReturnsAsync(new HttpResponseMessage
+                                  .ReturnsAsync(() =>
                                   {
-                                      StatusCode = HttpStatusCode.OK
+                                      var response = new HttpResponseMessage(HttpStatusCode.OK);
+                                      response.Content = new StringContent(SharedData.ExportPageSingleExportAvailable);
+
+                                      return response;
                                   });
 
             httpClientFactoryMock = new Mock<IHttpClientFactory>();
@@ -41,7 +45,7 @@ namespace SfDataBackup.Tests
             dummyExtractorConfig = new SfExportLinkExtractorConfig(SharedData.Config)
             {
                 ExportServicePath = "/dummy/export/service/path",
-                ExportServiceRegex = "dummyexportregex"
+                ExportServiceRegex = "<a\\s+href=\"(?'relurl'\\/servlet\\/servlet\\.OrgExport\\?.+?)\""
             };
 
             extractor = new SfExportLinkExtractor(loggerMock.Object, dummyExtractorConfig, httpClientFactoryMock.Object);
@@ -77,6 +81,52 @@ namespace SfDataBackup.Tests
                                       ItExpr.Is<HttpRequestMessage>(message => message.Headers.Contains("Cookie")),
                                       ItExpr.IsAny<CancellationToken>()
                                   );
+        }
+
+        [Test]
+        public async Task ExtractAsync_ResultSuccessIsTrue()
+        {
+            // Act
+            var result = await extractor.ExtractAsync();
+
+            // Assert
+            Assert.That(result.Success, Is.True);
+        }
+
+        [Test]
+        public async Task ExtractAsync_SingleExportAvailable_ReturnsDownloadLink()
+        {
+            // Act
+            var result = await extractor.ExtractAsync();
+
+            // Assert
+            var expectedUrl = new Uri(dummyExtractorConfig.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK");
+            Assert.That(result.Links[0], Is.EqualTo(expectedUrl));
+        }
+
+        // [Test]
+        // public async Task ExtractAsync_MultipleExportsAvailable_ReturnsDownloadLinks()
+        // {
+        //     // Act
+        //     var result = await extractor.ExtractAsync();
+
+        //     // Assert
+        //     Assert.That(result.Links.Count, Is.EqualTo(1));
+        // }
+
+        [Test]
+        public async Task ExtractAsync_NetworkFailure_ResultSuccessIsFalse()
+        {
+            // Assert
+            httpMessageHandlerMock.Protected()
+                                  .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                                  .ThrowsAsync(new HttpRequestException());
+
+            // Act
+            var result = await extractor.ExtractAsync();
+
+            // Assert
+            Assert.That(result.Success, Is.False);
         }
     }
 }
