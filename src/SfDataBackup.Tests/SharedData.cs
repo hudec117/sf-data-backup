@@ -12,11 +12,14 @@ namespace SfDataBackup.Tests
             OrganisationId = "00D4J000000CuzU"
         };
 
-        public readonly static string ExportPageSingleExportAvailable;
+        public readonly static string ExportSingleExportAvailablePage;
+
+        public readonly static string MalformedPage;
 
         static SharedData()
         {
-            ExportPageSingleExportAvailable = File.ReadAllText("Data/ExportPageSingleExportAvailable.html");
+            ExportSingleExportAvailablePage = File.ReadAllText("Data/ExportSingleExportAvailablePage.html");
+            MalformedPage = File.ReadAllText("Data/MalformedPage.html");
         }
     }
 }

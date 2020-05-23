@@ -33,13 +33,13 @@ namespace SfDataBackup.Tests
                                   .ReturnsAsync(() =>
                                   {
                                       var response = new HttpResponseMessage(HttpStatusCode.OK);
-                                      response.Content = new StringContent(SharedData.ExportPageSingleExportAvailable);
+                                      response.Content = new StringContent(SharedData.ExportSingleExportAvailablePage);
 
                                       return response;
                                   });
 
             httpClientFactoryMock = new Mock<IHttpClientFactory>();
-            httpClientFactoryMock.Setup(x => x.CreateClient("Default"))
+            httpClientFactoryMock.Setup(x => x.CreateClient("SalesforceClient"))
                                  .Returns(new HttpClient(httpMessageHandlerMock.Object));
 
             dummyExtractorConfig = new SfExportLinkExtractorConfig(SharedData.Config)
@@ -63,22 +63,6 @@ namespace SfDataBackup.Tests
                                       "SendAsync",
                                       Times.Once(),
                                       ItExpr.Is<HttpRequestMessage>(message => message.RequestUri.PathAndQuery == dummyExtractorConfig.ExportServicePath),
-                                      ItExpr.IsAny<CancellationToken>()
-                                  );
-        }
-
-        [Test]
-        public async Task ExtractAsync_RequestsExportServicePageWithCookie()
-        {
-            // Act
-            await extractor.ExtractAsync();
-
-            // Assert
-            httpMessageHandlerMock.Protected()
-                                  .Verify(
-                                      "SendAsync",
-                                      Times.Once(),
-                                      ItExpr.Is<HttpRequestMessage>(message => message.Headers.Contains("Cookie")),
                                       ItExpr.IsAny<CancellationToken>()
                                   );
         }
@@ -113,6 +97,27 @@ namespace SfDataBackup.Tests
         //     // Assert
         //     Assert.That(result.Links.Count, Is.EqualTo(1));
         // }
+
+        [Test]
+        public async Task ExtractAsync_MalformedPage_ReturnsNoLinks()
+        {
+            // Arrange
+            httpMessageHandlerMock.Protected()
+                                  .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                                  .ReturnsAsync(() =>
+                                  {
+                                      var response = new HttpResponseMessage(HttpStatusCode.OK);
+                                      response.Content = new StringContent(SharedData.MalformedPage);
+
+                                      return response;
+                                  });
+
+            // Act
+            var result = await extractor.ExtractAsync();
+
+            // Assert
+            Assert.That(result.Links, Is.Empty);
+        }
 
         [Test]
         public async Task ExtractAsync_NetworkFailure_ResultSuccessIsFalse()

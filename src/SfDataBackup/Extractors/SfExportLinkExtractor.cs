@@ -27,26 +27,13 @@ namespace SfDataBackup.Extractors
         {
             var requestUrl = new Uri(config.OrganisationUrl, config.ExportServicePath);
 
-            // Construct headers with cookie for Salesforce
-            var cookieContainer = new CookieContainer();
-            var oidCookie = new Cookie("oid", config.OrganisationId);
-            var sidCookie = new Cookie("sid", config.AccessToken);
-            cookieContainer.Add(requestUrl, oidCookie);
-            cookieContainer.Add(requestUrl, sidCookie);
-
-            var cookieHeader = cookieContainer.GetCookieHeader(requestUrl);
-
-            // Create request to the export service page
-            var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-            request.Headers.Add("Cookie", cookieHeader);
-
             // Create HTTP client and send request
-            var client = this.httpClientFactory.CreateClient("Default");
+            var client = this.httpClientFactory.CreateClient("SalesforceClient");
 
             HttpResponseMessage response;
             try
             {
-                response = await client.SendAsync(request);
+                response = await client.GetAsync(requestUrl);
             }
             catch (HttpRequestException exception)
             {

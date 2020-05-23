@@ -21,17 +21,24 @@ namespace SfDataBackup
         [FunctionName(nameof(DownloadWeekly))]
         public async Task RunAsync([TimerTrigger("0 0 16 * * Fri", RunOnStartup = true)]TimerInfo timer)
         {
-            logger.LogInformation("Extracting ZIP links from Salesforce");
+            logger.LogInformation("Extracting ZIP links from Salesforce.");
 
             var result = await linkExtractor.ExtractAsync();
-            if (!result.Success) {
+            if (!result.Success)
+            {
                 logger.LogWarning("Link extractor unsuccessful.");
                 return;
             }
 
-            logger.LogInformation("Started downloading ZIP files");
+            if (result.Links.Count == 0)
+            {
+                logger.LogWarning("Link extractor returned no links.");
+                return;
+            }
 
-            logger.LogInformation("Consolidating ZIP files");
+            logger.LogInformation("Started downloading ZIP files.");
+
+            logger.LogInformation("Consolidating ZIP files.");
         }
     }
 }
