@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using SfDataBackup.Downloaders;
 using SfDataBackup.Extractors;
 
 [assembly: FunctionsStartup(typeof(SfDataBackup.Startup))]
@@ -57,6 +58,9 @@ namespace SfDataBackup
 
             // Register link extractor
             builder.Services.AddScoped<ISfExportLinkExtractor, SfExportLinkExtractor>();
+
+            // Register export downloader
+            builder.Services.AddScoped<ISfExportDownloader, SfExportDownloader>();
         }
     }
 }
