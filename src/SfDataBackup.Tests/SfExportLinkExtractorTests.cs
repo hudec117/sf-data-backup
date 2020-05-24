@@ -107,7 +107,7 @@ namespace SfDataBackup.Tests
                                   .ReturnsAsync(() =>
                                   {
                                       var response = new HttpResponseMessage(HttpStatusCode.OK);
-                                      response.Content = new StringContent(SharedData.MalformedPage);
+                                      response.Content = new StringContent(SharedData.ExportNoneAvailablePage);
 
                                       return response;
                                   });

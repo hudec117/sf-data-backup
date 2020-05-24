@@ -75,16 +75,13 @@ namespace SfDataBackup.Extractors
 
     public class SfExportLinkExtractorConfig : SfConfig
     {
-        public SfExportLinkExtractorConfig(SfConfig config)
-        {
-            OrganisationUrl = config.OrganisationUrl;
-            OrganisationId = config.OrganisationId;
-            AccessToken = config.AccessToken;
-        }
-
         public string ExportServicePath { get; set; }
 
         public string ExportServiceRegex { get; set; }
+
+        public SfExportLinkExtractorConfig(SfConfig config) : base(config)
+        {
+        }
     }
 
     public class SfExportLinkExtractorResult : SfResult

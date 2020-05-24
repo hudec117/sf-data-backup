@@ -1,4 +1,5 @@
 using System;
+using System.IO.Abstractions;
 using System.Net;
 using System.Net.Http;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
@@ -23,9 +24,10 @@ namespace SfDataBackup
                 AccessToken = "dummy.jwt.token"
             };
 
+            // Register logging services
             builder.Services.AddLogging();
 
-            // Configure an HTTP client with authentication cookies.
+            // Configure a HTTP client with authentication cookies.
             builder.Services.AddHttpClient("SalesforceClient", client =>
             {
                 client.DefaultRequestVersion = HttpVersion.Version20;
@@ -44,7 +46,7 @@ namespace SfDataBackup
                 };
             });
 
-            // Register the generic config and export service config.
+            // Register configs.
             builder.Services.AddSingleton<SfConfig>(config);
 
             builder.Services.AddSingleton<SfExportLinkExtractorConfig>(serviceProvider =>
@@ -55,6 +57,17 @@ namespace SfDataBackup
                     ExportServiceRegex = Environment.GetEnvironmentVariable("EXPORT_SERVICE_REGEX")
                 };
             });
+
+            builder.Services.AddSingleton<SfExportDownloaderConfig>(serviceProvider =>
+            {
+                return new SfExportDownloaderConfig(config)
+                {
+                    DownloadPath = Environment.GetEnvironmentVariable("EXPORT_DOWNLOAD_PATH")
+                };
+            });
+
+            // Register file system
+            builder.Services.AddScoped<IFileSystem, FileSystem>();
 
             // Register link extractor
             builder.Services.AddScoped<ISfExportLinkExtractor, SfExportLinkExtractor>();
