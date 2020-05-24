@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
@@ -29,36 +28,39 @@ namespace SfDataBackup.Downloaders
 
             fileSystem.Directory.CreateDirectory(config.DownloadPath);
 
+            var localPaths = new List<string>();
+
             for (var i = 0; i < exportDownloadLinks.Count; i++)
             {
                 var link = exportDownloadLinks[i];
 
-                var response = await httpClient.GetAsync(link);
+                HttpResponseMessage response;
+                try
+                {
+                    response = await httpClient.GetAsync(link);
+                }
+                catch (HttpRequestException exception)
+                {
+                    logger.LogError(exception, "HTTP request for {link} failed.", link);
+                    return new SfExportDownloaderResult(false);
+                }
 
-                var downloadPath = fileSystem.Path.Combine(config.DownloadPath, $"export{i}.zip");
-                using (var fileStream = fileSystem.File.Create(downloadPath))
+                if (!response.IsSuccessStatusCode)
+                {
+                    logger.LogError("HTTP {code} received for {link}", link);
+                    return new SfExportDownloaderResult(false);
+                }
+
+                var localPath = fileSystem.Path.Combine(config.DownloadPath, $"export{i}.zip");
+                using (var fileStream = fileSystem.File.Create(localPath))
                 {
                     await response.Content.CopyToAsync(fileStream);
                 }
+
+                localPaths.Add(localPath);
             }
 
-            return new SfExportDownloaderResult(true);
-        }
-
-        public async Task<string> DownloadExport(HttpClient httpClient, Uri downloadLink, string localPath, CancellationToken cancellationToken)
-        {
-            // Send request for export
-            var response = await httpClient.GetAsync(downloadLink, HttpCompletionOption.ResponseContentRead, cancellationToken);
-            if (!response.IsSuccessStatusCode)
-                throw new HttpRequestException(response.ReasonPhrase);
-
-            // Download the export
-            using (var fileStream = fileSystem.File.Create(localPath))
-            {
-                await response.Content.CopyToAsync(fileStream);
-            }
-
-            return localPath;
+            return new SfExportDownloaderResult(true, localPaths);
         }
     }
 }
