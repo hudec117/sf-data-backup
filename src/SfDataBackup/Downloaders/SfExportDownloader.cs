@@ -33,6 +33,8 @@ namespace SfDataBackup.Downloaders
                 var link = exportDownloadLinks[i];
 
                 var response = await httpClient.GetAsync(link);
+                if (!response.IsSuccessStatusCode)
+                    break;
 
                 var downloadPath = fileSystem.Path.Combine(config.DownloadPath, $"export{i}.zip");
                 using (var fileStream = fileSystem.File.Create(downloadPath))

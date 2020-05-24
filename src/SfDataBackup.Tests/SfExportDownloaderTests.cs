@@ -116,12 +116,12 @@ namespace SfDataBackup.Tests
             foreach (var link in multipleLinks)
             {
                 httpMessageHandlerMock.Protected()
-                                  .Verify(
-                                      "SendAsync",
-                                      Times.Once(),
-                                      ItExpr.Is<HttpRequestMessage>(message => message.RequestUri == link),
-                                      ItExpr.IsAny<CancellationToken>()
-                                  );
+                                      .Verify(
+                                          "SendAsync",
+                                          Times.Once(),
+                                          ItExpr.Is<HttpRequestMessage>(message => message.RequestUri == link),
+                                          ItExpr.IsAny<CancellationToken>()
+                                      );
             }
         }
 
@@ -136,6 +136,42 @@ namespace SfDataBackup.Tests
             {
                 Assert.That(fileSystemMock.AllFiles, Contains.Item($"C:\\exports\\export{i}.zip"));
             }
+        }
+
+        [Test]
+        public async Task DownloadAsync_UnsuccessfulResponse_DoesNotCreateAnyFiles()
+        {
+            // Assert
+            httpMessageHandlerMock.Protected()
+                                  .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                                  .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
+
+            // Act
+            await downloader.DownloadAsync(multipleLinks);
+
+            // Assert
+            Assert.That(fileSystemMock.AllFiles, Is.Empty);
+        }
+
+        [Test]
+        public async Task DownloadAsync_UnsuccessfulResponse_DoesNotAttemptToDownloadMoreExports()
+        {
+            // Assert
+            httpMessageHandlerMock.Protected()
+                                  .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                                  .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
+
+            // Act
+            await downloader.DownloadAsync(multipleLinks);
+
+            // Assert
+            httpMessageHandlerMock.Protected()
+                                  .Verify(
+                                      "SendAsync",
+                                      Times.Once(),
+                                      ItExpr.IsAny<HttpRequestMessage>(),
+                                      ItExpr.IsAny<CancellationToken>()
+                                  );
         }
     }
 }
