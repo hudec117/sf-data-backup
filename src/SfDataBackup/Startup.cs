@@ -73,7 +73,7 @@ namespace SfDataBackup
             builder.Services.AddScoped<ISfExportLinkExtractor, SfExportLinkExtractor>();
 
             // Register export downloader
-            builder.Services.AddScoped<ISfExportDownloader, SfExportDownloader>();
+            builder.Services.AddScoped<ISfExportDownloader, SfParallelExportDownloader>();
         }
     }
 }

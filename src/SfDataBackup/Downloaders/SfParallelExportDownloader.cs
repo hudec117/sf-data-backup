@@ -8,14 +8,14 @@ using Microsoft.Extensions.Logging;
 
 namespace SfDataBackup.Downloaders
 {
-    public class SfExportDownloader : ISfExportDownloader
+    public class SfParallelExportDownloader : ISfExportDownloader
     {
-        private ILogger<SfExportDownloader> logger;
+        private ILogger<SfSerialExportDownloader> logger;
         private SfExportDownloaderConfig config;
         private IHttpClientFactory httpClientFactory;
         private IFileSystem fileSystem;
 
-        public SfExportDownloader(ILogger<SfExportDownloader> logger, SfExportDownloaderConfig config, IHttpClientFactory httpClientFactory, IFileSystem fileSystem)
+        public SfParallelExportDownloader(ILogger<SfSerialExportDownloader> logger, SfExportDownloaderConfig config, IHttpClientFactory httpClientFactory, IFileSystem fileSystem)
         {
             this.logger = logger;
             this.config = config;
@@ -83,29 +83,6 @@ namespace SfDataBackup.Downloaders
             }
 
             return localPath;
-        }
-    }
-
-    public class SfExportDownloaderConfig : SfConfig
-    {
-        public string DownloadPath { get; set; }
-
-        public SfExportDownloaderConfig(SfConfig config) : base(config)
-        {
-        }
-    }
-
-    public class SfExportDownloaderResult : SfResult
-    {
-        public IList<string> Paths { get; set; }
-
-        public SfExportDownloaderResult(bool success) : base(success)
-        {
-        }
-
-        public SfExportDownloaderResult(bool success, IList<string> paths) : base(success)
-        {
-            Paths = paths;
         }
     }
 }

@@ -13,9 +13,9 @@ using SfDataBackup.Downloaders;
 
 namespace SfDataBackup.Tests
 {
-    public class SfExportDownloaderTests
+    public class SfSerialExportDownloaderTests
     {
-        private Mock<ILogger<SfExportDownloader>> loggerMock;
+        private Mock<ILogger<SfSerialExportDownloader>> loggerMock;
 
         private Mock<HttpMessageHandler> httpMessageHandlerMock;
         private Mock<IHttpClientFactory> httpClientFactoryMock;
@@ -26,12 +26,12 @@ namespace SfDataBackup.Tests
         private IList<Uri> singleLinks;
         private IList<Uri> multipleLinks;
 
-        private SfExportDownloader downloader;
+        private SfSerialExportDownloader downloader;
 
         [SetUp]
         public void Setup()
         {
-            loggerMock = new Mock<ILogger<SfExportDownloader>>();
+            loggerMock = new Mock<ILogger<SfSerialExportDownloader>>();
 
             httpMessageHandlerMock = new Mock<HttpMessageHandler>();
             httpMessageHandlerMock.Protected()
@@ -67,7 +67,7 @@ namespace SfDataBackup.Tests
                 DownloadPath = "exports"
             };
 
-            downloader = new SfExportDownloader(loggerMock.Object, dummyDownloaderConfig, httpClientFactoryMock.Object, fileSystemMock);
+            downloader = new SfSerialExportDownloader(loggerMock.Object, dummyDownloaderConfig, httpClientFactoryMock.Object, fileSystemMock);
         }
 
         [Test]
