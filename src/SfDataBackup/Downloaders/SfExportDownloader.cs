@@ -28,22 +28,38 @@ namespace SfDataBackup.Downloaders
 
             fileSystem.Directory.CreateDirectory(config.DownloadPath);
 
+            var localPaths = new List<string>();
+
             for (var i = 0; i < exportDownloadLinks.Count; i++)
             {
                 var link = exportDownloadLinks[i];
 
-                var response = await httpClient.GetAsync(link);
-                if (!response.IsSuccessStatusCode)
-                    break;
+                // Send request for export
+                HttpResponseMessage response;
+                try
+                {
+                    response = await httpClient.GetAsync(link);
+                }
+                catch (HttpRequestException exception)
+                {
+                    logger.LogError(exception, "HTTP request for export failed.");
+                    return new SfExportDownloaderResult(false);
+                }
 
-                var downloadPath = fileSystem.Path.Combine(config.DownloadPath, $"export{i}.zip");
-                using (var fileStream = fileSystem.File.Create(downloadPath))
+                if (!response.IsSuccessStatusCode)
+                    return new SfExportDownloaderResult(false);
+
+                // Download the export
+                var localPath = fileSystem.Path.Combine(config.DownloadPath, $"export{i}.zip");
+                using (var fileStream = fileSystem.File.Create(localPath))
                 {
                     await response.Content.CopyToAsync(fileStream);
                 }
+
+                localPaths.Add(localPath);
             }
 
-            return new SfExportDownloaderResult(true);
+            return new SfExportDownloaderResult(true, localPaths);
         }
     }
 
