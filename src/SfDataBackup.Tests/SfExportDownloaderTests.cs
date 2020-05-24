@@ -178,27 +178,6 @@ namespace SfDataBackup.Tests
         }
 
         [Test]
-        public async Task DownloadAsync_UnsuccessfulResponse_DoesNotAttemptToDownloadMoreExports()
-        {
-            // Assert
-            httpMessageHandlerMock.Protected()
-                                  .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
-                                  .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
-
-            // Act
-            await downloader.DownloadAsync(multipleLinks);
-
-            // Assert
-            httpMessageHandlerMock.Protected()
-                                  .Verify(
-                                      "SendAsync",
-                                      Times.Once(),
-                                      ItExpr.IsAny<HttpRequestMessage>(),
-                                      ItExpr.IsAny<CancellationToken>()
-                                  );
-        }
-
-        [Test]
         public async Task DownloadAsync_HttpClientThrowsException_ResultSuccessIsFalse()
         {
             // Assert

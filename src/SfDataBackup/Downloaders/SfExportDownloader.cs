@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
@@ -28,38 +29,60 @@ namespace SfDataBackup.Downloaders
 
             fileSystem.Directory.CreateDirectory(config.DownloadPath);
 
-            var localPaths = new List<string>();
+            var cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = cancellationTokenSource.Token;
 
+            var downloadTasks = new List<Task<string>>();
             for (var i = 0; i < exportDownloadLinks.Count; i++)
             {
                 var link = exportDownloadLinks[i];
-
-                // Send request for export
-                HttpResponseMessage response;
-                try
-                {
-                    response = await httpClient.GetAsync(link);
-                }
-                catch (HttpRequestException exception)
-                {
-                    logger.LogError(exception, "HTTP request for export failed.");
-                    return new SfExportDownloaderResult(false);
-                }
-
-                if (!response.IsSuccessStatusCode)
-                    return new SfExportDownloaderResult(false);
-
-                // Download the export
                 var localPath = fileSystem.Path.Combine(config.DownloadPath, $"export{i}.zip");
-                using (var fileStream = fileSystem.File.Create(localPath))
-                {
-                    await response.Content.CopyToAsync(fileStream);
-                }
 
-                localPaths.Add(localPath);
+                downloadTasks.Add(DownloadExport(httpClient, link, localPath, cancellationToken));
             }
 
-            return new SfExportDownloaderResult(true, localPaths);
+            var allDownloadedSuccessfully = true;
+            var localPaths = new List<string>();
+
+            while (downloadTasks.Count > 0)
+            {
+                var completedTask = await Task.WhenAny(downloadTasks);
+                if (completedTask.IsCompletedSuccessfully)
+                {
+                    var localPath = await completedTask;
+                    localPaths.Add(localPath);
+                }
+                else if (completedTask.IsFaulted)
+                {
+                    cancellationTokenSource.Cancel();
+
+                    logger.LogError(completedTask.Exception, "HTTP request for export failed.");
+                    allDownloadedSuccessfully = false;
+                }
+
+                downloadTasks.Remove(completedTask);
+            }
+
+            if (allDownloadedSuccessfully)
+                return new SfExportDownloaderResult(true, localPaths);
+            else
+                return new SfExportDownloaderResult(false);
+        }
+
+        public async Task<string> DownloadExport(HttpClient httpClient, Uri downloadLink, string localPath, CancellationToken cancellationToken)
+        {
+            // Send request for export
+            var response = await httpClient.GetAsync(downloadLink, HttpCompletionOption.ResponseContentRead, cancellationToken);
+            if (!response.IsSuccessStatusCode)
+                throw new HttpRequestException(response.ReasonPhrase);
+
+            // Download the export
+            using (var fileStream = fileSystem.File.Create(localPath))
+            {
+                await response.Content.CopyToAsync(fileStream);
+            }
+
+            return localPath;
         }
     }
 
