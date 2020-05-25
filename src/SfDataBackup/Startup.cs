@@ -58,14 +58,6 @@ namespace SfDataBackup
                 };
             });
 
-            builder.Services.AddSingleton<SfExportDownloaderConfig>(serviceProvider =>
-            {
-                return new SfExportDownloaderConfig(config)
-                {
-                    DownloadPath = Environment.GetEnvironmentVariable("EXPORT_DOWNLOAD_PATH")
-                };
-            });
-
             // Register file system
             builder.Services.AddScoped<IFileSystem, FileSystem>();
 
@@ -73,7 +65,7 @@ namespace SfDataBackup
             builder.Services.AddScoped<ISfExportLinkExtractor, SfExportLinkExtractor>();
 
             // Register export downloader
-            builder.Services.AddScoped<ISfExportDownloader, SfParallelExportDownloader>();
+            builder.Services.AddScoped<ISfExportDownloader, SfSerialExportDownloader>();
         }
     }
 }

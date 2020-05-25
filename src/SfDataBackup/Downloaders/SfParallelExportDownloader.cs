@@ -10,47 +10,43 @@ namespace SfDataBackup.Downloaders
 {
     public class SfParallelExportDownloader : ISfExportDownloader
     {
-        private ILogger<SfSerialExportDownloader> logger;
-        private SfExportDownloaderConfig config;
+        private ILogger<SfParallelExportDownloader> logger;
         private IHttpClientFactory httpClientFactory;
         private IFileSystem fileSystem;
 
-        public SfParallelExportDownloader(ILogger<SfSerialExportDownloader> logger, SfExportDownloaderConfig config, IHttpClientFactory httpClientFactory, IFileSystem fileSystem)
+        public SfParallelExportDownloader(ILogger<SfParallelExportDownloader> logger, IHttpClientFactory httpClientFactory, IFileSystem fileSystem)
         {
             this.logger = logger;
-            this.config = config;
             this.httpClientFactory = httpClientFactory;
             this.fileSystem = fileSystem;
         }
 
-        public async Task<SfExportDownloaderResult> DownloadAsync(IList<Uri> exportDownloadLinks)
+        public async Task<SfExportDownloaderResult> DownloadAsync(string downloadPath, IList<Uri> downloadLinks)
         {
             var httpClient = httpClientFactory.CreateClient("SalesforceClient");
-
-            fileSystem.Directory.CreateDirectory(config.DownloadPath);
 
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
 
             var downloadTasks = new List<Task<string>>();
-            for (var i = 0; i < exportDownloadLinks.Count; i++)
+            for (var i = 0; i < downloadLinks.Count; i++)
             {
-                var link = exportDownloadLinks[i];
-                var localPath = fileSystem.Path.Combine(config.DownloadPath, $"export{i}.zip");
+                var link = downloadLinks[i];
+                var exportPath = fileSystem.Path.Combine(downloadPath, $"export{i}.zip");
 
-                downloadTasks.Add(DownloadExport(httpClient, link, localPath, cancellationToken));
+                downloadTasks.Add(DownloadExport(httpClient, link, exportPath, cancellationToken));
             }
 
             var allDownloadedSuccessfully = true;
-            var localPaths = new List<string>();
+            var exportPaths = new List<string>();
 
             while (downloadTasks.Count > 0)
             {
                 var completedTask = await Task.WhenAny(downloadTasks);
                 if (completedTask.IsCompletedSuccessfully)
                 {
-                    var localPath = await completedTask;
-                    localPaths.Add(localPath);
+                    var exportPath = await completedTask;
+                    exportPaths.Add(exportPath);
                 }
                 else if (completedTask.IsFaulted)
                 {
@@ -64,7 +60,7 @@ namespace SfDataBackup.Downloaders
             }
 
             if (allDownloadedSuccessfully)
-                return new SfExportDownloaderResult(true, localPaths);
+                return new SfExportDownloaderResult(true, exportPaths);
             else
                 return new SfExportDownloaderResult(false);
         }

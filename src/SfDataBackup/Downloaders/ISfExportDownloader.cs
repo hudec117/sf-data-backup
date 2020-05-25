@@ -6,6 +6,6 @@ namespace SfDataBackup.Downloaders
 {
     public interface ISfExportDownloader
     {
-        Task<SfExportDownloaderResult> DownloadAsync(IList<Uri> exportDownloadLinks);
+        Task<SfExportDownloaderResult> DownloadAsync(string downloadPath, IList<Uri> downloadLinks);
     }
 }
