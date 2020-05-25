@@ -18,6 +18,7 @@ namespace SfDataBackup.Tests
         private Mock<ISfExportDownloader> downloaderMock;
 
         private TimerInfo dummyTimer;
+        private ExecutionContext dummyExecutionContext;
 
         private DownloadWeekly function;
 
@@ -40,17 +41,22 @@ namespace SfDataBackup.Tests
             // Setup Downloader mock
             var dummyPaths = new List<string>
             {
-                "export/mysfexport.zip"
+                "exports/mysfexport.zip"
             };
             var dummyDownloadResult = new SfExportDownloaderResult(true, dummyPaths);
 
             downloaderMock = new Mock<ISfExportDownloader>();
-            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<IList<Uri>>()))
+            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()))
                           .ReturnsAsync(dummyDownloadResult);
 
             var schedule = new DailySchedule();
             var status = new ScheduleStatus();
             dummyTimer = new TimerInfo(schedule, status);
+
+            dummyExecutionContext = new ExecutionContext
+            {
+                FunctionDirectory = "C:\\myfuncapp\\DownloadWeekly"
+            };
 
             function = new DownloadWeekly(loggerMock.Object, extractorMock.Object, downloaderMock.Object);
         }
@@ -59,7 +65,7 @@ namespace SfDataBackup.Tests
         public async Task RunAsync_ExtractsLinks()
         {
             // Act
-            await function.RunAsync(dummyTimer);
+            await function.RunAsync(dummyTimer, dummyExecutionContext);
 
             // Assert
             extractorMock.Verify(x => x.ExtractAsync());
@@ -69,10 +75,10 @@ namespace SfDataBackup.Tests
         public async Task RunAsync_DownloadsLinks()
         {
             // Act
-            await function.RunAsync(dummyTimer);
+            await function.RunAsync(dummyTimer, dummyExecutionContext);
 
             // Assert
-            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<IList<Uri>>()));
+            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()));
         }
     }
 }

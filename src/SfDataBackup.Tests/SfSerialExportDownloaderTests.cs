@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Abstractions.TestingHelpers;
 using System.Net;
 using System.Net.Http;
@@ -15,22 +16,35 @@ namespace SfDataBackup.Tests
 {
     public class SfSerialExportDownloaderTests
     {
+        private string downloadPath;
+        private IList<Uri> singleLinks;
+        private IList<Uri> multipleLinks;
+
         private Mock<ILogger<SfSerialExportDownloader>> loggerMock;
 
         private Mock<HttpMessageHandler> httpMessageHandlerMock;
         private Mock<IHttpClientFactory> httpClientFactoryMock;
         private MockFileSystem fileSystemMock;
 
-        private SfExportDownloaderConfig dummyDownloaderConfig;
-
-        private IList<Uri> singleLinks;
-        private IList<Uri> multipleLinks;
-
         private SfSerialExportDownloader downloader;
 
         [SetUp]
         public void Setup()
         {
+            downloadPath = "C:\\myfunctionapp\\myfunction";
+
+            singleLinks = new List<Uri>
+            {
+                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK")
+            };
+
+            multipleLinks = new List<Uri>
+            {
+                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK"),
+                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_2.ZIP&id=0924J000000YpZK"),
+                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_3.ZIP&id=0924J000000YpZK")
+            };
+
             loggerMock = new Mock<ILogger<SfSerialExportDownloader>>();
 
             httpMessageHandlerMock = new Mock<HttpMessageHandler>();
@@ -49,42 +63,16 @@ namespace SfDataBackup.Tests
                                  .Returns(new HttpClient(httpMessageHandlerMock.Object));
 
             fileSystemMock = new MockFileSystem();
+            fileSystemMock.AddDirectory(downloadPath);
 
-            singleLinks = new List<Uri>
-            {
-                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK")
-            };
-
-            multipleLinks = new List<Uri>
-            {
-                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK"),
-                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_2.ZIP&id=0924J000000YpZK"),
-                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_3.ZIP&id=0924J000000YpZK")
-            };
-
-            dummyDownloaderConfig = new SfExportDownloaderConfig(SharedData.Config)
-            {
-                DownloadPath = "exports"
-            };
-
-            downloader = new SfSerialExportDownloader(loggerMock.Object, dummyDownloaderConfig, httpClientFactoryMock.Object, fileSystemMock);
-        }
-
-        [Test]
-        public async Task DownloadAsync_CreatesDownloadPathFolders()
-        {
-            // Act
-            await downloader.DownloadAsync(singleLinks);
-
-            // Assert
-            Assert.That(fileSystemMock.AllDirectories, Contains.Item("C:\\exports"));
+            downloader = new SfSerialExportDownloader(loggerMock.Object, httpClientFactoryMock.Object, fileSystemMock);
         }
 
         [Test]
         public async Task DownloadAsync_ResultSuccessIsTrue()
         {
             // Act
-            var result = await downloader.DownloadAsync(multipleLinks);
+            var result = await downloader.DownloadAsync(downloadPath, multipleLinks);
 
             // Assert
             Assert.That(result.Success, Is.True);
@@ -94,17 +82,17 @@ namespace SfDataBackup.Tests
         public async Task DownloadAsync_SingleExportDownloadLink_SavesResponseContentToFile()
         {
             // Act
-            await downloader.DownloadAsync(singleLinks);
+            await downloader.DownloadAsync(downloadPath, singleLinks);
 
             // Assert
-            Assert.That(fileSystemMock.AllFiles, Contains.Item("C:\\exports\\export0.zip"));
+            Assert.That(fileSystemMock.AllFiles, Contains.Item(Path.Combine(downloadPath, "export0.zip")));
         }
 
         [Test]
         public async Task DownloadAsync_SingleExportDownloadLink_RequestsExport()
         {
             // Act
-            await downloader.DownloadAsync(singleLinks);
+            await downloader.DownloadAsync(downloadPath, singleLinks);
 
             // Assert
             httpMessageHandlerMock.Protected()
@@ -120,7 +108,7 @@ namespace SfDataBackup.Tests
         public async Task DownloadAsync_MultipleExportDownloadLinks_RequestsExports()
         {
             // Act
-            await downloader.DownloadAsync(multipleLinks);
+            await downloader.DownloadAsync(downloadPath, multipleLinks);
 
             // Assert
             foreach (var link in multipleLinks)
@@ -139,26 +127,26 @@ namespace SfDataBackup.Tests
         public async Task DownloadAsync_MultipleExportDownloadLinks_SavesResponseContentToFiles()
         {
             // Act
-            await downloader.DownloadAsync(multipleLinks);
+            await downloader.DownloadAsync(downloadPath, multipleLinks);
 
             // Assert
             for (var i = 0; i < multipleLinks.Count; i++)
             {
-                Assert.That(fileSystemMock.AllFiles, Contains.Item($"C:\\exports\\export{i}.zip"));
+                Assert.That(fileSystemMock.AllFiles, Contains.Item(Path.Combine(downloadPath, $"export{i}.zip")));
             }
         }
 
         [Test]
-        public async Task DownloadAsync_MultipleExportDownloadLinks_ResultHasLocalPaths()
+        public async Task DownloadAsync_MultipleExportDownloadLinks_ResultHasExportPaths()
         {
             // Act
-            var result = await downloader.DownloadAsync(multipleLinks);
+            var result = await downloader.DownloadAsync(downloadPath, multipleLinks);
 
             // Assert
-            for (var i = 0; i < result.Paths.Count; i++)
+            for (var i = 0; i < result.ExportPaths.Count; i++)
             {
-                var path = result.Paths[i];
-                Assert.That(path, Is.EqualTo($"exports\\export{i}.zip"));
+                var path = result.ExportPaths[i];
+                Assert.That(path, Is.EqualTo(Path.Combine(downloadPath, $"export{i}.zip")));
             }
         }
 
@@ -171,7 +159,7 @@ namespace SfDataBackup.Tests
                                   .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
 
             // Act
-            await downloader.DownloadAsync(multipleLinks);
+            await downloader.DownloadAsync(downloadPath, multipleLinks);
 
             // Assert
             Assert.That(fileSystemMock.AllFiles, Is.Empty);
@@ -186,7 +174,7 @@ namespace SfDataBackup.Tests
                                   .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
 
             // Act
-            await downloader.DownloadAsync(multipleLinks);
+            await downloader.DownloadAsync(downloadPath, multipleLinks);
 
             // Assert
             httpMessageHandlerMock.Protected()
@@ -207,7 +195,7 @@ namespace SfDataBackup.Tests
                                   .ThrowsAsync(new HttpRequestException());
 
             // Act
-            var result = await downloader.DownloadAsync(multipleLinks);
+            var result = await downloader.DownloadAsync(downloadPath, multipleLinks);
 
             // Assert
             Assert.That(result.Success, Is.False);
@@ -222,7 +210,7 @@ namespace SfDataBackup.Tests
                                   .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
 
             // Act
-            var result = await downloader.DownloadAsync(multipleLinks);
+            var result = await downloader.DownloadAsync(downloadPath, multipleLinks);
 
             // Assert
             Assert.That(result.Success, Is.False);
