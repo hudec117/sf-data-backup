@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: JWT Generator",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/jwt-generator.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Attach to .NET Functions",
             "type": "coreclr",
             "request": "attach",
