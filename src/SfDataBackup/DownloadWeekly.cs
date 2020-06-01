@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -8,6 +9,8 @@ namespace SfDataBackup
 {
     public class DownloadWeekly
     {
+        private const string schedule = "0 0 16 * * Fri";
+
         private ILogger<DownloadWeekly> logger;
         private ISfExportLinkExtractor linkExtractor;
         private ISfExportDownloader exportDownloader;
@@ -20,7 +23,11 @@ namespace SfDataBackup
         }
 
         [FunctionName(nameof(DownloadWeekly))]
-        public async Task RunAsync([TimerTrigger("0 0 16 * * Fri", RunOnStartup = true)]TimerInfo timer, ExecutionContext context)
+        public async Task RunAsync(
+            [TimerTrigger(schedule, RunOnStartup = true)] TimerInfo timer,
+            [Blob("backups/{DateTime}.zip", FileAccess.Write)] Stream exportStream,
+            ExecutionContext context
+        )
         {
             logger.LogInformation("Extracting export links from Salesforce.");
 

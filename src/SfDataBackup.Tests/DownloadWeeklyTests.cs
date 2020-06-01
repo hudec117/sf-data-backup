@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Timers;
@@ -18,6 +19,7 @@ namespace SfDataBackup.Tests
         private Mock<ISfExportDownloader> downloaderMock;
 
         private TimerInfo dummyTimer;
+        private MemoryStream dummyStream;
         private ExecutionContext dummyExecutionContext;
 
         private DownloadWeekly function;
@@ -53,6 +55,8 @@ namespace SfDataBackup.Tests
             var status = new ScheduleStatus();
             dummyTimer = new TimerInfo(schedule, status);
 
+            dummyStream = new MemoryStream();
+
             dummyExecutionContext = new ExecutionContext
             {
                 FunctionDirectory = "C:\\myfuncapp\\DownloadWeekly"
@@ -61,11 +65,17 @@ namespace SfDataBackup.Tests
             function = new DownloadWeekly(loggerMock.Object, extractorMock.Object, downloaderMock.Object);
         }
 
+        [TearDown]
+        public void Teardown()
+        {
+            dummyStream.Dispose();
+        }
+
         [Test]
         public async Task RunAsync_ExtractsLinks()
         {
             // Act
-            await function.RunAsync(dummyTimer, dummyExecutionContext);
+            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
             extractorMock.Verify(x => x.ExtractAsync());
@@ -75,7 +85,7 @@ namespace SfDataBackup.Tests
         public async Task RunAsync_DownloadsLinks()
         {
             // Act
-            await function.RunAsync(dummyTimer, dummyExecutionContext);
+            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
             downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()));

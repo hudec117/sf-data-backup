@@ -13,7 +13,7 @@ def main():
     header = '{"alg":"RS256"}'
     encodedHeader = encode(header)
 
-    expiry = getExpiryTimestamp()
+    expiry = getExpiryTimestamp() + 300
     claimsSet = f'''{{"iss":"{clientId}","sub":"{user}","aud":"{audience}","exp":"{expiry}"}}'''
 
     encodedClaimsSet = encode(claimsSet)
