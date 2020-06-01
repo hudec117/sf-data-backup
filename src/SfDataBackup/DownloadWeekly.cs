@@ -1,7 +1,5 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using SfDataBackup.Downloaders;
 using SfDataBackup.Extractors;
@@ -22,9 +20,9 @@ namespace SfDataBackup
         }
 
         [FunctionName(nameof(DownloadWeekly))]
-        public async Task RunAsync([TimerTrigger("0 0 16 * * Fri", RunOnStartup = true)]TimerInfo timer)
+        public async Task RunAsync([TimerTrigger("0 0 16 * * Fri", RunOnStartup = true)]TimerInfo timer, ExecutionContext context)
         {
-            logger.LogInformation("Extracting ZIP links from Salesforce.");
+            logger.LogInformation("Extracting export links from Salesforce.");
 
             var extractResult = await linkExtractor.ExtractAsync();
             if (!extractResult.Success)
@@ -39,16 +37,20 @@ namespace SfDataBackup
                 return;
             }
 
-            logger.LogInformation("Starting export downloads...");
+            logger.LogInformation("Downloading exports from Salesforce...");
 
-            var downloadResult = await exportDownloader.DownloadAsync(extractResult.Links);
+            var downloadResult = await exportDownloader.DownloadAsync(context.FunctionDirectory, extractResult.Links);
             if (!downloadResult.Success)
             {
                 logger.LogWarning("Export downloader unsuccessful.");
                 return;
             }
 
-            logger.LogInformation("Consolidating ZIP files.");
+            logger.LogInformation("Consolidating exports...");
+
+            logger.LogInformation("Uploading exports...");
+
+            logger.LogInformation("Cleaning up...");
         }
     }
 }
