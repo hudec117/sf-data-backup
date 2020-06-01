@@ -31,7 +31,7 @@ To run/debug the function app, a `local.settings.json` file is required, use thi
         "SALESFORCE_ORG_URL": "<insert-org-url>",
         "SALESFORCE_ORG_ID": "<inserr-org-id>",
         "EXPORT_SERVICE_PATH": "/ui/setup/export/DataExportPage/d",
-        "EXPORT_SERVICE_REGEX": ""
+        "EXPORT_SERVICE_REGEX": "<a\\s+href=\"(?'relurl'\\/servlet\\/servlet\\.OrgExport\\?.+?)\""
     }
 }
 ```

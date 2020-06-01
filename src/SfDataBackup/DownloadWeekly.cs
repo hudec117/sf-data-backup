@@ -14,12 +14,14 @@ namespace SfDataBackup
         private ILogger<DownloadWeekly> logger;
         private ISfExportLinkExtractor linkExtractor;
         private ISfExportDownloader exportDownloader;
+        private ISfExportConsolidator exportConsolidator;
 
-        public DownloadWeekly(ILogger<DownloadWeekly> logger, ISfExportLinkExtractor linkExtractor, ISfExportDownloader exportDownloader)
+        public DownloadWeekly(ILogger<DownloadWeekly> logger, ISfExportLinkExtractor linkExtractor, ISfExportDownloader exportDownloader, ISfExportConsolidator exportConsolidator)
         {
             this.logger = logger;
             this.linkExtractor = linkExtractor;
             this.exportDownloader = exportDownloader;
+            this.exportConsolidator = exportConsolidator;
         }
 
         [FunctionName(nameof(DownloadWeekly))]
