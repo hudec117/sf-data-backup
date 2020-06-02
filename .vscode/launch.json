@@ -2,11 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: JWT Generator",
-            "type": "python",
+            "name": ".NET Core Launch SfJwtGenerator",
+            "type": "coreclr",
             "request": "launch",
-            "program": "${workspaceFolder}/src/jwt-generator.py",
-            "console": "integratedTerminal"
+            "program": "${workspaceFolder}/src/SfJwtGenerator/bin/Debug/netcoreapp3.1/SfJwtGenerator.dll",
+            "cwd": "${workspaceFolder}/src/SfJwtGenerator",
+            "stopAtEntry": false,
+            "console": "internalConsole"
         },
         {
             "name": "Attach to .NET Functions",

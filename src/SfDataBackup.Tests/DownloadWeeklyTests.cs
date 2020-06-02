@@ -17,6 +17,7 @@ namespace SfDataBackup.Tests
         private Mock<ILogger<DownloadWeekly>> loggerMock;
         private Mock<ISfExportLinkExtractor> extractorMock;
         private Mock<ISfExportDownloader> downloaderMock;
+        private Mock<ISfExportConsolidator> consolidatorMock;
 
         private TimerInfo dummyTimer;
         private MemoryStream dummyStream;
@@ -51,6 +52,8 @@ namespace SfDataBackup.Tests
             downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()))
                           .ReturnsAsync(dummyDownloadResult);
 
+            consolidatorMock = new Mock<ISfExportConsolidator>();
+
             var schedule = new DailySchedule();
             var status = new ScheduleStatus();
             dummyTimer = new TimerInfo(schedule, status);
@@ -62,7 +65,7 @@ namespace SfDataBackup.Tests
                 FunctionDirectory = "C:\\myfuncapp\\DownloadWeekly"
             };
 
-            function = new DownloadWeekly(loggerMock.Object, extractorMock.Object, downloaderMock.Object);
+            function = new DownloadWeekly(loggerMock.Object, extractorMock.Object, downloaderMock.Object, consolidatorMock.Object);
         }
 
         [TearDown]
@@ -89,6 +92,16 @@ namespace SfDataBackup.Tests
 
             // Assert
             downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()));
+        }
+
+        [Test]
+        public async Task RunAsync_ConsolidatesExports()
+        {
+            // Act
+            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
+
+            // Assert
+            consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>()));
         }
     }
 }

@@ -57,6 +57,8 @@ namespace SfDataBackup
 
             logger.LogInformation("Consolidating exports...");
 
+            exportConsolidator.Consolidate(downloadResult.ExportPaths);
+
             logger.LogInformation("Uploading exports...");
 
             logger.LogInformation("Cleaning up...");
