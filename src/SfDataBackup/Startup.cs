@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using SfDataBackup.Consolidators;
 using SfDataBackup.Downloaders;
 using SfDataBackup.Extractors;
 
@@ -66,6 +67,9 @@ namespace SfDataBackup
 
             // Register export downloader
             builder.Services.AddScoped<ISfExportDownloader, SfSerialExportDownloader>();
+
+            // Register export consolidator
+            builder.Services.AddScoped<ISfExportConsolidator, SfExportConsolidator>();
         }
     }
 }

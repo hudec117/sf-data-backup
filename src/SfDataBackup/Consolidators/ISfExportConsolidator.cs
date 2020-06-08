@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SfDataBackup.Downloaders
+namespace SfDataBackup.Consolidators
 {
     public interface ISfExportConsolidator
     {

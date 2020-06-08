@@ -2,6 +2,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
+using SfDataBackup.Consolidators;
 using SfDataBackup.Downloaders;
 using SfDataBackup.Extractors;
 

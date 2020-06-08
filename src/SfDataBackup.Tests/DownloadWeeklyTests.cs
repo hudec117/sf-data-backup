@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs.Extensions.Timers;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using SfDataBackup.Consolidators;
 using SfDataBackup.Downloaders;
 using SfDataBackup.Extractors;
 
