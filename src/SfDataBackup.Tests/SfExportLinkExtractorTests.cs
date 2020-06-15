@@ -88,16 +88,6 @@ namespace SfDataBackup.Tests
             Assert.That(result.Links[0], Is.EqualTo(expectedUrl));
         }
 
-        // [Test]
-        // public async Task ExtractAsync_MultipleExportsAvailable_ReturnsDownloadLinks()
-        // {
-        //     // Act
-        //     var result = await extractor.ExtractAsync();
-
-        //     // Assert
-        //     Assert.That(result.Links.Count, Is.EqualTo(1));
-        // }
-
         [Test]
         public async Task ExtractAsync_MalformedPage_ReturnsNoLinks()
         {
