@@ -4,6 +4,6 @@ namespace SfDataBackup.Consolidators
 {
     public interface ISfExportConsolidator
     {
-        void Consolidate(IList<string> exportPaths);
+        SfResult Consolidate(IList<string> exportPaths, string consolidatedExportPath);
     }
 }

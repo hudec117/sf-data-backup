@@ -1,6 +1,6 @@
 namespace SfDataBackup
 {
-    public abstract class SfResult
+    public class SfResult
     {
         public bool Success { get; set; }
 

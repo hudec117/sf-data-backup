@@ -102,7 +102,7 @@ namespace SfDataBackup.Tests
             await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
-            consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>()));
+            consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()));
         }
     }
 }

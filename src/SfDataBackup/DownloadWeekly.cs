@@ -17,7 +17,12 @@ namespace SfDataBackup
         private ISfExportDownloader exportDownloader;
         private ISfExportConsolidator exportConsolidator;
 
-        public DownloadWeekly(ILogger<DownloadWeekly> logger, ISfExportLinkExtractor linkExtractor, ISfExportDownloader exportDownloader, ISfExportConsolidator exportConsolidator)
+        public DownloadWeekly(
+            ILogger<DownloadWeekly> logger,
+            ISfExportLinkExtractor linkExtractor,
+            ISfExportDownloader exportDownloader,
+            ISfExportConsolidator exportConsolidator
+        )
         {
             this.logger = logger;
             this.linkExtractor = linkExtractor;
@@ -58,7 +63,7 @@ namespace SfDataBackup
 
             logger.LogInformation("Consolidating exports...");
 
-            exportConsolidator.Consolidate(downloadResult.ExportPaths);
+            exportConsolidator.Consolidate(downloadResult.ExportPaths, context.FunctionDirectory);
 
             logger.LogInformation("Uploading exports...");
 
