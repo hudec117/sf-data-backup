@@ -37,36 +37,46 @@ namespace SfDataBackup
             ExecutionContext context
         )
         {
+            // 1. EXTRACT LINKS
             logger.LogInformation("Extracting export links from Salesforce.");
 
             var extractResult = await linkExtractor.ExtractAsync();
             if (!extractResult.Success)
             {
-                logger.LogWarning("Link extractor unsuccessful.");
+                logger.LogError("Link extractor unsuccessful.");
                 return;
             }
 
             if (extractResult.Links.Count == 0)
             {
-                logger.LogWarning("Link extractor returned no links.");
+                logger.LogError("Link extractor returned no links.");
                 return;
             }
 
+            // 2. DOWNLOAD
             logger.LogInformation("Downloading exports from Salesforce...");
 
             var downloadResult = await exportDownloader.DownloadAsync(context.FunctionDirectory, extractResult.Links);
             if (!downloadResult.Success)
             {
-                logger.LogWarning("Export downloader unsuccessful.");
+                logger.LogError("Export downloader unsuccessful.");
                 return;
             }
 
+            // 3. CONSOLIDATE
             logger.LogInformation("Consolidating exports...");
 
-            exportConsolidator.Consolidate(downloadResult.ExportPaths, context.FunctionDirectory);
+            var consolidatedExportPath = Path.Combine(context.FunctionDirectory, "export.zip");
+            var consolidatorResult = exportConsolidator.Consolidate(downloadResult.ExportPaths, consolidatedExportPath);
+            if (!consolidatorResult.Success)
+            {
+                logger.LogError("Export consolidator unsuccessful.");
+                return;
+            }
 
-            logger.LogInformation("Uploading exports...");
+            logger.LogInformation("Uploading export...");
 
+            // 4. CLEANUP
             logger.LogInformation("Cleaning up...");
         }
     }

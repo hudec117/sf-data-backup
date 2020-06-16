@@ -3,6 +3,7 @@ using Moq;
 using NUnit.Framework;
 using SfDataBackup.Consolidators;
 using SfDataBackup.Abstractions;
+using SfDataBackup.Tests.Data;
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 
@@ -33,8 +34,9 @@ namespace SfDataBackup.Tests
             zipFileMock = new Mock<IZipFile>();
 
             fileSystemMock = new MockFileSystem();
+            fileSystemMock.AddDirectory(dummyTempFolderPath);
             foreach (var exportPath in dummyExportPaths)
-                fileSystemMock.AddFile(exportPath, new MockFileData(SharedData.Export));
+                fileSystemMock.AddFile(exportPath, new MockFileData(TestData.Export));
 
             consolidator = new SfExportConsolidator(loggerMock.Object, zipFileMock.Object, fileSystemMock);
         }

@@ -8,6 +8,7 @@ using Moq;
 using Moq.Protected;
 using NUnit.Framework;
 using SfDataBackup.Extractors;
+using SfDataBackup.Tests.Data;
 
 namespace SfDataBackup.Tests
 {
@@ -33,7 +34,7 @@ namespace SfDataBackup.Tests
                                   .ReturnsAsync(() =>
                                   {
                                       var response = new HttpResponseMessage(HttpStatusCode.OK);
-                                      response.Content = new StringContent(SharedData.ExportSingleExportAvailablePage);
+                                      response.Content = new StringContent(TestData.ExportSingleExportAvailablePage);
 
                                       return response;
                                   });
@@ -42,7 +43,7 @@ namespace SfDataBackup.Tests
             httpClientFactoryMock.Setup(x => x.CreateClient("SalesforceClient"))
                                  .Returns(new HttpClient(httpMessageHandlerMock.Object));
 
-            dummyExtractorConfig = new SfExportLinkExtractorConfig(SharedData.Config)
+            dummyExtractorConfig = new SfExportLinkExtractorConfig(TestData.Config)
             {
                 ExportServicePath = "/dummy/export/service/path",
                 ExportServiceRegex = "<a\\s+href=\"(?'relurl'\\/servlet\\/servlet\\.OrgExport\\?.+?)\""
@@ -97,7 +98,7 @@ namespace SfDataBackup.Tests
                                   .ReturnsAsync(() =>
                                   {
                                       var response = new HttpResponseMessage(HttpStatusCode.OK);
-                                      response.Content = new StringContent(SharedData.ExportNoneAvailablePage);
+                                      response.Content = new StringContent(TestData.ExportNoneAvailablePage);
 
                                       return response;
                                   });

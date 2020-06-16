@@ -54,6 +54,8 @@ namespace SfDataBackup.Tests
                           .ReturnsAsync(dummyDownloadResult);
 
             consolidatorMock = new Mock<ISfExportConsolidator>();
+            consolidatorMock.Setup(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()))
+                            .Returns(new SfResult(true));
 
             var schedule = new DailySchedule();
             var status = new ScheduleStatus();
@@ -96,6 +98,34 @@ namespace SfDataBackup.Tests
         }
 
         [Test]
+        public async Task RunAsync_ExtractionFails_DoesNotDownloadLinks()
+        {
+            // Arrange
+            extractorMock.Setup(x => x.ExtractAsync())
+                         .ReturnsAsync(new SfExportLinkExtractorResult(false));
+
+            // Act
+            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
+
+            // Assert
+            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()), Times.Never());
+        }
+
+        [Test]
+        public async Task RunAsync_ExportLinkExtractorReturnsNoLinks_DoesNotDownloadExports()
+        {
+            // Arrange
+            extractorMock.Setup(x => x.ExtractAsync())
+                         .ReturnsAsync(new SfExportLinkExtractorResult(true, new List<Uri>()));
+
+            // Act
+            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
+
+            // Assert
+            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()), Times.Never());
+        }
+
+        [Test]
         public async Task RunAsync_ConsolidatesExports()
         {
             // Act
@@ -103,6 +133,20 @@ namespace SfDataBackup.Tests
 
             // Assert
             consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()));
+        }
+
+        [Test]
+        public async Task RunAsync_ExportDownloaderFails_DoesNotConsolidateExports()
+        {
+            // Arrange
+            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()))
+                         .ReturnsAsync(new SfExportDownloaderResult(false));
+
+            // Act
+            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
+
+            // Assert
+            consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()), Times.Never());
         }
     }
 }

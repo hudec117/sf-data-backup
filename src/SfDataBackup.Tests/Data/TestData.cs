@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 
-namespace SfDataBackup.Tests
+namespace SfDataBackup.Tests.Data
 {
-    public static class SharedData
+    public static class TestData
     {
         public static SfConfig Config => new SfConfig
         {
@@ -18,7 +18,7 @@ namespace SfDataBackup.Tests
 
         public readonly static byte[] Export;
 
-        static SharedData()
+        static TestData()
         {
             ExportSingleExportAvailablePage = File.ReadAllText("Data/ExportSingleExportAvailablePage.html");
             ExportNoneAvailablePage = File.ReadAllText("Data/ExportNoneAvailablePage.html");

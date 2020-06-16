@@ -11,6 +11,7 @@ using Moq;
 using Moq.Protected;
 using NUnit.Framework;
 using SfDataBackup.Downloaders;
+using SfDataBackup.Tests.Data;
 
 namespace SfDataBackup.Tests
 {
@@ -35,14 +36,14 @@ namespace SfDataBackup.Tests
 
             singleLinks = new List<Uri>
             {
-                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK")
+                new Uri(TestData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK")
             };
 
             multipleLinks = new List<Uri>
             {
-                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK"),
-                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_2.ZIP&id=0924J000000YpZK"),
-                new Uri(SharedData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_3.ZIP&id=0924J000000YpZK")
+                new Uri(TestData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_1.ZIP&id=0924J000000YpZK"),
+                new Uri(TestData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_2.ZIP&id=0924J000000YpZK"),
+                new Uri(TestData.Config.OrganisationUrl, "/servlet/servlet.OrgExport?fileName=WE_00D4J000000CuzUUAS_3.ZIP&id=0924J000000YpZK")
             };
 
             loggerMock = new Mock<ILogger<SfSerialExportDownloader>>();
@@ -54,7 +55,7 @@ namespace SfDataBackup.Tests
                                   {
                                       return new HttpResponseMessage(HttpStatusCode.OK)
                                       {
-                                          Content = new ByteArrayContent(SharedData.Export)
+                                          Content = new ByteArrayContent(TestData.Export)
                                       };
                                   });
 
