@@ -1,4 +1,5 @@
 using System.IO;
+using System.IO.Abstractions;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -16,18 +17,21 @@ namespace SfDataBackup
         private ISfExportLinkExtractor linkExtractor;
         private ISfExportDownloader exportDownloader;
         private ISfExportConsolidator exportConsolidator;
+        private IFileSystem fileSystem;
 
         public DownloadWeekly(
             ILogger<DownloadWeekly> logger,
             ISfExportLinkExtractor linkExtractor,
             ISfExportDownloader exportDownloader,
-            ISfExportConsolidator exportConsolidator
+            ISfExportConsolidator exportConsolidator,
+            IFileSystem fileSystem
         )
         {
             this.logger = logger;
             this.linkExtractor = linkExtractor;
             this.exportDownloader = exportDownloader;
             this.exportConsolidator = exportConsolidator;
+            this.fileSystem = fileSystem;
         }
 
         [FunctionName(nameof(DownloadWeekly))]
@@ -74,9 +78,15 @@ namespace SfDataBackup
                 return;
             }
 
+            // 4. UPLOAD
             logger.LogInformation("Uploading export...");
 
-            // 4. CLEANUP
+            using (var fileStream = fileSystem.File.Open(consolidatedExportPath, FileMode.Open))
+            {
+                await fileStream.CopyToAsync(exportStream);
+            }
+
+            // 5. CLEANUP
             logger.LogInformation("Cleaning up...");
         }
     }

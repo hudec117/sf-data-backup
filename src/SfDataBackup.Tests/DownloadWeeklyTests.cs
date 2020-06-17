@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions.TestingHelpers;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Timers;
@@ -10,6 +11,7 @@ using NUnit.Framework;
 using SfDataBackup.Consolidators;
 using SfDataBackup.Downloaders;
 using SfDataBackup.Extractors;
+using SfDataBackup.Tests.Data;
 
 namespace SfDataBackup.Tests
 {
@@ -19,6 +21,7 @@ namespace SfDataBackup.Tests
         private Mock<ISfExportLinkExtractor> extractorMock;
         private Mock<ISfExportDownloader> downloaderMock;
         private Mock<ISfExportConsolidator> consolidatorMock;
+        private MockFileSystem fileSystemMock;
 
         private TimerInfo dummyTimer;
         private MemoryStream dummyStream;
@@ -55,7 +58,13 @@ namespace SfDataBackup.Tests
 
             consolidatorMock = new Mock<ISfExportConsolidator>();
             consolidatorMock.Setup(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()))
+                            .Callback(() => {
+                                var fileToAdd = Path.Combine(dummyExecutionContext.FunctionDirectory, "export.zip");
+                                fileSystemMock.AddFile(fileToAdd, new MockFileData(TestData.Export));
+                            })
                             .Returns(new SfResult(true));
+
+            fileSystemMock = new MockFileSystem();
 
             var schedule = new DailySchedule();
             var status = new ScheduleStatus();
@@ -68,7 +77,7 @@ namespace SfDataBackup.Tests
                 FunctionDirectory = "C:\\myfuncapp\\DownloadWeekly"
             };
 
-            function = new DownloadWeekly(loggerMock.Object, extractorMock.Object, downloaderMock.Object, consolidatorMock.Object);
+            function = new DownloadWeekly(loggerMock.Object, extractorMock.Object, downloaderMock.Object, consolidatorMock.Object, fileSystemMock);
         }
 
         [TearDown]
@@ -147,6 +156,16 @@ namespace SfDataBackup.Tests
 
             // Assert
             consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()), Times.Never());
+        }
+
+        [Test]
+        public async Task RunAsync_WritesConsolidatedExportToExportStream()
+        {
+            // Act
+            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
+
+            // Assert
+            Assert.That(dummyStream.Length, Is.EqualTo(TestData.Export.Length));
         }
     }
 }
