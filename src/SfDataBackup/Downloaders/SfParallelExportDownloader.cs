@@ -10,20 +10,27 @@ namespace SfDataBackup.Downloaders
 {
     public class SfParallelExportDownloader : ISfExportDownloader
     {
+        public string AccessToken { get; set; }
+
         private ILogger<SfParallelExportDownloader> logger;
         private IHttpClientFactory httpClientFactory;
         private IFileSystem fileSystem;
+        private SfConfig config;
 
-        public SfParallelExportDownloader(ILogger<SfParallelExportDownloader> logger, IHttpClientFactory httpClientFactory, IFileSystem fileSystem)
+        public SfParallelExportDownloader(ILogger<SfParallelExportDownloader> logger, IHttpClientFactory httpClientFactory, IFileSystem fileSystem, SfConfig config)
         {
             this.logger = logger;
             this.httpClientFactory = httpClientFactory;
             this.fileSystem = fileSystem;
+            this.config = config;
         }
 
         public async Task<SfExportDownloaderResult> DownloadAsync(string downloadPath, IList<Uri> downloadLinks)
         {
-            var httpClient = httpClientFactory.CreateClient("SalesforceClient");
+            if (string.IsNullOrWhiteSpace(AccessToken))
+                throw new InvalidOperationException("Missing AccessToken");
+
+            var httpClient = httpClientFactory.CreateClient("DefaultClient");
 
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
@@ -67,8 +74,10 @@ namespace SfDataBackup.Downloaders
 
         public async Task<string> DownloadExport(HttpClient httpClient, Uri downloadLink, string localPath, CancellationToken cancellationToken)
         {
+            var request = HttpRequestHelper.CreateRequestWithSalesforceCookie(downloadLink, config.OrganisationId, AccessToken);
+
             // Send request for export
-            var response = await httpClient.GetAsync(downloadLink, HttpCompletionOption.ResponseContentRead, cancellationToken);
+            var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
             if (!response.IsSuccessStatusCode)
                 throw new HttpRequestException(response.ReasonPhrase);
 

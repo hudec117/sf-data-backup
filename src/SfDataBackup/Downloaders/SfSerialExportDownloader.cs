@@ -9,20 +9,27 @@ namespace SfDataBackup.Downloaders
 {
     public class SfSerialExportDownloader : ISfExportDownloader
     {
+        public string AccessToken { get; set; }
+
         private ILogger<SfSerialExportDownloader> logger;
         private IHttpClientFactory httpClientFactory;
         private IFileSystem fileSystem;
+        private SfConfig config;
 
-        public SfSerialExportDownloader(ILogger<SfSerialExportDownloader> logger, IHttpClientFactory httpClientFactory, IFileSystem fileSystem)
+        public SfSerialExportDownloader(ILogger<SfSerialExportDownloader> logger, IHttpClientFactory httpClientFactory, IFileSystem fileSystem, SfConfig config)
         {
             this.logger = logger;
             this.httpClientFactory = httpClientFactory;
             this.fileSystem = fileSystem;
+            this.config = config;
         }
 
         public async Task<SfExportDownloaderResult> DownloadAsync(string downloadPath, IList<Uri> downloadLinks)
         {
-            var httpClient = httpClientFactory.CreateClient("SalesforceClient");
+            if (string.IsNullOrWhiteSpace(AccessToken))
+                throw new InvalidOperationException("Missing AccessToken");
+
+            var httpClient = httpClientFactory.CreateClient("DefaultClient");
 
             var exportPaths = new List<string>();
 
@@ -30,12 +37,14 @@ namespace SfDataBackup.Downloaders
             {
                 var link = downloadLinks[i];
 
+                var request = HttpRequestHelper.CreateRequestWithSalesforceCookie(link, config.OrganisationId, AccessToken);
+
                 logger.LogInformation("Downloading export {link}", link);
 
                 HttpResponseMessage response;
                 try
                 {
-                    response = await httpClient.GetAsync(link);
+                    response = await httpClient.SendAsync(request);
                 }
                 catch (HttpRequestException exception)
                 {

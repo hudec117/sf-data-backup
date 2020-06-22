@@ -60,13 +60,14 @@ namespace SfDataBackup.Tests
                                   });
 
             httpClientFactoryMock = new Mock<IHttpClientFactory>();
-            httpClientFactoryMock.Setup(x => x.CreateClient("SalesforceClient"))
+            httpClientFactoryMock.Setup(x => x.CreateClient("DefaultClient"))
                                  .Returns(new HttpClient(httpMessageHandlerMock.Object));
 
             fileSystemMock = new MockFileSystem();
             fileSystemMock.AddDirectory(downloadPath);
 
-            downloader = new SfSerialExportDownloader(loggerMock.Object, httpClientFactoryMock.Object, fileSystemMock);
+            downloader = new SfSerialExportDownloader(loggerMock.Object, httpClientFactoryMock.Object, fileSystemMock, TestData.Config);
+            downloader.AccessToken = "dummyaccesstoken";
         }
 
         [Test]
@@ -215,6 +216,20 @@ namespace SfDataBackup.Tests
 
             // Assert
             Assert.That(result.Success, Is.False);
+        }
+
+        [Test]
+        public void DownloadAsync_NoAccessToken_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            downloader.AccessToken = null;
+
+            // Assert
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                // Act
+                await downloader.DownloadAsync(downloadPath, multipleLinks);
+            });
         }
     }
 }

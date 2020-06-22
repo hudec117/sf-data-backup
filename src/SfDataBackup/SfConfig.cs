@@ -8,7 +8,11 @@ namespace SfDataBackup
 
         public string OrganisationId { get; set; }
 
-        public string AccessToken { get; set; }
+        public string OrganisationUser { get; set; }
+
+        public string AppClientId { get; set; }
+
+        public string AppCertPath { get; set; }
 
         public SfConfig()
         {
@@ -18,7 +22,9 @@ namespace SfDataBackup
         {
             OrganisationUrl = otherConfig.OrganisationUrl;
             OrganisationId = otherConfig.OrganisationId;
-            AccessToken = otherConfig.AccessToken;
+            OrganisationUser = otherConfig.OrganisationUser;
+            AppClientId = otherConfig.AppClientId;
+            AppCertPath = otherConfig.AppCertPath;
         }
     }
 }

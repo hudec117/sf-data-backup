@@ -40,7 +40,7 @@ namespace SfDataBackup.Tests
                                   });
 
             httpClientFactoryMock = new Mock<IHttpClientFactory>();
-            httpClientFactoryMock.Setup(x => x.CreateClient("SalesforceClient"))
+            httpClientFactoryMock.Setup(x => x.CreateClient("DefaultClient"))
                                  .Returns(new HttpClient(httpMessageHandlerMock.Object));
 
             dummyExtractorConfig = new SfExportLinkExtractorConfig(TestData.Config)
@@ -49,7 +49,8 @@ namespace SfDataBackup.Tests
                 ExportServiceRegex = "<a\\s+href=\"(?'relurl'\\/servlet\\/servlet\\.OrgExport\\?.+?)\""
             };
 
-            extractor = new SfExportLinkExtractor(loggerMock.Object, dummyExtractorConfig, httpClientFactoryMock.Object);
+            extractor = new SfExportLinkExtractor(loggerMock.Object, httpClientFactoryMock.Object, dummyExtractorConfig);
+            extractor.AccessToken = "dummyaccesstoken";
         }
 
         [Test]
@@ -113,7 +114,7 @@ namespace SfDataBackup.Tests
         [Test]
         public async Task ExtractAsync_NetworkFailure_ResultSuccessIsFalse()
         {
-            // Assert
+            // Arrange
             httpMessageHandlerMock.Protected()
                                   .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
                                   .ThrowsAsync(new HttpRequestException());
@@ -123,6 +124,20 @@ namespace SfDataBackup.Tests
 
             // Assert
             Assert.That(result.Success, Is.False);
+        }
+
+        [Test]
+        public void ExtractAsync_NoAccessToken_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            extractor.AccessToken = null;
+
+            // Assert
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                // Act
+                await extractor.ExtractAsync();
+            });
         }
     }
 }

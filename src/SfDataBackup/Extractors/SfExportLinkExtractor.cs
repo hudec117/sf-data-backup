@@ -9,30 +9,36 @@ namespace SfDataBackup.Extractors
 {
     public class SfExportLinkExtractor : ISfExportLinkExtractor
     {
-        private ILogger<SfExportLinkExtractor> logger;
-        private SfExportLinkExtractorConfig config;
-        private IHttpClientFactory httpClientFactory;
-        private HttpClient httpClient;
+        public string AccessToken { get; set; }
 
-        public SfExportLinkExtractor(ILogger<SfExportLinkExtractor> logger, SfExportLinkExtractorConfig config, IHttpClientFactory httpClientFactory)
+        private ILogger<SfExportLinkExtractor> logger;
+        private IHttpClientFactory httpClientFactory;
+        private SfExportLinkExtractorConfig config;
+
+        public SfExportLinkExtractor(ILogger<SfExportLinkExtractor> logger, IHttpClientFactory httpClientFactory, SfExportLinkExtractorConfig config)
         {
             this.logger = logger;
-            this.config = config;
             this.httpClientFactory = httpClientFactory;
-            this.httpClient = httpClientFactory.CreateClient();
+            this.config = config;
         }
 
         public async Task<SfExportLinkExtractorResult> ExtractAsync()
         {
+            if (string.IsNullOrWhiteSpace(AccessToken))
+                throw new InvalidOperationException("Missing AccessToken");
+
             var requestUrl = new Uri(config.OrganisationUrl, config.ExportServicePath);
 
-            // Create HTTP client and send request
-            var client = this.httpClientFactory.CreateClient("SalesforceClient");
+            // Create HTTP client
+            var client = this.httpClientFactory.CreateClient("DefaultClient");
+
+            // Create oid and sid cookies for request.
+            var request = HttpRequestHelper.CreateRequestWithSalesforceCookie(requestUrl, config.OrganisationId, AccessToken);
 
             HttpResponseMessage response;
             try
             {
-                response = await client.GetAsync(requestUrl);
+                response = await client.SendAsync(request);
             }
             catch (HttpRequestException exception)
             {

@@ -22,30 +22,23 @@ namespace SfDataBackup
             {
                 OrganisationUrl = new Uri(rawOrganisationUrl),
                 OrganisationId = Environment.GetEnvironmentVariable("SALESFORCE_ORG_ID"),
-                AccessToken = "dummy.jwt.token"
+                OrganisationUser = Environment.GetEnvironmentVariable("SALESFORCE_ORG_USER"),
+                AppClientId = Environment.GetEnvironmentVariable("SALESFORCE_APP_CLIENT_ID"),
+                AppCertPath = Environment.GetEnvironmentVariable("SALESFORCE_APP_CERT")
             };
 
             // Register logging services
             builder.Services.AddLogging();
 
             // Configure a HTTP client with authentication cookies.
-            builder.Services.AddHttpClient("SalesforceClient", client =>
-            {
-                client.DefaultRequestVersion = HttpVersion.Version20;
-            })
-            .ConfigurePrimaryHttpMessageHandler(() =>
-            {
-                var cookieContainer = new CookieContainer();
-                var oidCookie = new Cookie("oid", config.OrganisationId);
-                var sidCookie = new Cookie("sid", config.AccessToken);
-                cookieContainer.Add(config.OrganisationUrl, oidCookie);
-                cookieContainer.Add(config.OrganisationUrl, sidCookie);
-
-                return new SocketsHttpHandler
-                {
-                    CookieContainer = cookieContainer
-                };
-            });
+            builder.Services.AddHttpClient("DefaultClient")
+                            .ConfigurePrimaryHttpMessageHandler(() =>
+                            {
+                                return new SocketsHttpHandler
+                                {
+                                    UseCookies = false
+                                };
+                            });
 
             // Register configs.
             builder.Services.AddSingleton<SfConfig>(config);
