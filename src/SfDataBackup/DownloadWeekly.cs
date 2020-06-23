@@ -51,7 +51,7 @@ namespace SfDataBackup
                 return;
             }
 
-            if (extractResult.Links.Count == 0)
+            if (extractResult.RelativeUrls.Count == 0)
             {
                 logger.LogError("Link extractor returned no links.");
                 return;
@@ -60,7 +60,7 @@ namespace SfDataBackup
             // 2. DOWNLOAD
             logger.LogInformation("Downloading exports from Salesforce...");
 
-            var downloadResult = await exportDownloader.DownloadAsync(context.FunctionDirectory, extractResult.Links);
+            var downloadResult = await exportDownloader.DownloadAsync(context.FunctionDirectory, extractResult.RelativeUrls);
             if (!downloadResult.Success)
             {
                 logger.LogError("Export downloader unsuccessful.");

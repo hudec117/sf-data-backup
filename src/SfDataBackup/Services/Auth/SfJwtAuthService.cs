@@ -7,30 +7,40 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
-namespace SfDataBackup
+namespace SfDataBackup.Services.Auth
 {
-    public class SfJwtFlow
+    public class SfJwtAuthService : ISfJwtAuthService
     {
-        private ILogger<SfJwtFlow> logger;
+        private ILogger<SfJwtAuthService> logger;
         private IHttpClientFactory httpClientFactory;
-        private SfConfig config;
+        private SfOptions options;
+
+        private string accessToken;
 
         private const string tokenEndpoint = "/services/oauth2/token";
 
-        public SfJwtFlow(ILogger<SfJwtFlow> logger, IHttpClientFactory httpClientFactory, SfConfig config)
+        public SfJwtAuthService(
+            ILogger<SfJwtAuthService> logger,
+            IHttpClientFactory httpClientFactory,
+            IOptionsSnapshot<SfOptions> optionsProvider
+        )
         {
             this.logger = logger;
             this.httpClientFactory = httpClientFactory;
-            this.config = config;
+            this.options = optionsProvider.Value;
         }
 
         public async Task<string> GetAccessTokenAsync()
         {
-            var privateKeyPath = Path.Combine(Directory.GetCurrentDirectory(), config.AppCertPath);
+            if (!string.IsNullOrWhiteSpace(accessToken))
+                return accessToken;
+
+            var privateKeyPath = Path.Combine(Directory.GetCurrentDirectory(), options.AppCertPath);
 
             var privateKey = File.ReadAllText(privateKeyPath);
             privateKey = privateKey.Replace("-----BEGIN PRIVATE KEY-----", string.Empty)
@@ -46,13 +56,13 @@ namespace SfDataBackup
 
             var descriptor = new SecurityTokenDescriptor
             {
-                Issuer = config.AppClientId,
-                Audience = config.OrganisationUrl.ToString(),
+                Issuer = options.AppClientId,
+                Audience = options.OrganisationUrl.ToString(),
                 Expires = DateTime.UtcNow.AddMinutes(5),
                 Subject = new ClaimsIdentity(
                     new List<Claim>
                     {
-                        new Claim("sub", config.OrganisationUser)
+                        new Claim("sub", options.OrganisationUser)
                     }
                 ),
                 SigningCredentials = new SigningCredentials(rsaKey, SecurityAlgorithms.RsaSha256)
@@ -61,7 +71,7 @@ namespace SfDataBackup
             var handler = new JsonWebTokenHandler();
             var jwt = handler.CreateToken(descriptor);
 
-            var requestUrl = new Uri(config.OrganisationUrl, tokenEndpoint);
+            var requestUrl = new Uri(options.OrganisationUrl, tokenEndpoint);
 
             var client = httpClientFactory.CreateClient();
 
@@ -72,13 +82,15 @@ namespace SfDataBackup
 
             var deserialisedResponse = JsonConvert.DeserializeObject<SfAuthTokenResponse>(await response.Content.ReadAsStringAsync());
 
-            return deserialisedResponse.AccessToken;
-        }
-    }
+            accessToken = deserialisedResponse.AccessToken;
 
-    public class SfAuthTokenResponse
-    {
-        [JsonProperty("access_token")]
-        public string AccessToken { get; set; }
+            return accessToken;
+        }
+
+        private class SfAuthTokenResponse
+        {
+            [JsonProperty("access_token")]
+            public string AccessToken { get; set; }
+        }
     }
 }

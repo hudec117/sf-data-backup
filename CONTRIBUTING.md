@@ -28,13 +28,17 @@ To run/debug the function app, a `src/SfDataBackup/local.settings.json` file is 
     "Values": {
         "FUNCTIONS_WORKER_RUNTIME": "dotnet",
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "SALESFORCE_ORG_URL": "<insert-org-url>",
-        "SALESFORCE_ORG_ID": "<insert-org-id>",
-        "SALESFORCE_ORG_USER": "<insert-org-username>",
-        "SALESFORCE_APP_CLIENT_ID": "<insert-connected-app-client-id>",
-        "SALESFORCE_APP_CERT": "<insert-path-to-connected-app-cert>",
-        "EXPORT_SERVICE_PATH": "/ui/setup/export/DataExportPage/d",
-        "EXPORT_SERVICE_REGEX": "<a\\s+href=\"(?'relurl'\\/servlet\\/servlet\\.OrgExport\\?.+?)\""
+        "Salesforce:OrganisationUrl": "<insert-org-url>",
+        "Salesforce:OrganisationId": "<insert-org-id>",
+        "Salesforce:OrganisationUser": "<insert-org-username>",
+        "Salesforce:AppClientId": "<insert-connected-app-client-id>",
+        "Salesforce:AppCertPath": "<insert-path-to-connected-app-cert>",
+        "Salesforce:ExportService:Page": "/ui/setup/export/DataExportPage/d",
+        "Salesforce:ExportService:Regex": "<a\\s+href=\"(?'relurl'\\/servlet\\/servlet\\.OrgExport\\?.+?)\""
     }
 }
 ```
+
+### Generating Certificates using OpenSSL
+
+`openssl req -x509 -newkey rsa:4096 -keyout private-key.pem -out public-cert.pem -days 365 -nodes`

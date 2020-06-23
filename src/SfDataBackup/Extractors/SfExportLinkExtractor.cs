@@ -1,65 +1,48 @@
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using SfDataBackup.Services;
 
 namespace SfDataBackup.Extractors
 {
     public class SfExportLinkExtractor : ISfExportLinkExtractor
     {
-        public string AccessToken { get; set; }
-
         private ILogger<SfExportLinkExtractor> logger;
-        private IHttpClientFactory httpClientFactory;
-        private SfExportLinkExtractorConfig config;
+        private ISfService service;
+        private SfOptions options;
 
-        public SfExportLinkExtractor(ILogger<SfExportLinkExtractor> logger, IHttpClientFactory httpClientFactory, SfExportLinkExtractorConfig config)
+        public SfExportLinkExtractor(
+            ILogger<SfExportLinkExtractor> logger,
+            ISfService service,
+            IOptionsSnapshot<SfOptions> optionsProvider
+        )
         {
             this.logger = logger;
-            this.httpClientFactory = httpClientFactory;
-            this.config = config;
+            this.service = service;
+            this.options = optionsProvider.Value;
         }
 
         public async Task<SfExportLinkExtractorResult> ExtractAsync()
         {
-            if (string.IsNullOrWhiteSpace(AccessToken))
-                throw new InvalidOperationException("Missing AccessToken");
+            logger.LogInformation("Getting page source from export service page...");
 
-            var requestUrl = new Uri(config.OrganisationUrl, config.ExportServicePath);
+            var source = await service.GetPageSourceAsync(options.ExportService.Page);
 
-            // Create HTTP client
-            var client = this.httpClientFactory.CreateClient("DefaultClient");
-
-            // Create oid and sid cookies for request.
-            var request = HttpRequestHelper.CreateRequestWithSalesforceCookie(requestUrl, config.OrganisationId, AccessToken);
-
-            HttpResponseMessage response;
-            try
-            {
-                response = await client.SendAsync(request);
-            }
-            catch (HttpRequestException exception)
-            {
-                logger.LogError(exception, "HTTP request to Salesforce Data Export failed.");
-
-                return new SfExportLinkExtractorResult(false);
-            }
-
-            var source = await response.Content.ReadAsStringAsync();
+            logger.LogInformation("Extracting relative URLs from source");
 
             // Extract links from source
-            var links = GetLinksFromSource(source);
+            var relativeUrls = GetRelativeUrlsFromSource(source);
 
-            return new SfExportLinkExtractorResult(true, links);
+            return new SfExportLinkExtractorResult(true, relativeUrls);
         }
 
-        public List<Uri> GetLinksFromSource(string source)
+        public List<string> GetRelativeUrlsFromSource(string source)
         {
-            var links = new List<Uri>();
+            var relativeUrls = new List<string>();
 
-            var matches = Regex.Matches(source, config.ExportServiceRegex, RegexOptions.IgnoreCase);
+            var matches = Regex.Matches(source, options.ExportService.Regex, RegexOptions.IgnoreCase);
 
             // Explicit type is required
             foreach (Match match in matches)
@@ -70,36 +53,26 @@ namespace SfDataBackup.Extractors
                 // Remove &amp; from relative URL
                 relativeUrl = relativeUrl.Replace("&amp;", "&");
 
-                var fullUrl = new Uri(config.OrganisationUrl, relativeUrl);
-                links.Add(fullUrl);
+                logger.LogDebug("Extracted {url}", relativeUrl);
+
+                relativeUrls.Add(relativeUrl);
             }
 
-            return links;
-        }
-    }
-
-    public class SfExportLinkExtractorConfig : SfConfig
-    {
-        public string ExportServicePath { get; set; }
-
-        public string ExportServiceRegex { get; set; }
-
-        public SfExportLinkExtractorConfig(SfConfig config) : base(config)
-        {
+            return relativeUrls;
         }
     }
 
     public class SfExportLinkExtractorResult : SfResult
     {
-        public IList<Uri> Links { get; set; }
+        public IList<string> RelativeUrls { get; set; }
 
         public SfExportLinkExtractorResult(bool success) : base(success)
         {
         }
 
-        public SfExportLinkExtractorResult(bool success, IList<Uri> links) : base(success)
+        public SfExportLinkExtractorResult(bool success, IList<string> relativeUrls) : base(success)
         {
-            Links = links;
+            RelativeUrls = relativeUrls;
         }
     }
 }

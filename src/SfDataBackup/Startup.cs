@@ -1,12 +1,12 @@
-using System;
 using System.IO.Abstractions;
-using System.Net;
 using System.Net.Http;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SfDataBackup.Consolidators;
 using SfDataBackup.Downloaders;
 using SfDataBackup.Extractors;
+using SfDataBackup.Services;
 
 [assembly: FunctionsStartup(typeof(SfDataBackup.Startup))]
 namespace SfDataBackup
@@ -15,18 +15,6 @@ namespace SfDataBackup
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            // Load config
-            var rawOrganisationUrl = Environment.GetEnvironmentVariable("SALESFORCE_ORG_URL");
-
-            var config = new SfConfig
-            {
-                OrganisationUrl = new Uri(rawOrganisationUrl),
-                OrganisationId = Environment.GetEnvironmentVariable("SALESFORCE_ORG_ID"),
-                OrganisationUser = Environment.GetEnvironmentVariable("SALESFORCE_ORG_USER"),
-                AppClientId = Environment.GetEnvironmentVariable("SALESFORCE_APP_CLIENT_ID"),
-                AppCertPath = Environment.GetEnvironmentVariable("SALESFORCE_APP_CERT")
-            };
-
             // Register logging services
             builder.Services.AddLogging();
 
@@ -40,26 +28,23 @@ namespace SfDataBackup
                                 };
                             });
 
-            // Register configs.
-            builder.Services.AddSingleton<SfConfig>(config);
-
-            builder.Services.AddSingleton<SfExportLinkExtractorConfig>(serviceProvider =>
-            {
-                return new SfExportLinkExtractorConfig(config)
-                {
-                    ExportServicePath = Environment.GetEnvironmentVariable("EXPORT_SERVICE_PATH"),
-                    ExportServiceRegex = Environment.GetEnvironmentVariable("EXPORT_SERVICE_REGEX")
-                };
-            });
+            builder.Services.AddOptions<SfOptions>()
+                            .Configure<IConfiguration>((options, configuration) =>
+                            {
+                                configuration.GetSection("Salesforce").Bind(options);
+                            });
 
             // Register file system
             builder.Services.AddScoped<IFileSystem, FileSystem>();
+
+            // Register the JWT authentication service
+            builder.Services.AddScoped<ISfService, SfService>();
 
             // Register link extractor
             builder.Services.AddScoped<ISfExportLinkExtractor, SfExportLinkExtractor>();
 
             // Register export downloader
-            builder.Services.AddScoped<ISfExportDownloader, SfSerialExportDownloader>();
+            builder.Services.AddScoped<ISfExportDownloader, SfExportDownloader>();
 
             // Register export consolidator
             builder.Services.AddScoped<ISfExportConsolidator, SfExportConsolidator>();

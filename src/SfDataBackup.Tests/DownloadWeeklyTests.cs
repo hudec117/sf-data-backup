@@ -35,9 +35,9 @@ namespace SfDataBackup.Tests
             loggerMock = new Mock<ILogger<DownloadWeekly>>();
 
             // Setup Extractor mock
-            var dummyLinks = new List<Uri>
+            var dummyLinks = new List<string>
             {
-                new Uri("https://my.salesforce.com/download/path")
+                TestData.ExtractLink
             };
             var dummyExtractResult = new SfExportLinkExtractorResult(true, dummyLinks);
 
@@ -53,7 +53,7 @@ namespace SfDataBackup.Tests
             var dummyDownloadResult = new SfExportDownloaderResult(true, dummyPaths);
 
             downloaderMock = new Mock<ISfExportDownloader>();
-            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()))
+            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()))
                           .ReturnsAsync(dummyDownloadResult);
 
             consolidatorMock = new Mock<ISfExportConsolidator>();
@@ -103,7 +103,7 @@ namespace SfDataBackup.Tests
             await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
-            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()));
+            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace SfDataBackup.Tests
             await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
-            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()), Times.Never());
+            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()), Times.Never());
         }
 
         [Test]
@@ -125,13 +125,13 @@ namespace SfDataBackup.Tests
         {
             // Arrange
             extractorMock.Setup(x => x.ExtractAsync())
-                         .ReturnsAsync(new SfExportLinkExtractorResult(true, new List<Uri>()));
+                         .ReturnsAsync(new SfExportLinkExtractorResult(true, new List<string>()));
 
             // Act
             await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
-            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()), Times.Never());
+            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()), Times.Never());
         }
 
         [Test]
@@ -148,7 +148,7 @@ namespace SfDataBackup.Tests
         public async Task RunAsync_ExportDownloaderFails_DoesNotConsolidateExports()
         {
             // Arrange
-            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<Uri>>()))
+            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()))
                          .ReturnsAsync(new SfExportDownloaderResult(false));
 
             // Act
