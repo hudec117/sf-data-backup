@@ -33,14 +33,14 @@ namespace SfDataBackup.Extractors
             logger.LogInformation("Extracting relative URLs from source");
 
             // Extract links from source
-            var relativeUrls = GetRelativeUrlsFromSource(source);
+            var links = GetLinksFromSource(source);
 
-            return new SfExportLinkExtractorResult(true, relativeUrls);
+            return new SfExportLinkExtractorResult(true, links);
         }
 
-        public List<string> GetRelativeUrlsFromSource(string source)
+        public List<string> GetLinksFromSource(string source)
         {
-            var relativeUrls = new List<string>();
+            var links = new List<string>();
 
             var matches = Regex.Matches(source, options.ExportService.Regex, RegexOptions.IgnoreCase);
 
@@ -55,24 +55,24 @@ namespace SfDataBackup.Extractors
 
                 logger.LogDebug("Extracted {url}", relativeUrl);
 
-                relativeUrls.Add(relativeUrl);
+                links.Add(relativeUrl);
             }
 
-            return relativeUrls;
+            return links;
         }
     }
 
     public class SfExportLinkExtractorResult : SfResult
     {
-        public IList<string> RelativeUrls { get; set; }
+        public IList<string> Links { get; set; }
 
         public SfExportLinkExtractorResult(bool success) : base(success)
         {
         }
 
-        public SfExportLinkExtractorResult(bool success, IList<string> relativeUrls) : base(success)
+        public SfExportLinkExtractorResult(bool success, IList<string> links) : base(success)
         {
-            RelativeUrls = relativeUrls;
+            Links = links;
         }
     }
 }

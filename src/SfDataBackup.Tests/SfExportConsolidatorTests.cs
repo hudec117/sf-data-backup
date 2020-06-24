@@ -15,7 +15,6 @@ namespace SfDataBackup.Tests
         private string dummyConsolidatedExportPath;
         private string dummyTempFolderPath;
 
-        private Mock<ILogger<SfExportConsolidator>> loggerMock;
         private Mock<IZipFile> zipFileMock;
         private MockFileSystem fileSystemMock;
 
@@ -29,7 +28,7 @@ namespace SfDataBackup.Tests
             dummyConsolidatedExportPath = "C:\\my\\dummy\\export.zip";
             dummyTempFolderPath = "C:\\my\\dummy\\exports";
 
-            loggerMock = new Mock<ILogger<SfExportConsolidator>>();
+            var loggerMock = new Mock<ILogger<SfExportConsolidator>>();
 
             zipFileMock = new Mock<IZipFile>();
 

@@ -47,17 +47,17 @@ namespace SfDataBackup.Tests
         }
 
         [Test]
-        public async Task ExtractAsync_SingleExportAvailable_ReturnsRelativeUrl()
+        public async Task ExtractAsync_SingleExportAvailable_ReturnsLink()
         {
             // Act
             var result = await extractor.ExtractAsync();
 
             // Assert
-            Assert.That(result.RelativeUrls[0], Is.EqualTo(TestData.ExtractLink));
+            Assert.That(result.Links[0], Is.EqualTo(TestData.ExtractLink));
         }
 
         [Test]
-        public async Task ExtractAsync_MalformedPage_ReturnsNoRelativeUrls()
+        public async Task ExtractAsync_MalformedPage_ReturnsNoLinks()
         {
             // Arrange
             serviceMock.Setup(x => x.GetPageSourceAsync(TestData.Options.ExportService.Page))
@@ -67,7 +67,7 @@ namespace SfDataBackup.Tests
             var result = await extractor.ExtractAsync();
 
             // Assert
-            Assert.That(result.RelativeUrls, Is.Empty);
+            Assert.That(result.Links, Is.Empty);
         }
     }
 }
