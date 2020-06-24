@@ -39,6 +39,12 @@ To run/debug the function app, a `src/SfDataBackup/local.settings.json` file is 
 }
 ```
 
-### Generating Certificates using OpenSSL
+## Salesforce Integration
 
-`openssl req -x509 -newkey rsa:4096 -keyout private-key.pem -out public-cert.pem -days 365 -nodes`
+### Certificate Generation
+
+`openssl genrsa -out private-key.pem 2048`
+`openssl req -new -x509 -key private-key.pem -out public-cert.pem -days 365 -nodes`
+
+### Connected App Setup
+Refer to: https://mannharleen.github.io/2020-03-03-salesforce-jwt/
