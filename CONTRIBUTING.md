@@ -29,22 +29,10 @@ To run/debug the function app, a `src/SfDataBackup/local.settings.json` file is 
         "FUNCTIONS_WORKER_RUNTIME": "dotnet",
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",
         "Salesforce:OrganisationUrl": "<insert-org-url>",
-        "Salesforce:OrganisationId": "<insert-org-id>",
-        "Salesforce:OrganisationUser": "<insert-org-username>",
-        "Salesforce:AppClientId": "<insert-connected-app-client-id>",
-        "Salesforce:AppCertPath": "<insert-path-to-connected-app-cert>",
+        "Salesforce:Username": "<insert-username>",
+        "Salesforce:Password": "<insert-password>",
         "Salesforce:ExportService:Page": "/ui/setup/export/DataExportPage/d",
         "Salesforce:ExportService:Regex": "<a\\s+href=\"(?'relurl'\\/servlet\\/servlet\\.OrgExport\\?.+?)\""
     }
 }
 ```
-
-## Salesforce Integration
-
-### Certificate Generation
-
-`openssl genrsa -out private-key.pem 2048`
-`openssl req -new -x509 -key private-key.pem -out public-cert.pem -days 365 -nodes`
-
-### Connected App Setup
-Refer to: https://mannharleen.github.io/2020-03-03-salesforce-jwt/

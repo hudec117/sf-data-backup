@@ -24,7 +24,7 @@ namespace SfDataBackup.Tests.Services
 
         private Mock<HttpMessageHandler> httpMessageHandlerMock;
         private Mock<IHttpClientFactory> httpClientFactoryMock;
-        private Mock<ISfJwtAuthService> authServiceMock;
+        private Mock<ISfAuthService> authServiceMock;
         private MockFileSystem fileSystemMock;
 
         private SfService service;
@@ -72,8 +72,8 @@ namespace SfDataBackup.Tests.Services
                                      return client;
                                  });
 
-            authServiceMock = new Mock<ISfJwtAuthService>();
-            authServiceMock.Setup(x => x.GetAccessTokenAsync())
+            authServiceMock = new Mock<ISfAuthService>();
+            authServiceMock.Setup(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<string>()))
                            .ReturnsAsync(dummyAccessToken);
 
             fileSystemMock = new MockFileSystem();
@@ -94,10 +94,7 @@ namespace SfDataBackup.Tests.Services
 
             var cookieHeader = cookiesCollection.First();
 
-            var hasOidCookie = cookieHeader.Cookies.FirstOrDefault(x => x.Name == "oid" && x.Value == TestData.Options.OrganisationId) != default;
-            var hasSidCookie = cookieHeader.Cookies.FirstOrDefault(x => x.Name == "sid" && x.Value == dummyAccessToken) != default;
-
-            return hasOidCookie && hasSidCookie;
+            return cookieHeader.Cookies.FirstOrDefault(x => x.Name == "sid" && x.Value == dummyAccessToken) != default;
         }
 
         [Test]

@@ -15,14 +15,14 @@ namespace SfDataBackup.Services
     {
         private ILogger<SfService> logger;
         private IHttpClientFactory httpClientFactory;
-        private ISfJwtAuthService authService;
+        private ISfAuthService authService;
         private IFileSystem fileSystem;
         private SfOptions options;
 
         public SfService(
             ILogger<SfService> logger,
             IHttpClientFactory httpClientFactory,
-            ISfJwtAuthService authService,
+            ISfAuthService authService,
             IFileSystem fileSystem,
             IOptionsSnapshot<SfOptions> optionsProvider
         )
@@ -94,13 +94,11 @@ namespace SfDataBackup.Services
         private async Task<HttpResponseMessage> SendRequestToOrgAsync(HttpRequestMessage request)
         {
             // Get access token
-            var accessToken = await authService.GetAccessTokenAsync();
+            var sessionId = await authService.LoginAsync(options.Username, options.Password);
 
             // Create oid/sid cookie header
             var cookieContainer = new CookieContainer();
-            var oidCookie = new Cookie("oid", options.OrganisationId);
-            var sidCookie = new Cookie("sid", accessToken);
-            cookieContainer.Add(options.OrganisationUrl, oidCookie);
+            var sidCookie = new Cookie("sid", sessionId);
             cookieContainer.Add(options.OrganisationUrl, sidCookie);
 
             // Set cookie header

@@ -18,10 +18,8 @@ namespace SfDataBackup.Tests.Data
         public static readonly SfOptions Options = new SfOptions
         {
             OrganisationUrl = new Uri("https://test.my.salesforce.com"),
-            OrganisationId = "00D4J000000CuzU",
-            OrganisationUser = "my.user@test.com",
-            AppClientId = "my.client.id",
-            AppCertPath = "private-key.pem",
+            Username = "my.user@test.com",
+            Password = "dummypassword",
             ExportService = new SfExportServiceOptions
             {
                 Page = "/dummy/export/service/path",

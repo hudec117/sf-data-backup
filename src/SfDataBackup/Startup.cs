@@ -4,6 +4,7 @@ using System.Net.Http;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SfDataBackup.Abstractions;
 using SfDataBackup.Consolidators;
 using SfDataBackup.Services;
 using SfDataBackup.Services.Auth;
@@ -44,8 +45,11 @@ namespace SfDataBackup
             // Register file system
             builder.Services.AddScoped<IFileSystem, FileSystem>();
 
+            // Register zip file abstraction
+            builder.Services.AddScoped<IZipFile, ZipFile>();
+
             // Register the JWT authentication service
-            builder.Services.AddScoped<ISfJwtAuthService, SfJwtAuthService>();
+            builder.Services.AddScoped<ISfAuthService, SfAuthService>();
 
             // Register Salesforce Service
             builder.Services.AddScoped<ISfService, SfService>();

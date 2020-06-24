@@ -6,13 +6,9 @@ namespace SfDataBackup
     {
         public Uri OrganisationUrl { get; set; }
 
-        public string OrganisationId { get; set; }
+        public string Username { get; set; }
 
-        public string OrganisationUser { get; set; }
-
-        public string AppClientId { get; set; }
-
-        public string AppCertPath { get; set; }
+        public string Password { get; set; }
 
         public SfExportServiceOptions ExportService { get; set; }
     }
