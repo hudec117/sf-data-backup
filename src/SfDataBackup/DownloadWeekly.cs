@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using SfDataBackup.Consolidators;
-using SfDataBackup.Downloaders;
-using SfDataBackup.Extractors;
+using SfDataBackup.Services;
 
 namespace SfDataBackup
 {
@@ -14,22 +13,19 @@ namespace SfDataBackup
         private const string schedule = "0 0 16 * * Fri";
 
         private ILogger<DownloadWeekly> logger;
-        private ISfExportLinkExtractor linkExtractor;
-        private ISfExportDownloader exportDownloader;
+        private ISfService service;
         private ISfExportConsolidator exportConsolidator;
         private IFileSystem fileSystem;
 
         public DownloadWeekly(
             ILogger<DownloadWeekly> logger,
-            ISfExportLinkExtractor linkExtractor,
-            ISfExportDownloader exportDownloader,
+            ISfService service,
             ISfExportConsolidator exportConsolidator,
             IFileSystem fileSystem
         )
         {
             this.logger = logger;
-            this.linkExtractor = linkExtractor;
-            this.exportDownloader = exportDownloader;
+            this.service = service;
             this.exportConsolidator = exportConsolidator;
             this.fileSystem = fileSystem;
         }
@@ -44,34 +40,23 @@ namespace SfDataBackup
             // 1. EXTRACT LINKS
             logger.LogInformation("Extracting export links from Salesforce.");
 
-            var extractResult = await linkExtractor.ExtractAsync();
-            if (!extractResult.Success)
+            var exportDownloadLinks = await service.GetExportDownloadLinksAsync();
+            if (exportDownloadLinks.Count == 0)
             {
-                logger.LogError("Link extractor unsuccessful.");
-                return;
-            }
-
-            if (extractResult.Links.Count == 0)
-            {
-                logger.LogError("Link extractor returned no links.");
+                logger.LogWarning("No export download links found.");
                 return;
             }
 
             // 2. DOWNLOAD
             logger.LogInformation("Downloading exports from Salesforce...");
 
-            var downloadResult = await exportDownloader.DownloadAsync(context.FunctionDirectory, extractResult.Links);
-            if (!downloadResult.Success)
-            {
-                logger.LogError("Export downloader unsuccessful.");
-                return;
-            }
+            var downloadExportPaths = await service.DownloadExportsAsync(context.FunctionDirectory, exportDownloadLinks);
 
             // 3. CONSOLIDATE
             logger.LogInformation("Consolidating exports...");
 
             var consolidatedExportPath = Path.Combine(context.FunctionDirectory, "export.zip");
-            var consolidatorResult = exportConsolidator.Consolidate(downloadResult.ExportPaths, consolidatedExportPath);
+            var consolidatorResult = exportConsolidator.Consolidate(downloadExportPaths, consolidatedExportPath);
             if (!consolidatorResult.Success)
             {
                 logger.LogError("Export consolidator unsuccessful.");

@@ -1,12 +1,12 @@
-using System.IO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SfDataBackup.Services
 {
     public interface ISfService
     {
-        Task<string> GetPageSourceAsync(string relativeUrl);
+        Task<IList<string>> GetExportDownloadLinksAsync();
 
-        Task<Stream> DownloadFileAsync(string relativeUrl);
+        Task<IList<string>> DownloadExportsAsync(string downloadFolderPath, IList<string> relativeExportUrls);
     }
 }

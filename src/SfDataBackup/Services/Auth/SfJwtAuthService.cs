@@ -43,8 +43,8 @@ namespace SfDataBackup.Services.Auth
             var privateKeyPath = Path.Combine(Directory.GetCurrentDirectory(), options.AppCertPath);
 
             var privateKey = File.ReadAllText(privateKeyPath);
-            privateKey = privateKey.Replace("-----BEGIN PRIVATE KEY-----", string.Empty)
-                                   .Replace("-----END PRIVATE KEY-----", string.Empty)
+            privateKey = privateKey.Replace("-----BEGIN RSA PRIVATE KEY-----", string.Empty)
+                                   .Replace("-----END RSA PRIVATE KEY-----", string.Empty)
                                    .Trim();
 
             var privateKeyBytes = Convert.FromBase64String(privateKey);
@@ -57,7 +57,7 @@ namespace SfDataBackup.Services.Auth
             var descriptor = new SecurityTokenDescriptor
             {
                 Issuer = options.AppClientId,
-                Audience = options.OrganisationUrl.ToString(),
+                Audience = "login.salesforce.com",
                 Expires = DateTime.UtcNow.AddMinutes(5),
                 Subject = new ClaimsIdentity(
                     new List<Claim>
@@ -76,7 +76,7 @@ namespace SfDataBackup.Services.Auth
             var client = httpClientFactory.CreateClient();
 
             var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-            request.Content = new StringContent($"grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion{jwt}", Encoding.UTF8, "application/x-www-form-urlencoded");
+            request.Content = new StringContent($"grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion={jwt}", Encoding.UTF8, "application/x-www-form-urlencoded");
 
             var response = await client.SendAsync(request);
 

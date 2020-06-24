@@ -1,12 +1,12 @@
+using System;
 using System.IO.Abstractions;
 using System.Net.Http;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SfDataBackup.Consolidators;
-using SfDataBackup.Downloaders;
-using SfDataBackup.Extractors;
 using SfDataBackup.Services;
+using SfDataBackup.Services.Auth;
 
 [assembly: FunctionsStartup(typeof(SfDataBackup.Startup))]
 namespace SfDataBackup
@@ -19,9 +19,16 @@ namespace SfDataBackup
             builder.Services.AddLogging();
 
             // Configure a HTTP client with authentication cookies.
-            builder.Services.AddHttpClient("DefaultClient")
+            builder.Services.AddHttpClient("SalesforceClient")
+                            .ConfigureHttpClient(client =>
+                            {
+                                client.BaseAddress = new Uri(Environment.GetEnvironmentVariable("Salesforce:OrganisationUrl"));
+                            })
                             .ConfigurePrimaryHttpMessageHandler(() =>
                             {
+                                // Need to set UseCookies to false so that the handler
+                                // does not use it's own cookie container and prevent
+                                // us from setting cookies dynamically.
                                 return new SocketsHttpHandler
                                 {
                                     UseCookies = false
@@ -38,13 +45,10 @@ namespace SfDataBackup
             builder.Services.AddScoped<IFileSystem, FileSystem>();
 
             // Register the JWT authentication service
+            builder.Services.AddScoped<ISfJwtAuthService, SfJwtAuthService>();
+
+            // Register Salesforce Service
             builder.Services.AddScoped<ISfService, SfService>();
-
-            // Register link extractor
-            builder.Services.AddScoped<ISfExportLinkExtractor, SfExportLinkExtractor>();
-
-            // Register export downloader
-            builder.Services.AddScoped<ISfExportDownloader, SfExportDownloader>();
 
             // Register export consolidator
             builder.Services.AddScoped<ISfExportConsolidator, SfExportConsolidator>();

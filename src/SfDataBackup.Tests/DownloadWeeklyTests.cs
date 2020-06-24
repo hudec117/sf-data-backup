@@ -9,8 +9,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using SfDataBackup.Consolidators;
-using SfDataBackup.Downloaders;
-using SfDataBackup.Extractors;
+using SfDataBackup.Services;
 using SfDataBackup.Tests.Data;
 
 namespace SfDataBackup.Tests
@@ -18,8 +17,7 @@ namespace SfDataBackup.Tests
     public class DownloadWeeklyTests
     {
         private Mock<ILogger<DownloadWeekly>> loggerMock;
-        private Mock<ISfExportLinkExtractor> extractorMock;
-        private Mock<ISfExportDownloader> downloaderMock;
+        private Mock<ISfService> serviceMock;
         private Mock<ISfExportConsolidator> consolidatorMock;
         private MockFileSystem fileSystemMock;
 
@@ -34,31 +32,22 @@ namespace SfDataBackup.Tests
         {
             loggerMock = new Mock<ILogger<DownloadWeekly>>();
 
-            // Setup Extractor mock
-            var dummyLinks = new List<string>
-            {
-                TestData.ExtractLink
-            };
-            var dummyExtractResult = new SfExportLinkExtractorResult(true, dummyLinks);
-
-            extractorMock = new Mock<ISfExportLinkExtractor>();
-            extractorMock.Setup(x => x.ExtractAsync())
-                         .ReturnsAsync(dummyExtractResult);
-
             // Setup Downloader mock
             var dummyPaths = new List<string>
             {
                 "exports/mysfexport.zip"
             };
-            var dummyDownloadResult = new SfExportDownloaderResult(true, dummyPaths);
 
-            downloaderMock = new Mock<ISfExportDownloader>();
-            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()))
-                          .ReturnsAsync(dummyDownloadResult);
+            serviceMock = new Mock<ISfService>();
+            serviceMock.Setup(x => x.GetExportDownloadLinksAsync())
+                       .ReturnsAsync(TestData.ExportDownloadLinks);
+            serviceMock.Setup(x => x.DownloadExportsAsync(It.IsAny<string>(), It.IsAny<IList<string>>()))
+                       .ReturnsAsync(dummyPaths);
 
             consolidatorMock = new Mock<ISfExportConsolidator>();
             consolidatorMock.Setup(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()))
-                            .Callback(() => {
+                            .Callback(() =>
+                            {
                                 var fileToAdd = Path.Combine(dummyExecutionContext.FunctionDirectory, "export.zip");
                                 fileSystemMock.AddFile(fileToAdd, new MockFileData(TestData.Export));
                             })
@@ -77,7 +66,7 @@ namespace SfDataBackup.Tests
                 FunctionDirectory = "C:\\myfuncapp\\DownloadWeekly"
             };
 
-            function = new DownloadWeekly(loggerMock.Object, extractorMock.Object, downloaderMock.Object, consolidatorMock.Object, fileSystemMock);
+            function = new DownloadWeekly(loggerMock.Object, serviceMock.Object, consolidatorMock.Object, fileSystemMock);
         }
 
         [TearDown]
@@ -93,7 +82,7 @@ namespace SfDataBackup.Tests
             await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
-            extractorMock.Verify(x => x.ExtractAsync());
+            serviceMock.Verify(x => x.GetExportDownloadLinksAsync());
         }
 
         [Test]
@@ -103,35 +92,21 @@ namespace SfDataBackup.Tests
             await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
-            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()));
+            serviceMock.Verify(x => x.DownloadExportsAsync(It.IsAny<string>(), It.IsAny<IList<string>>()));
         }
 
         [Test]
-        public async Task RunAsync_ExtractionFails_DoesNotDownloadLinks()
+        public async Task RunAsync_NoLinksToDownload_DoesNotDownloadExports()
         {
             // Arrange
-            extractorMock.Setup(x => x.ExtractAsync())
-                         .ReturnsAsync(new SfExportLinkExtractorResult(false));
+            serviceMock.Setup(x => x.GetExportDownloadLinksAsync())
+                       .ReturnsAsync(new List<string>());
 
             // Act
             await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
 
             // Assert
-            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()), Times.Never());
-        }
-
-        [Test]
-        public async Task RunAsync_ExportLinkExtractorReturnsNoLinks_DoesNotDownloadExports()
-        {
-            // Arrange
-            extractorMock.Setup(x => x.ExtractAsync())
-                         .ReturnsAsync(new SfExportLinkExtractorResult(true, new List<string>()));
-
-            // Act
-            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
-
-            // Assert
-            downloaderMock.Verify(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()), Times.Never());
+            serviceMock.Verify(x => x.DownloadExportsAsync(It.IsAny<string>(), It.IsAny<IList<string>>()), Times.Never());
         }
 
         [Test]
@@ -142,20 +117,6 @@ namespace SfDataBackup.Tests
 
             // Assert
             consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()));
-        }
-
-        [Test]
-        public async Task RunAsync_ExportDownloaderFails_DoesNotConsolidateExports()
-        {
-            // Arrange
-            downloaderMock.Setup(x => x.DownloadAsync(It.IsAny<string>(), It.IsAny<IList<string>>()))
-                         .ReturnsAsync(new SfExportDownloaderResult(false));
-
-            // Act
-            await function.RunAsync(dummyTimer, dummyStream, dummyExecutionContext);
-
-            // Assert
-            consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()), Times.Never());
         }
 
         [Test]
