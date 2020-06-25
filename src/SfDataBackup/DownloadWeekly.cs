@@ -10,8 +10,6 @@ namespace SfDataBackup
 {
     public class DownloadWeekly
     {
-        private const string schedule = "0 0 16 * * Fri";
-
         private ILogger<DownloadWeekly> logger;
         private ISfService service;
         private ISfExportConsolidator exportConsolidator;
@@ -32,18 +30,23 @@ namespace SfDataBackup
 
         [FunctionName(nameof(DownloadWeekly))]
         public async Task RunAsync(
-            [TimerTrigger(schedule, RunOnStartup = true)] TimerInfo timer,
+            [TimerTrigger("%Schedule%", RunOnStartup = true)] TimerInfo timer,
             [Blob("backups/{DateTime}.zip", FileAccess.Write)] Stream exportStream,
             ExecutionContext context
         )
         {
             // 1. EXTRACT LINKS
-            logger.LogInformation("Extracting export links from Salesforce.");
+            logger.LogInformation("Extracting export links from Salesforce");
 
             var exportDownloadLinks = await service.GetExportDownloadLinksAsync();
             if (exportDownloadLinks.Count == 0)
             {
-                logger.LogWarning("No export download links found.");
+                logger.LogWarning(
+                    "No export download links found. Check:\n" +
+                    "a) exports are available on Weekly Export Service page\n" +
+                    "b) \"Salesforce:ExportService:Page\" is a relative URL to the Weekly Export Service page\n" +
+                    "c) \"Salesforce:ExportService:Regex\" still applies to the Weekly Export Service page source"
+                );
                 return;
             }
 
@@ -72,7 +75,9 @@ namespace SfDataBackup
             }
 
             // 5. CLEANUP
-            logger.LogInformation("Cleaning up...");
+            logger.LogInformation("Cleaning up");
+
+            logger.LogInformation("Done");
         }
     }
 }
