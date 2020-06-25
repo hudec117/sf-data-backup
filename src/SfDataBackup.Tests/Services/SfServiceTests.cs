@@ -73,7 +73,7 @@ namespace SfDataBackup.Tests.Services
                                  });
 
             authServiceMock = new Mock<ISfAuthService>();
-            authServiceMock.Setup(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<string>()))
+            authServiceMock.Setup(x => x.GetSessionIdAsync(It.IsAny<string>(), It.IsAny<string>()))
                            .ReturnsAsync(dummyAccessToken);
 
             fileSystemMock = new MockFileSystem();

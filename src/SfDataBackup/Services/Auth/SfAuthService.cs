@@ -1,48 +1,50 @@
+using System;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using SfDataBackup.WSDL;
 
 namespace SfDataBackup.Services.Auth
 {
-    public class SfAuthService : ISfAuthService
+    public class SfAuthService : ISfAuthService, IDisposable
     {
         private ILogger<SfAuthService> logger;
-        private SfOptions options;
 
+        private SfDataBackup.WSDL.SoapClient logoutClient;
         private string sessionId;
 
-        private SfDataBackup.WSDL.SoapClient client;
-
-        public SfAuthService(
-            ILogger<SfAuthService> logger,
-            IOptionsSnapshot<SfOptions> optionsProvider
-        )
+        public SfAuthService(ILogger<SfAuthService> logger)
         {
             this.logger = logger;
-            this.options = optionsProvider.Value;
-
-            client = new SfDataBackup.WSDL.SoapClient();
         }
 
-        public async Task<string> LoginAsync(string username, string password)
+        public async Task<string> GetSessionIdAsync(string username, string password)
         {
             if (!string.IsNullOrWhiteSpace(sessionId))
+            {
+                logger.LogDebug("Already logged in, returning session ID.");
                 return sessionId;
+            }
 
-            var response = await client.loginAsync(
+            var loginClient = new SfDataBackup.WSDL.SoapClient();
+            var response = await loginClient.loginAsync(
                 new LoginScopeHeader(),
                 new CallOptions(),
                 username,
                 password
             );
 
+            logoutClient = new SfDataBackup.WSDL.SoapClient();
+            logoutClient.Endpoint.Address = new EndpointAddress(response.result.serverUrl);
+
+            logger.LogDebug("Logged in successfully");
+
             return sessionId = response.result.sessionId;
         }
 
-        public async Task LogoutAsync()
+        public void Dispose()
         {
-            await client.logoutAsync(
+            logoutClient?.logout(
                 new SessionHeader
                 {
                     sessionId = sessionId
@@ -51,6 +53,8 @@ namespace SfDataBackup.Services.Auth
             );
 
             sessionId = null;
+
+            logger.LogDebug("Logged out successfully");
         }
     }
 }

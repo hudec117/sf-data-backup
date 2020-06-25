@@ -36,7 +36,7 @@ namespace SfDataBackup
         )
         {
             // 1. EXTRACT LINKS
-            logger.LogInformation("Extracting export links from Salesforce");
+            logger.LogInformation("Extracting export links from Salesforce...");
 
             var exportDownloadLinks = await service.GetExportDownloadLinksAsync();
             if (exportDownloadLinks.Count == 0)

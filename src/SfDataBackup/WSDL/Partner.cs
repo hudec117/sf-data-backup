@@ -2447,160 +2447,261 @@ namespace SfDataBackup.WSDL
     public interface Soap
     {
         
+        // CODEGEN: Generating message contract since message loginRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.LoginFault), Action="", Name="LoginFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidIdFault), Action="", Name="InvalidIdFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.loginResponse login(SfDataBackup.WSDL.loginRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.loginResponse> loginAsync(SfDataBackup.WSDL.loginRequest request);
         
+        // CODEGEN: Generating message contract since message describeSObjectRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeSObjectResponse describeSObject(SfDataBackup.WSDL.describeSObjectRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSObjectResponse> describeSObjectAsync(SfDataBackup.WSDL.describeSObjectRequest request);
         
+        // CODEGEN: Generating message contract since message describeSObjectsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeSObjectsResponse describeSObjects(SfDataBackup.WSDL.describeSObjectsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSObjectsResponse> describeSObjectsAsync(SfDataBackup.WSDL.describeSObjectsRequest request);
         
+        // CODEGEN: Generating message contract since message describeGlobalRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeGlobalResponse describeGlobal(SfDataBackup.WSDL.describeGlobalRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeGlobalResponse> describeGlobalAsync(SfDataBackup.WSDL.describeGlobalRequest request);
         
+        // CODEGEN: Generating message contract since message describeDataCategoryGroupsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeDataCategoryGroupsResponse describeDataCategoryGroups(SfDataBackup.WSDL.describeDataCategoryGroupsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeDataCategoryGroupsResponse> describeDataCategoryGroupsAsync(SfDataBackup.WSDL.describeDataCategoryGroupsRequest request);
         
+        // CODEGEN: Generating message contract since message describeDataCategoryGroupStructuresRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeDataCategoryGroupStructuresResponse describeDataCategoryGroupStructures(SfDataBackup.WSDL.describeDataCategoryGroupStructuresRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeDataCategoryGroupStructuresResponse> describeDataCategoryGroupStructuresAsync(SfDataBackup.WSDL.describeDataCategoryGroupStructuresRequest request);
         
+        // CODEGEN: Generating message contract since message describeDataCategoryMappingsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeDataCategoryMappingsResponse describeDataCategoryMappings(SfDataBackup.WSDL.describeDataCategoryMappingsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeDataCategoryMappingsResponse> describeDataCategoryMappingsAsync(SfDataBackup.WSDL.describeDataCategoryMappingsRequest request);
         
+        // CODEGEN: Generating message contract since message describeKnowledgeSettingsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeKnowledgeSettingsResponse describeKnowledgeSettings(SfDataBackup.WSDL.describeKnowledgeSettingsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeKnowledgeSettingsResponse> describeKnowledgeSettingsAsync(SfDataBackup.WSDL.describeKnowledgeSettingsRequest request);
         
+        // CODEGEN: Generating message contract since message describeAppMenuRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeAppMenuResponse describeAppMenu(SfDataBackup.WSDL.describeAppMenuRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeAppMenuResponse> describeAppMenuAsync(SfDataBackup.WSDL.describeAppMenuRequest request);
         
+        // CODEGEN: Generating message contract since message describeGlobalThemeRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeGlobalThemeResponse describeGlobalTheme(SfDataBackup.WSDL.describeGlobalThemeRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeGlobalThemeResponse> describeGlobalThemeAsync(SfDataBackup.WSDL.describeGlobalThemeRequest request);
         
+        // CODEGEN: Generating message contract since message describeThemeRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeThemeResponse describeTheme(SfDataBackup.WSDL.describeThemeRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeThemeResponse> describeThemeAsync(SfDataBackup.WSDL.describeThemeRequest request);
         
+        // CODEGEN: Generating message contract since message describeLayoutRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidIdFault), Action="", Name="InvalidIdFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeLayoutResponse describeLayout(SfDataBackup.WSDL.describeLayoutRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeLayoutResponse> describeLayoutAsync(SfDataBackup.WSDL.describeLayoutRequest request);
         
+        // CODEGEN: Generating message contract since message describeSoftphoneLayoutRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeSoftphoneLayoutResponse describeSoftphoneLayout(SfDataBackup.WSDL.describeSoftphoneLayoutRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSoftphoneLayoutResponse> describeSoftphoneLayoutAsync(SfDataBackup.WSDL.describeSoftphoneLayoutRequest request);
         
+        // CODEGEN: Generating message contract since message describeSearchLayoutsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeSearchLayoutsResponse describeSearchLayouts(SfDataBackup.WSDL.describeSearchLayoutsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSearchLayoutsResponse> describeSearchLayoutsAsync(SfDataBackup.WSDL.describeSearchLayoutsRequest request);
         
+        // CODEGEN: Generating message contract since message describeSearchableEntitiesRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeSearchableEntitiesResponse describeSearchableEntities(SfDataBackup.WSDL.describeSearchableEntitiesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSearchableEntitiesResponse> describeSearchableEntitiesAsync(SfDataBackup.WSDL.describeSearchableEntitiesRequest request);
         
+        // CODEGEN: Generating message contract since message describeSearchScopeOrderRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeSearchScopeOrderResponse describeSearchScopeOrder(SfDataBackup.WSDL.describeSearchScopeOrderRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSearchScopeOrderResponse> describeSearchScopeOrderAsync(SfDataBackup.WSDL.describeSearchScopeOrderRequest request);
         
+        // CODEGEN: Generating message contract since message describeCompactLayoutsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeCompactLayoutsResponse describeCompactLayouts(SfDataBackup.WSDL.describeCompactLayoutsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeCompactLayoutsResponse> describeCompactLayoutsAsync(SfDataBackup.WSDL.describeCompactLayoutsRequest request);
         
+        // CODEGEN: Generating message contract since message describePathAssistantsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describePathAssistantsResponse describePathAssistants(SfDataBackup.WSDL.describePathAssistantsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describePathAssistantsResponse> describePathAssistantsAsync(SfDataBackup.WSDL.describePathAssistantsRequest request);
         
+        // CODEGEN: Generating message contract since message describeApprovalLayoutRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeApprovalLayoutResponse describeApprovalLayout(SfDataBackup.WSDL.describeApprovalLayoutRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeApprovalLayoutResponse> describeApprovalLayoutAsync(SfDataBackup.WSDL.describeApprovalLayoutRequest request);
         
+        // CODEGEN: Generating message contract since message describeSoqlListViewsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeSoqlListViewsResponse describeSoqlListViews(SfDataBackup.WSDL.describeSoqlListViewsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSoqlListViewsResponse> describeSoqlListViewsAsync(SfDataBackup.WSDL.describeSoqlListViewsRequest request);
         
+        // CODEGEN: Generating message contract since message executeListViewRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.executeListViewResponse executeListView(SfDataBackup.WSDL.executeListViewRequest1 request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.executeListViewResponse> executeListViewAsync(SfDataBackup.WSDL.executeListViewRequest1 request);
         
+        // CODEGEN: Generating message contract since message describeSObjectListViewsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeSObjectListViewsResponse describeSObjectListViews(SfDataBackup.WSDL.describeSObjectListViewsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSObjectListViewsResponse> describeSObjectListViewsAsync(SfDataBackup.WSDL.describeSObjectListViewsRequest request);
         
+        // CODEGEN: Generating message contract since message describeTabsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeTabsResponse describeTabs(SfDataBackup.WSDL.describeTabsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeTabsResponse> describeTabsAsync(SfDataBackup.WSDL.describeTabsRequest request);
         
+        // CODEGEN: Generating message contract since message describeAllTabsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeAllTabsResponse describeAllTabs(SfDataBackup.WSDL.describeAllTabsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeAllTabsResponse> describeAllTabsAsync(SfDataBackup.WSDL.describeAllTabsRequest request);
         
+        // CODEGEN: Generating message contract since message describePrimaryCompactLayoutsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describePrimaryCompactLayoutsResponse describePrimaryCompactLayouts(SfDataBackup.WSDL.describePrimaryCompactLayoutsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describePrimaryCompactLayoutsResponse> describePrimaryCompactLayoutsAsync(SfDataBackup.WSDL.describePrimaryCompactLayoutsRequest request);
         
+        // CODEGEN: Generating message contract since message createRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2608,8 +2709,12 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.createResponse create(SfDataBackup.WSDL.createRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.createResponse> createAsync(SfDataBackup.WSDL.createRequest request);
         
+        // CODEGEN: Generating message contract since message updateRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2617,8 +2722,12 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.updateResponse update(SfDataBackup.WSDL.updateRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.updateResponse> updateAsync(SfDataBackup.WSDL.updateRequest request);
         
+        // CODEGEN: Generating message contract since message upsertRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2626,8 +2735,12 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.upsertResponse upsert(SfDataBackup.WSDL.upsertRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.upsertResponse> upsertAsync(SfDataBackup.WSDL.upsertRequest request);
         
+        // CODEGEN: Generating message contract since message mergeRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2635,26 +2748,42 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.mergeResponse merge(SfDataBackup.WSDL.mergeRequest1 request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.mergeResponse> mergeAsync(SfDataBackup.WSDL.mergeRequest1 request);
         
+        // CODEGEN: Generating message contract since message deleteRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.deleteResponse delete(SfDataBackup.WSDL.deleteRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.deleteResponse> deleteAsync(SfDataBackup.WSDL.deleteRequest request);
         
+        // CODEGEN: Generating message contract since message undeleteRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.undeleteResponse undelete(SfDataBackup.WSDL.undeleteRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.undeleteResponse> undeleteAsync(SfDataBackup.WSDL.undeleteRequest request);
         
+        // CODEGEN: Generating message contract since message emptyRecycleBinRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.emptyRecycleBinResponse emptyRecycleBin(SfDataBackup.WSDL.emptyRecycleBinRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.emptyRecycleBinResponse> emptyRecycleBinAsync(SfDataBackup.WSDL.emptyRecycleBinRequest request);
         
+        // CODEGEN: Generating message contract since message retrieveRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2663,47 +2792,75 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidIdFault), Action="", Name="InvalidIdFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.retrieveResponse retrieve(SfDataBackup.WSDL.retrieveRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.retrieveResponse> retrieveAsync(SfDataBackup.WSDL.retrieveRequest request);
         
+        // CODEGEN: Generating message contract since message processRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidIdFault), Action="", Name="InvalidIdFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.processResponse process(SfDataBackup.WSDL.processRequest1 request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.processResponse> processAsync(SfDataBackup.WSDL.processRequest1 request);
         
+        // CODEGEN: Generating message contract since message convertLeadRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.convertLeadResponse convertLead(SfDataBackup.WSDL.convertLeadRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.convertLeadResponse> convertLeadAsync(SfDataBackup.WSDL.convertLeadRequest request);
         
+        // CODEGEN: Generating message contract since message logoutRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.logoutResponse logout(SfDataBackup.WSDL.logoutRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.logoutResponse> logoutAsync(SfDataBackup.WSDL.logoutRequest request);
         
+        // CODEGEN: Generating message contract since message invalidateSessionsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.invalidateSessionsResponse invalidateSessions(SfDataBackup.WSDL.invalidateSessionsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.invalidateSessionsResponse> invalidateSessionsAsync(SfDataBackup.WSDL.invalidateSessionsRequest request);
         
+        // CODEGEN: Generating message contract since message getDeletedRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.getDeletedResponse getDeleted(SfDataBackup.WSDL.getDeletedRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.getDeletedResponse> getDeletedAsync(SfDataBackup.WSDL.getDeletedRequest request);
         
+        // CODEGEN: Generating message contract since message getUpdatedRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.getUpdatedResponse getUpdated(SfDataBackup.WSDL.getUpdatedRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.getUpdatedResponse> getUpdatedAsync(SfDataBackup.WSDL.getUpdatedRequest request);
         
+        // CODEGEN: Generating message contract since message queryRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2713,8 +2870,12 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidQueryLocatorFault), Action="", Name="InvalidQueryLocatorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.queryResponse query(SfDataBackup.WSDL.queryRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.queryResponse> queryAsync(SfDataBackup.WSDL.queryRequest request);
         
+        // CODEGEN: Generating message contract since message queryAllRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2724,8 +2885,12 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidQueryLocatorFault), Action="", Name="InvalidQueryLocatorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.queryAllResponse queryAll(SfDataBackup.WSDL.queryAllRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.queryAllResponse> queryAllAsync(SfDataBackup.WSDL.queryAllRequest request);
         
+        // CODEGEN: Generating message contract since message queryMoreRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidQueryLocatorFault), Action="", Name="InvalidQueryLocatorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2733,8 +2898,12 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.MalformedQueryFault), Action="", Name="MalformedQueryFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.queryMoreResponse queryMore(SfDataBackup.WSDL.queryMoreRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.queryMoreResponse> queryMoreAsync(SfDataBackup.WSDL.queryMoreRequest request);
         
+        // CODEGEN: Generating message contract since message searchRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
@@ -2742,126 +2911,209 @@ namespace SfDataBackup.WSDL
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.searchResponse search(SfDataBackup.WSDL.searchRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.searchResponse> searchAsync(SfDataBackup.WSDL.searchRequest request);
         
+        // CODEGEN: Generating message contract since message getServerTimestampRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.getServerTimestampResponse getServerTimestamp(SfDataBackup.WSDL.getServerTimestampRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.getServerTimestampResponse> getServerTimestampAsync(SfDataBackup.WSDL.getServerTimestampRequest request);
         
+        // CODEGEN: Generating message contract since message setPasswordRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidIdFault), Action="", Name="InvalidIdFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidNewPasswordFault), Action="", Name="InvalidNewPasswordFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.setPasswordResponse setPassword(SfDataBackup.WSDL.setPasswordRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.setPasswordResponse> setPasswordAsync(SfDataBackup.WSDL.setPasswordRequest request);
         
+        // CODEGEN: Generating message contract since message changeOwnPasswordRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidNewPasswordFault), Action="", Name="InvalidNewPasswordFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidOldPasswordFault), Action="", Name="InvalidOldPasswordFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.changeOwnPasswordResponse changeOwnPassword(SfDataBackup.WSDL.changeOwnPasswordRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.changeOwnPasswordResponse> changeOwnPasswordAsync(SfDataBackup.WSDL.changeOwnPasswordRequest request);
         
+        // CODEGEN: Generating message contract since message resetPasswordRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidIdFault), Action="", Name="InvalidIdFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.resetPasswordResponse resetPassword(SfDataBackup.WSDL.resetPasswordRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.resetPasswordResponse> resetPasswordAsync(SfDataBackup.WSDL.resetPasswordRequest request);
         
+        // CODEGEN: Generating message contract since message getUserInfoRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.getUserInfoResponse getUserInfo(SfDataBackup.WSDL.getUserInfoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.getUserInfoResponse> getUserInfoAsync(SfDataBackup.WSDL.getUserInfoRequest request);
         
+        // CODEGEN: Generating message contract since message deleteByExampleRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.deleteByExampleResponse deleteByExample(SfDataBackup.WSDL.deleteByExampleRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.deleteByExampleResponse> deleteByExampleAsync(SfDataBackup.WSDL.deleteByExampleRequest request);
         
+        // CODEGEN: Generating message contract since message sendEmailMessageRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.sendEmailMessageResponse sendEmailMessage(SfDataBackup.WSDL.sendEmailMessageRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.sendEmailMessageResponse> sendEmailMessageAsync(SfDataBackup.WSDL.sendEmailMessageRequest request);
         
+        // CODEGEN: Generating message contract since message sendEmailRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.sendEmailResponse sendEmail(SfDataBackup.WSDL.sendEmailRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.sendEmailResponse> sendEmailAsync(SfDataBackup.WSDL.sendEmailRequest request);
         
+        // CODEGEN: Generating message contract since message renderEmailTemplateRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.renderEmailTemplateResponse renderEmailTemplate(SfDataBackup.WSDL.renderEmailTemplateRequest1 request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.renderEmailTemplateResponse> renderEmailTemplateAsync(SfDataBackup.WSDL.renderEmailTemplateRequest1 request);
         
+        // CODEGEN: Generating message contract since message renderStoredEmailTemplateRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.renderStoredEmailTemplateResponse renderStoredEmailTemplate(SfDataBackup.WSDL.renderStoredEmailTemplateRequest1 request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.renderStoredEmailTemplateResponse> renderStoredEmailTemplateAsync(SfDataBackup.WSDL.renderStoredEmailTemplateRequest1 request);
         
+        // CODEGEN: Generating message contract since message performQuickActionsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.performQuickActionsResponse performQuickActions(SfDataBackup.WSDL.performQuickActionsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.performQuickActionsResponse> performQuickActionsAsync(SfDataBackup.WSDL.performQuickActionsRequest request);
         
+        // CODEGEN: Generating message contract since message describeQuickActionsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeQuickActionsResponse describeQuickActions(SfDataBackup.WSDL.describeQuickActionsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeQuickActionsResponse> describeQuickActionsAsync(SfDataBackup.WSDL.describeQuickActionsRequest request);
         
+        // CODEGEN: Generating message contract since message describeQuickActionsForRecordTypeRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeQuickActionsForRecordTypeResponse describeQuickActionsForRecordType(SfDataBackup.WSDL.describeQuickActionsForRecordTypeRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeQuickActionsForRecordTypeResponse> describeQuickActionsForRecordTypeAsync(SfDataBackup.WSDL.describeQuickActionsForRecordTypeRequest request);
         
+        // CODEGEN: Generating message contract since message describeAvailableQuickActionsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeAvailableQuickActionsResponse describeAvailableQuickActions(SfDataBackup.WSDL.describeAvailableQuickActionsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeAvailableQuickActionsResponse> describeAvailableQuickActionsAsync(SfDataBackup.WSDL.describeAvailableQuickActionsRequest request);
         
+        // CODEGEN: Generating message contract since message retrieveQuickActionTemplatesRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.retrieveQuickActionTemplatesResponse retrieveQuickActionTemplates(SfDataBackup.WSDL.retrieveQuickActionTemplatesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.retrieveQuickActionTemplatesResponse> retrieveQuickActionTemplatesAsync(SfDataBackup.WSDL.retrieveQuickActionTemplatesRequest request);
         
+        // CODEGEN: Generating message contract since message retrieveMassQuickActionTemplatesRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.retrieveMassQuickActionTemplatesResponse retrieveMassQuickActionTemplates(SfDataBackup.WSDL.retrieveMassQuickActionTemplatesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.retrieveMassQuickActionTemplatesResponse> retrieveMassQuickActionTemplatesAsync(SfDataBackup.WSDL.retrieveMassQuickActionTemplatesRequest request);
         
+        // CODEGEN: Generating message contract since message describeVisualForceRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeVisualForceResponse describeVisualForce(SfDataBackup.WSDL.describeVisualForceRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeVisualForceResponse> describeVisualForceAsync(SfDataBackup.WSDL.describeVisualForceRequest request);
         
+        // CODEGEN: Generating message contract since message findDuplicatesRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidSObjectFault), Action="", Name="InvalidSObjectFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidFieldFault), Action="", Name="InvalidFieldFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.findDuplicatesResponse findDuplicates(SfDataBackup.WSDL.findDuplicatesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.findDuplicatesResponse> findDuplicatesAsync(SfDataBackup.WSDL.findDuplicatesRequest request);
         
+        // CODEGEN: Generating message contract since message findDuplicatesByIdsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.InvalidIdFault), Action="", Name="InvalidIdFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.FaultContractAttribute(typeof(SfDataBackup.WSDL.UnexpectedErrorFault), Action="", Name="UnexpectedErrorFault", Namespace="urn:fault.partner.soap.sforce.com")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.findDuplicatesByIdsResponse findDuplicatesByIds(SfDataBackup.WSDL.findDuplicatesByIdsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.findDuplicatesByIdsResponse> findDuplicatesByIdsAsync(SfDataBackup.WSDL.findDuplicatesByIdsRequest request);
         
+        // CODEGEN: Generating message contract since message describeNounsRequest has headers
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ApiFault))]
+        SfDataBackup.WSDL.describeNounsResponse describeNouns(SfDataBackup.WSDL.describeNounsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeNounsResponse> describeNounsAsync(SfDataBackup.WSDL.describeNounsRequest request);
     }
     
@@ -23527,6 +23779,23 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.loginResponse SfDataBackup.WSDL.Soap.login(SfDataBackup.WSDL.loginRequest request)
+        {
+            return base.Channel.login(request);
+        }
+        
+        public SfDataBackup.WSDL.LoginResult login(SfDataBackup.WSDL.LoginScopeHeader LoginScopeHeader, SfDataBackup.WSDL.CallOptions CallOptions, string username, string password)
+        {
+            SfDataBackup.WSDL.loginRequest inValue = new SfDataBackup.WSDL.loginRequest();
+            inValue.LoginScopeHeader = LoginScopeHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.username = username;
+            inValue.password = password;
+            SfDataBackup.WSDL.loginResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).login(inValue);
+            return retVal.result;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.loginResponse> SfDataBackup.WSDL.Soap.loginAsync(SfDataBackup.WSDL.loginRequest request)
         {
             return base.Channel.loginAsync(request);
@@ -23540,6 +23809,25 @@ namespace SfDataBackup.WSDL
             inValue.username = username;
             inValue.password = password;
             return ((SfDataBackup.WSDL.Soap)(this)).loginAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeSObjectResponse SfDataBackup.WSDL.Soap.describeSObject(SfDataBackup.WSDL.describeSObjectRequest request)
+        {
+            return base.Channel.describeSObject(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeSObject(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string sObjectType, out SfDataBackup.WSDL.DescribeSObjectResult result)
+        {
+            SfDataBackup.WSDL.describeSObjectRequest inValue = new SfDataBackup.WSDL.describeSObjectRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.sObjectType = sObjectType;
+            SfDataBackup.WSDL.describeSObjectResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeSObject(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23560,6 +23848,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeSObjectsResponse SfDataBackup.WSDL.Soap.describeSObjects(SfDataBackup.WSDL.describeSObjectsRequest request)
+        {
+            return base.Channel.describeSObjects(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeSObjects(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string[] sObjectType, out SfDataBackup.WSDL.DescribeSObjectResult[] result)
+        {
+            SfDataBackup.WSDL.describeSObjectsRequest inValue = new SfDataBackup.WSDL.describeSObjectsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.sObjectType = sObjectType;
+            SfDataBackup.WSDL.describeSObjectsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeSObjects(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSObjectsResponse> SfDataBackup.WSDL.Soap.describeSObjectsAsync(SfDataBackup.WSDL.describeSObjectsRequest request)
         {
             return base.Channel.describeSObjectsAsync(request);
@@ -23574,6 +23881,23 @@ namespace SfDataBackup.WSDL
             inValue.LocaleOptions = LocaleOptions;
             inValue.sObjectType = sObjectType;
             return ((SfDataBackup.WSDL.Soap)(this)).describeSObjectsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeGlobalResponse SfDataBackup.WSDL.Soap.describeGlobal(SfDataBackup.WSDL.describeGlobalRequest request)
+        {
+            return base.Channel.describeGlobal(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeGlobal(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, out SfDataBackup.WSDL.DescribeGlobalResult result)
+        {
+            SfDataBackup.WSDL.describeGlobalRequest inValue = new SfDataBackup.WSDL.describeGlobalRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            SfDataBackup.WSDL.describeGlobalResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeGlobal(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23592,6 +23916,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeDataCategoryGroupsResponse SfDataBackup.WSDL.Soap.describeDataCategoryGroups(SfDataBackup.WSDL.describeDataCategoryGroupsRequest request)
+        {
+            return base.Channel.describeDataCategoryGroups(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeDataCategoryGroups(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string[] sObjectType, out SfDataBackup.WSDL.DescribeDataCategoryGroupResult[] result)
+        {
+            SfDataBackup.WSDL.describeDataCategoryGroupsRequest inValue = new SfDataBackup.WSDL.describeDataCategoryGroupsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.sObjectType = sObjectType;
+            SfDataBackup.WSDL.describeDataCategoryGroupsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeDataCategoryGroups(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeDataCategoryGroupsResponse> SfDataBackup.WSDL.Soap.describeDataCategoryGroupsAsync(SfDataBackup.WSDL.describeDataCategoryGroupsRequest request)
         {
             return base.Channel.describeDataCategoryGroupsAsync(request);
@@ -23606,6 +23949,26 @@ namespace SfDataBackup.WSDL
             inValue.LocaleOptions = LocaleOptions;
             inValue.sObjectType = sObjectType;
             return ((SfDataBackup.WSDL.Soap)(this)).describeDataCategoryGroupsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeDataCategoryGroupStructuresResponse SfDataBackup.WSDL.Soap.describeDataCategoryGroupStructures(SfDataBackup.WSDL.describeDataCategoryGroupStructuresRequest request)
+        {
+            return base.Channel.describeDataCategoryGroupStructures(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeDataCategoryGroupStructures(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, SfDataBackup.WSDL.DataCategoryGroupSobjectTypePair[] pairs, bool topCategoriesOnly, out SfDataBackup.WSDL.DescribeDataCategoryGroupStructureResult[] result)
+        {
+            SfDataBackup.WSDL.describeDataCategoryGroupStructuresRequest inValue = new SfDataBackup.WSDL.describeDataCategoryGroupStructuresRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.pairs = pairs;
+            inValue.topCategoriesOnly = topCategoriesOnly;
+            SfDataBackup.WSDL.describeDataCategoryGroupStructuresResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeDataCategoryGroupStructures(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23627,6 +23990,24 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeDataCategoryMappingsResponse SfDataBackup.WSDL.Soap.describeDataCategoryMappings(SfDataBackup.WSDL.describeDataCategoryMappingsRequest request)
+        {
+            return base.Channel.describeDataCategoryMappings(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeDataCategoryMappings(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, out SfDataBackup.WSDL.DescribeDataCategoryMappingResult[] result)
+        {
+            SfDataBackup.WSDL.describeDataCategoryMappingsRequest inValue = new SfDataBackup.WSDL.describeDataCategoryMappingsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            SfDataBackup.WSDL.describeDataCategoryMappingsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeDataCategoryMappings(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeDataCategoryMappingsResponse> SfDataBackup.WSDL.Soap.describeDataCategoryMappingsAsync(SfDataBackup.WSDL.describeDataCategoryMappingsRequest request)
         {
             return base.Channel.describeDataCategoryMappingsAsync(request);
@@ -23643,6 +24024,24 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeKnowledgeSettingsResponse SfDataBackup.WSDL.Soap.describeKnowledgeSettings(SfDataBackup.WSDL.describeKnowledgeSettingsRequest request)
+        {
+            return base.Channel.describeKnowledgeSettings(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeKnowledgeSettings(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, out SfDataBackup.WSDL.KnowledgeSettings result)
+        {
+            SfDataBackup.WSDL.describeKnowledgeSettingsRequest inValue = new SfDataBackup.WSDL.describeKnowledgeSettingsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            SfDataBackup.WSDL.describeKnowledgeSettingsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeKnowledgeSettings(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeKnowledgeSettingsResponse> SfDataBackup.WSDL.Soap.describeKnowledgeSettingsAsync(SfDataBackup.WSDL.describeKnowledgeSettingsRequest request)
         {
             return base.Channel.describeKnowledgeSettingsAsync(request);
@@ -23656,6 +24055,25 @@ namespace SfDataBackup.WSDL
             inValue.PackageVersionHeader = PackageVersionHeader;
             inValue.LocaleOptions = LocaleOptions;
             return ((SfDataBackup.WSDL.Soap)(this)).describeKnowledgeSettingsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeAppMenuResponse SfDataBackup.WSDL.Soap.describeAppMenu(SfDataBackup.WSDL.describeAppMenuRequest request)
+        {
+            return base.Channel.describeAppMenu(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeAppMenu(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.AppMenuType appMenuType, string networkId, out SfDataBackup.WSDL.DescribeAppMenuItem[] result)
+        {
+            SfDataBackup.WSDL.describeAppMenuRequest inValue = new SfDataBackup.WSDL.describeAppMenuRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.appMenuType = appMenuType;
+            inValue.networkId = networkId;
+            SfDataBackup.WSDL.describeAppMenuResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeAppMenu(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23676,6 +24094,23 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeGlobalThemeResponse SfDataBackup.WSDL.Soap.describeGlobalTheme(SfDataBackup.WSDL.describeGlobalThemeRequest request)
+        {
+            return base.Channel.describeGlobalTheme(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeGlobalTheme(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, out SfDataBackup.WSDL.DescribeGlobalTheme result)
+        {
+            SfDataBackup.WSDL.describeGlobalThemeRequest inValue = new SfDataBackup.WSDL.describeGlobalThemeRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            SfDataBackup.WSDL.describeGlobalThemeResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeGlobalTheme(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeGlobalThemeResponse> SfDataBackup.WSDL.Soap.describeGlobalThemeAsync(SfDataBackup.WSDL.describeGlobalThemeRequest request)
         {
             return base.Channel.describeGlobalThemeAsync(request);
@@ -23688,6 +24123,24 @@ namespace SfDataBackup.WSDL
             inValue.CallOptions = CallOptions;
             inValue.PackageVersionHeader = PackageVersionHeader;
             return ((SfDataBackup.WSDL.Soap)(this)).describeGlobalThemeAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeThemeResponse SfDataBackup.WSDL.Soap.describeTheme(SfDataBackup.WSDL.describeThemeRequest request)
+        {
+            return base.Channel.describeTheme(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeTheme(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string[] sobjectType, out SfDataBackup.WSDL.DescribeThemeItem[] result)
+        {
+            SfDataBackup.WSDL.describeThemeRequest inValue = new SfDataBackup.WSDL.describeThemeRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.sobjectType = sobjectType;
+            SfDataBackup.WSDL.describeThemeResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeTheme(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23704,6 +24157,26 @@ namespace SfDataBackup.WSDL
             inValue.PackageVersionHeader = PackageVersionHeader;
             inValue.sobjectType = sobjectType;
             return ((SfDataBackup.WSDL.Soap)(this)).describeThemeAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeLayoutResponse SfDataBackup.WSDL.Soap.describeLayout(SfDataBackup.WSDL.describeLayoutRequest request)
+        {
+            return base.Channel.describeLayout(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeLayout(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string sObjectType, string layoutName, string[] recordTypeIds, out SfDataBackup.WSDL.DescribeLayoutResult result)
+        {
+            SfDataBackup.WSDL.describeLayoutRequest inValue = new SfDataBackup.WSDL.describeLayoutRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.sObjectType = sObjectType;
+            inValue.layoutName = layoutName;
+            inValue.recordTypeIds = recordTypeIds;
+            SfDataBackup.WSDL.describeLayoutResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeLayout(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23725,6 +24198,23 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeSoftphoneLayoutResponse SfDataBackup.WSDL.Soap.describeSoftphoneLayout(SfDataBackup.WSDL.describeSoftphoneLayoutRequest request)
+        {
+            return base.Channel.describeSoftphoneLayout(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeSoftphoneLayout(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, out SfDataBackup.WSDL.DescribeSoftphoneLayoutResult result)
+        {
+            SfDataBackup.WSDL.describeSoftphoneLayoutRequest inValue = new SfDataBackup.WSDL.describeSoftphoneLayoutRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            SfDataBackup.WSDL.describeSoftphoneLayoutResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeSoftphoneLayout(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSoftphoneLayoutResponse> SfDataBackup.WSDL.Soap.describeSoftphoneLayoutAsync(SfDataBackup.WSDL.describeSoftphoneLayoutRequest request)
         {
             return base.Channel.describeSoftphoneLayoutAsync(request);
@@ -23737,6 +24227,24 @@ namespace SfDataBackup.WSDL
             inValue.CallOptions = CallOptions;
             inValue.PackageVersionHeader = PackageVersionHeader;
             return ((SfDataBackup.WSDL.Soap)(this)).describeSoftphoneLayoutAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeSearchLayoutsResponse SfDataBackup.WSDL.Soap.describeSearchLayouts(SfDataBackup.WSDL.describeSearchLayoutsRequest request)
+        {
+            return base.Channel.describeSearchLayouts(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeSearchLayouts(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string[] sObjectType, out SfDataBackup.WSDL.DescribeSearchLayoutResult[] result)
+        {
+            SfDataBackup.WSDL.describeSearchLayoutsRequest inValue = new SfDataBackup.WSDL.describeSearchLayoutsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.sObjectType = sObjectType;
+            SfDataBackup.WSDL.describeSearchLayoutsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeSearchLayouts(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23756,6 +24264,24 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeSearchableEntitiesResponse SfDataBackup.WSDL.Soap.describeSearchableEntities(SfDataBackup.WSDL.describeSearchableEntitiesRequest request)
+        {
+            return base.Channel.describeSearchableEntities(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeSearchableEntities(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, bool includeOnlyEntitiesWithTabs, out SfDataBackup.WSDL.DescribeSearchableEntityResult[] result)
+        {
+            SfDataBackup.WSDL.describeSearchableEntitiesRequest inValue = new SfDataBackup.WSDL.describeSearchableEntitiesRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.includeOnlyEntitiesWithTabs = includeOnlyEntitiesWithTabs;
+            SfDataBackup.WSDL.describeSearchableEntitiesResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeSearchableEntities(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeSearchableEntitiesResponse> SfDataBackup.WSDL.Soap.describeSearchableEntitiesAsync(SfDataBackup.WSDL.describeSearchableEntitiesRequest request)
         {
             return base.Channel.describeSearchableEntitiesAsync(request);
@@ -23769,6 +24295,24 @@ namespace SfDataBackup.WSDL
             inValue.PackageVersionHeader = PackageVersionHeader;
             inValue.includeOnlyEntitiesWithTabs = includeOnlyEntitiesWithTabs;
             return ((SfDataBackup.WSDL.Soap)(this)).describeSearchableEntitiesAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeSearchScopeOrderResponse SfDataBackup.WSDL.Soap.describeSearchScopeOrder(SfDataBackup.WSDL.describeSearchScopeOrderRequest request)
+        {
+            return base.Channel.describeSearchScopeOrder(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeSearchScopeOrder(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, bool includeRealTimeEntities, out SfDataBackup.WSDL.DescribeSearchScopeOrderResult[] result)
+        {
+            SfDataBackup.WSDL.describeSearchScopeOrderRequest inValue = new SfDataBackup.WSDL.describeSearchScopeOrderRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.includeRealTimeEntities = includeRealTimeEntities;
+            SfDataBackup.WSDL.describeSearchScopeOrderResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeSearchScopeOrder(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23788,6 +24332,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeCompactLayoutsResponse SfDataBackup.WSDL.Soap.describeCompactLayouts(SfDataBackup.WSDL.describeCompactLayoutsRequest request)
+        {
+            return base.Channel.describeCompactLayouts(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeCompactLayouts(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string sObjectType, string[] recordTypeIds, out SfDataBackup.WSDL.DescribeCompactLayoutsResult result)
+        {
+            SfDataBackup.WSDL.describeCompactLayoutsRequest inValue = new SfDataBackup.WSDL.describeCompactLayoutsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.sObjectType = sObjectType;
+            inValue.recordTypeIds = recordTypeIds;
+            SfDataBackup.WSDL.describeCompactLayoutsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeCompactLayouts(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeCompactLayoutsResponse> SfDataBackup.WSDL.Soap.describeCompactLayoutsAsync(SfDataBackup.WSDL.describeCompactLayoutsRequest request)
         {
             return base.Channel.describeCompactLayoutsAsync(request);
@@ -23802,6 +24365,26 @@ namespace SfDataBackup.WSDL
             inValue.sObjectType = sObjectType;
             inValue.recordTypeIds = recordTypeIds;
             return ((SfDataBackup.WSDL.Soap)(this)).describeCompactLayoutsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describePathAssistantsResponse SfDataBackup.WSDL.Soap.describePathAssistants(SfDataBackup.WSDL.describePathAssistantsRequest request)
+        {
+            return base.Channel.describePathAssistants(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describePathAssistants(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string sObjectType, string picklistValue, string[] recordTypeIds, out SfDataBackup.WSDL.DescribePathAssistant[] result)
+        {
+            SfDataBackup.WSDL.describePathAssistantsRequest inValue = new SfDataBackup.WSDL.describePathAssistantsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.sObjectType = sObjectType;
+            inValue.picklistValue = picklistValue;
+            inValue.recordTypeIds = recordTypeIds;
+            SfDataBackup.WSDL.describePathAssistantsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describePathAssistants(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23823,6 +24406,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeApprovalLayoutResponse SfDataBackup.WSDL.Soap.describeApprovalLayout(SfDataBackup.WSDL.describeApprovalLayoutRequest request)
+        {
+            return base.Channel.describeApprovalLayout(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeApprovalLayout(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string sObjectType, string[] approvalProcessNames, out SfDataBackup.WSDL.DescribeApprovalLayout[] result)
+        {
+            SfDataBackup.WSDL.describeApprovalLayoutRequest inValue = new SfDataBackup.WSDL.describeApprovalLayoutRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.sObjectType = sObjectType;
+            inValue.approvalProcessNames = approvalProcessNames;
+            SfDataBackup.WSDL.describeApprovalLayoutResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeApprovalLayout(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeApprovalLayoutResponse> SfDataBackup.WSDL.Soap.describeApprovalLayoutAsync(SfDataBackup.WSDL.describeApprovalLayoutRequest request)
         {
             return base.Channel.describeApprovalLayoutAsync(request);
@@ -23837,6 +24439,24 @@ namespace SfDataBackup.WSDL
             inValue.sObjectType = sObjectType;
             inValue.approvalProcessNames = approvalProcessNames;
             return ((SfDataBackup.WSDL.Soap)(this)).describeApprovalLayoutAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeSoqlListViewsResponse SfDataBackup.WSDL.Soap.describeSoqlListViews(SfDataBackup.WSDL.describeSoqlListViewsRequest request)
+        {
+            return base.Channel.describeSoqlListViews(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeSoqlListViews(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.DescribeSoqlListViewParams[] request, out SfDataBackup.WSDL.DescribeSoqlListView[] result)
+        {
+            SfDataBackup.WSDL.describeSoqlListViewsRequest inValue = new SfDataBackup.WSDL.describeSoqlListViewsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.request = request;
+            SfDataBackup.WSDL.describeSoqlListViewsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeSoqlListViews(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23856,6 +24476,24 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.executeListViewResponse SfDataBackup.WSDL.Soap.executeListView(SfDataBackup.WSDL.executeListViewRequest1 request)
+        {
+            return base.Channel.executeListView(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] executeListView(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.MruHeader MruHeader, SfDataBackup.WSDL.ExecuteListViewRequest request, out SfDataBackup.WSDL.ExecuteListViewResult result)
+        {
+            SfDataBackup.WSDL.executeListViewRequest1 inValue = new SfDataBackup.WSDL.executeListViewRequest1();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.MruHeader = MruHeader;
+            inValue.request = request;
+            SfDataBackup.WSDL.executeListViewResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).executeListView(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.executeListViewResponse> SfDataBackup.WSDL.Soap.executeListViewAsync(SfDataBackup.WSDL.executeListViewRequest1 request)
         {
             return base.Channel.executeListViewAsync(request);
@@ -23869,6 +24507,28 @@ namespace SfDataBackup.WSDL
             inValue.MruHeader = MruHeader;
             inValue.request = request;
             return ((SfDataBackup.WSDL.Soap)(this)).executeListViewAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeSObjectListViewsResponse SfDataBackup.WSDL.Soap.describeSObjectListViews(SfDataBackup.WSDL.describeSObjectListViewsRequest request)
+        {
+            return base.Channel.describeSObjectListViews(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeSObjectListViews(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string sObjectType, bool recentsOnly, SfDataBackup.WSDL.listViewIsSoqlCompatible isSoqlCompatible, int limit, int offset, out SfDataBackup.WSDL.DescribeSoqlListView[] result)
+        {
+            SfDataBackup.WSDL.describeSObjectListViewsRequest inValue = new SfDataBackup.WSDL.describeSObjectListViewsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.sObjectType = sObjectType;
+            inValue.recentsOnly = recentsOnly;
+            inValue.isSoqlCompatible = isSoqlCompatible;
+            inValue.limit = limit;
+            inValue.offset = offset;
+            SfDataBackup.WSDL.describeSObjectListViewsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeSObjectListViews(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23892,6 +24552,23 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeTabsResponse SfDataBackup.WSDL.Soap.describeTabs(SfDataBackup.WSDL.describeTabsRequest request)
+        {
+            return base.Channel.describeTabs(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeTabs(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, out SfDataBackup.WSDL.DescribeTabSetResult[] result)
+        {
+            SfDataBackup.WSDL.describeTabsRequest inValue = new SfDataBackup.WSDL.describeTabsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            SfDataBackup.WSDL.describeTabsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeTabs(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeTabsResponse> SfDataBackup.WSDL.Soap.describeTabsAsync(SfDataBackup.WSDL.describeTabsRequest request)
         {
             return base.Channel.describeTabsAsync(request);
@@ -23904,6 +24581,23 @@ namespace SfDataBackup.WSDL
             inValue.CallOptions = CallOptions;
             inValue.PackageVersionHeader = PackageVersionHeader;
             return ((SfDataBackup.WSDL.Soap)(this)).describeTabsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeAllTabsResponse SfDataBackup.WSDL.Soap.describeAllTabs(SfDataBackup.WSDL.describeAllTabsRequest request)
+        {
+            return base.Channel.describeAllTabs(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeAllTabs(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, out SfDataBackup.WSDL.DescribeTab[] result)
+        {
+            SfDataBackup.WSDL.describeAllTabsRequest inValue = new SfDataBackup.WSDL.describeAllTabsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            SfDataBackup.WSDL.describeAllTabsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeAllTabs(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23922,6 +24616,24 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describePrimaryCompactLayoutsResponse SfDataBackup.WSDL.Soap.describePrimaryCompactLayouts(SfDataBackup.WSDL.describePrimaryCompactLayoutsRequest request)
+        {
+            return base.Channel.describePrimaryCompactLayouts(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describePrimaryCompactLayouts(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string[] sObjectTypes, out SfDataBackup.WSDL.DescribeCompactLayout[] result)
+        {
+            SfDataBackup.WSDL.describePrimaryCompactLayoutsRequest inValue = new SfDataBackup.WSDL.describePrimaryCompactLayoutsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.sObjectTypes = sObjectTypes;
+            SfDataBackup.WSDL.describePrimaryCompactLayoutsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describePrimaryCompactLayouts(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describePrimaryCompactLayoutsResponse> SfDataBackup.WSDL.Soap.describePrimaryCompactLayoutsAsync(SfDataBackup.WSDL.describePrimaryCompactLayoutsRequest request)
         {
             return base.Channel.describePrimaryCompactLayoutsAsync(request);
@@ -23935,6 +24647,51 @@ namespace SfDataBackup.WSDL
             inValue.PackageVersionHeader = PackageVersionHeader;
             inValue.sObjectTypes = sObjectTypes;
             return ((SfDataBackup.WSDL.Soap)(this)).describePrimaryCompactLayoutsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.createResponse SfDataBackup.WSDL.Soap.create(SfDataBackup.WSDL.createRequest request)
+        {
+            return base.Channel.create(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo create(
+                    SfDataBackup.WSDL.SessionHeader SessionHeader, 
+                    SfDataBackup.WSDL.CallOptions CallOptions, 
+                    SfDataBackup.WSDL.AssignmentRuleHeader AssignmentRuleHeader, 
+                    SfDataBackup.WSDL.MruHeader MruHeader, 
+                    SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, 
+                    SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, 
+                    SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, 
+                    SfDataBackup.WSDL.AllOrNoneHeader AllOrNoneHeader, 
+                    SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, 
+                    SfDataBackup.WSDL.LocaleOptions LocaleOptions, 
+                    SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, 
+                    SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, 
+                    SfDataBackup.WSDL.EmailHeader EmailHeader, 
+                    SfDataBackup.WSDL.sObject[] sObjects, 
+                    out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, 
+                    out SfDataBackup.WSDL.SaveResult[] result)
+        {
+            SfDataBackup.WSDL.createRequest inValue = new SfDataBackup.WSDL.createRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.AssignmentRuleHeader = AssignmentRuleHeader;
+            inValue.MruHeader = MruHeader;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.AllOrNoneHeader = AllOrNoneHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.EmailHeader = EmailHeader;
+            inValue.sObjects = sObjects;
+            SfDataBackup.WSDL.createResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).create(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -23964,6 +24721,53 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.updateResponse SfDataBackup.WSDL.Soap.update(SfDataBackup.WSDL.updateRequest request)
+        {
+            return base.Channel.update(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo update(
+                    SfDataBackup.WSDL.SessionHeader SessionHeader, 
+                    SfDataBackup.WSDL.CallOptions CallOptions, 
+                    SfDataBackup.WSDL.AssignmentRuleHeader AssignmentRuleHeader, 
+                    SfDataBackup.WSDL.MruHeader MruHeader, 
+                    SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, 
+                    SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, 
+                    SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, 
+                    SfDataBackup.WSDL.AllOrNoneHeader AllOrNoneHeader, 
+                    SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, 
+                    SfDataBackup.WSDL.LocaleOptions LocaleOptions, 
+                    SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, 
+                    SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, 
+                    SfDataBackup.WSDL.EmailHeader EmailHeader, 
+                    SfDataBackup.WSDL.OwnerChangeOption[] OwnerChangeOptions, 
+                    SfDataBackup.WSDL.sObject[] sObjects, 
+                    out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, 
+                    out SfDataBackup.WSDL.SaveResult[] result)
+        {
+            SfDataBackup.WSDL.updateRequest inValue = new SfDataBackup.WSDL.updateRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.AssignmentRuleHeader = AssignmentRuleHeader;
+            inValue.MruHeader = MruHeader;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.AllOrNoneHeader = AllOrNoneHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.EmailHeader = EmailHeader;
+            inValue.OwnerChangeOptions = OwnerChangeOptions;
+            inValue.sObjects = sObjects;
+            SfDataBackup.WSDL.updateResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).update(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.updateResponse> SfDataBackup.WSDL.Soap.updateAsync(SfDataBackup.WSDL.updateRequest request)
         {
             return base.Channel.updateAsync(request);
@@ -23988,6 +24792,55 @@ namespace SfDataBackup.WSDL
             inValue.OwnerChangeOptions = OwnerChangeOptions;
             inValue.sObjects = sObjects;
             return ((SfDataBackup.WSDL.Soap)(this)).updateAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.upsertResponse SfDataBackup.WSDL.Soap.upsert(SfDataBackup.WSDL.upsertRequest request)
+        {
+            return base.Channel.upsert(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo upsert(
+                    SfDataBackup.WSDL.SessionHeader SessionHeader, 
+                    SfDataBackup.WSDL.CallOptions CallOptions, 
+                    SfDataBackup.WSDL.AssignmentRuleHeader AssignmentRuleHeader, 
+                    SfDataBackup.WSDL.MruHeader MruHeader, 
+                    SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, 
+                    SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, 
+                    SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, 
+                    SfDataBackup.WSDL.AllOrNoneHeader AllOrNoneHeader, 
+                    SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, 
+                    SfDataBackup.WSDL.LocaleOptions LocaleOptions, 
+                    SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, 
+                    SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, 
+                    SfDataBackup.WSDL.EmailHeader EmailHeader, 
+                    SfDataBackup.WSDL.OwnerChangeOption[] OwnerChangeOptions, 
+                    string externalIDFieldName, 
+                    SfDataBackup.WSDL.sObject[] sObjects, 
+                    out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, 
+                    out SfDataBackup.WSDL.UpsertResult[] result)
+        {
+            SfDataBackup.WSDL.upsertRequest inValue = new SfDataBackup.WSDL.upsertRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.AssignmentRuleHeader = AssignmentRuleHeader;
+            inValue.MruHeader = MruHeader;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.AllOrNoneHeader = AllOrNoneHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.EmailHeader = EmailHeader;
+            inValue.OwnerChangeOptions = OwnerChangeOptions;
+            inValue.externalIDFieldName = externalIDFieldName;
+            inValue.sObjects = sObjects;
+            SfDataBackup.WSDL.upsertResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).upsert(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24035,6 +24888,34 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.mergeResponse SfDataBackup.WSDL.Soap.merge(SfDataBackup.WSDL.mergeRequest1 request)
+        {
+            return base.Channel.merge(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo merge(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.AssignmentRuleHeader AssignmentRuleHeader, SfDataBackup.WSDL.MruHeader MruHeader, SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.EmailHeader EmailHeader, SfDataBackup.WSDL.MergeRequest[] request, out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, out SfDataBackup.WSDL.MergeResult[] result)
+        {
+            SfDataBackup.WSDL.mergeRequest1 inValue = new SfDataBackup.WSDL.mergeRequest1();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.AssignmentRuleHeader = AssignmentRuleHeader;
+            inValue.MruHeader = MruHeader;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.EmailHeader = EmailHeader;
+            inValue.request = request;
+            SfDataBackup.WSDL.mergeResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).merge(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.mergeResponse> SfDataBackup.WSDL.Soap.mergeAsync(SfDataBackup.WSDL.mergeRequest1 request)
         {
             return base.Channel.mergeAsync(request);
@@ -24057,6 +24938,34 @@ namespace SfDataBackup.WSDL
             inValue.EmailHeader = EmailHeader;
             inValue.request = request;
             return ((SfDataBackup.WSDL.Soap)(this)).mergeAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.deleteResponse SfDataBackup.WSDL.Soap.delete(SfDataBackup.WSDL.deleteRequest request)
+        {
+            return base.Channel.delete(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo delete(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.UserTerritoryDeleteHeader UserTerritoryDeleteHeader, SfDataBackup.WSDL.EmailHeader EmailHeader, SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, SfDataBackup.WSDL.AllOrNoneHeader AllOrNoneHeader, SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, string[] ids, out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, out SfDataBackup.WSDL.DeleteResult[] result)
+        {
+            SfDataBackup.WSDL.deleteRequest inValue = new SfDataBackup.WSDL.deleteRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.UserTerritoryDeleteHeader = UserTerritoryDeleteHeader;
+            inValue.EmailHeader = EmailHeader;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.AllOrNoneHeader = AllOrNoneHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.ids = ids;
+            SfDataBackup.WSDL.deleteResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).delete(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24085,6 +24994,32 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.undeleteResponse SfDataBackup.WSDL.Soap.undelete(SfDataBackup.WSDL.undeleteRequest request)
+        {
+            return base.Channel.undelete(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo undelete(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, SfDataBackup.WSDL.AllOrNoneHeader AllOrNoneHeader, SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string[] ids, out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, out SfDataBackup.WSDL.UndeleteResult[] result)
+        {
+            SfDataBackup.WSDL.undeleteRequest inValue = new SfDataBackup.WSDL.undeleteRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.AllOrNoneHeader = AllOrNoneHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.ids = ids;
+            SfDataBackup.WSDL.undeleteResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).undelete(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.undeleteResponse> SfDataBackup.WSDL.Soap.undeleteAsync(SfDataBackup.WSDL.undeleteRequest request)
         {
             return base.Channel.undeleteAsync(request);
@@ -24108,6 +25043,23 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.emptyRecycleBinResponse SfDataBackup.WSDL.Soap.emptyRecycleBin(SfDataBackup.WSDL.emptyRecycleBinRequest request)
+        {
+            return base.Channel.emptyRecycleBin(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] emptyRecycleBin(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, string[] ids, out SfDataBackup.WSDL.EmptyRecycleBinResult[] result)
+        {
+            SfDataBackup.WSDL.emptyRecycleBinRequest inValue = new SfDataBackup.WSDL.emptyRecycleBinRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.ids = ids;
+            SfDataBackup.WSDL.emptyRecycleBinResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).emptyRecycleBin(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.emptyRecycleBinResponse> SfDataBackup.WSDL.Soap.emptyRecycleBinAsync(SfDataBackup.WSDL.emptyRecycleBinRequest request)
         {
             return base.Channel.emptyRecycleBinAsync(request);
@@ -24120,6 +25072,28 @@ namespace SfDataBackup.WSDL
             inValue.CallOptions = CallOptions;
             inValue.ids = ids;
             return ((SfDataBackup.WSDL.Soap)(this)).emptyRecycleBinAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.retrieveResponse SfDataBackup.WSDL.Soap.retrieve(SfDataBackup.WSDL.retrieveRequest request)
+        {
+            return base.Channel.retrieve(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] retrieve(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.QueryOptions QueryOptions, SfDataBackup.WSDL.MruHeader MruHeader, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string fieldList, string sObjectType, string[] ids, out SfDataBackup.WSDL.sObject[] result)
+        {
+            SfDataBackup.WSDL.retrieveRequest inValue = new SfDataBackup.WSDL.retrieveRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.QueryOptions = QueryOptions;
+            inValue.MruHeader = MruHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.fieldList = fieldList;
+            inValue.sObjectType = sObjectType;
+            inValue.ids = ids;
+            SfDataBackup.WSDL.retrieveResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).retrieve(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24140,6 +25114,31 @@ namespace SfDataBackup.WSDL
             inValue.sObjectType = sObjectType;
             inValue.ids = ids;
             return ((SfDataBackup.WSDL.Soap)(this)).retrieveAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.processResponse SfDataBackup.WSDL.Soap.process(SfDataBackup.WSDL.processRequest1 request)
+        {
+            return base.Channel.process(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo process(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.ProcessRequest[] actions, out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, out SfDataBackup.WSDL.ProcessResult[] result)
+        {
+            SfDataBackup.WSDL.processRequest1 inValue = new SfDataBackup.WSDL.processRequest1();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.actions = actions;
+            SfDataBackup.WSDL.processResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).process(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24165,6 +25164,31 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.convertLeadResponse SfDataBackup.WSDL.Soap.convertLead(SfDataBackup.WSDL.convertLeadRequest request)
+        {
+            return base.Channel.convertLead(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo convertLead(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LeadConvert[] leadConverts, out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, out SfDataBackup.WSDL.LeadConvertResult[] result)
+        {
+            SfDataBackup.WSDL.convertLeadRequest inValue = new SfDataBackup.WSDL.convertLeadRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.leadConverts = leadConverts;
+            SfDataBackup.WSDL.convertLeadResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).convertLead(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.convertLeadResponse> SfDataBackup.WSDL.Soap.convertLeadAsync(SfDataBackup.WSDL.convertLeadRequest request)
         {
             return base.Channel.convertLeadAsync(request);
@@ -24187,6 +25211,21 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.logoutResponse SfDataBackup.WSDL.Soap.logout(SfDataBackup.WSDL.logoutRequest request)
+        {
+            return base.Channel.logout(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] logout(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions)
+        {
+            SfDataBackup.WSDL.logoutRequest inValue = new SfDataBackup.WSDL.logoutRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            SfDataBackup.WSDL.logoutResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).logout(inValue);
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.logoutResponse> SfDataBackup.WSDL.Soap.logoutAsync(SfDataBackup.WSDL.logoutRequest request)
         {
             return base.Channel.logoutAsync(request);
@@ -24198,6 +25237,23 @@ namespace SfDataBackup.WSDL
             inValue.SessionHeader = SessionHeader;
             inValue.CallOptions = CallOptions;
             return ((SfDataBackup.WSDL.Soap)(this)).logoutAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.invalidateSessionsResponse SfDataBackup.WSDL.Soap.invalidateSessions(SfDataBackup.WSDL.invalidateSessionsRequest request)
+        {
+            return base.Channel.invalidateSessions(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] invalidateSessions(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, string[] sessionIds, out SfDataBackup.WSDL.InvalidateSessionsResult[] result)
+        {
+            SfDataBackup.WSDL.invalidateSessionsRequest inValue = new SfDataBackup.WSDL.invalidateSessionsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.sessionIds = sessionIds;
+            SfDataBackup.WSDL.invalidateSessionsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).invalidateSessions(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24213,6 +25269,25 @@ namespace SfDataBackup.WSDL
             inValue.CallOptions = CallOptions;
             inValue.sessionIds = sessionIds;
             return ((SfDataBackup.WSDL.Soap)(this)).invalidateSessionsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.getDeletedResponse SfDataBackup.WSDL.Soap.getDeleted(SfDataBackup.WSDL.getDeletedRequest request)
+        {
+            return base.Channel.getDeleted(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] getDeleted(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, string sObjectType, System.DateTime startDate, System.DateTime endDate, out SfDataBackup.WSDL.GetDeletedResult result)
+        {
+            SfDataBackup.WSDL.getDeletedRequest inValue = new SfDataBackup.WSDL.getDeletedRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.sObjectType = sObjectType;
+            inValue.startDate = startDate;
+            inValue.endDate = endDate;
+            SfDataBackup.WSDL.getDeletedResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).getDeleted(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24233,6 +25308,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.getUpdatedResponse SfDataBackup.WSDL.Soap.getUpdated(SfDataBackup.WSDL.getUpdatedRequest request)
+        {
+            return base.Channel.getUpdated(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] getUpdated(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, string sObjectType, System.DateTime startDate, System.DateTime endDate, out SfDataBackup.WSDL.GetUpdatedResult result)
+        {
+            SfDataBackup.WSDL.getUpdatedRequest inValue = new SfDataBackup.WSDL.getUpdatedRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.sObjectType = sObjectType;
+            inValue.startDate = startDate;
+            inValue.endDate = endDate;
+            SfDataBackup.WSDL.getUpdatedResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).getUpdated(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.getUpdatedResponse> SfDataBackup.WSDL.Soap.getUpdatedAsync(SfDataBackup.WSDL.getUpdatedRequest request)
         {
             return base.Channel.getUpdatedAsync(request);
@@ -24247,6 +25341,26 @@ namespace SfDataBackup.WSDL
             inValue.startDate = startDate;
             inValue.endDate = endDate;
             return ((SfDataBackup.WSDL.Soap)(this)).getUpdatedAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.queryResponse SfDataBackup.WSDL.Soap.query(SfDataBackup.WSDL.queryRequest request)
+        {
+            return base.Channel.query(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] query(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.QueryOptions QueryOptions, SfDataBackup.WSDL.MruHeader MruHeader, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string queryString, out SfDataBackup.WSDL.QueryResult result)
+        {
+            SfDataBackup.WSDL.queryRequest inValue = new SfDataBackup.WSDL.queryRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.QueryOptions = QueryOptions;
+            inValue.MruHeader = MruHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.queryString = queryString;
+            SfDataBackup.WSDL.queryResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).query(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24268,6 +25382,24 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.queryAllResponse SfDataBackup.WSDL.Soap.queryAll(SfDataBackup.WSDL.queryAllRequest request)
+        {
+            return base.Channel.queryAll(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] queryAll(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.QueryOptions QueryOptions, string queryString, out SfDataBackup.WSDL.QueryResult result)
+        {
+            SfDataBackup.WSDL.queryAllRequest inValue = new SfDataBackup.WSDL.queryAllRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.QueryOptions = QueryOptions;
+            inValue.queryString = queryString;
+            SfDataBackup.WSDL.queryAllResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).queryAll(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.queryAllResponse> SfDataBackup.WSDL.Soap.queryAllAsync(SfDataBackup.WSDL.queryAllRequest request)
         {
             return base.Channel.queryAllAsync(request);
@@ -24281,6 +25413,24 @@ namespace SfDataBackup.WSDL
             inValue.QueryOptions = QueryOptions;
             inValue.queryString = queryString;
             return ((SfDataBackup.WSDL.Soap)(this)).queryAllAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.queryMoreResponse SfDataBackup.WSDL.Soap.queryMore(SfDataBackup.WSDL.queryMoreRequest request)
+        {
+            return base.Channel.queryMore(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] queryMore(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.QueryOptions QueryOptions, string queryLocator, out SfDataBackup.WSDL.QueryResult result)
+        {
+            SfDataBackup.WSDL.queryMoreRequest inValue = new SfDataBackup.WSDL.queryMoreRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.QueryOptions = QueryOptions;
+            inValue.queryLocator = queryLocator;
+            SfDataBackup.WSDL.queryMoreResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).queryMore(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24300,6 +25450,24 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.searchResponse SfDataBackup.WSDL.Soap.search(SfDataBackup.WSDL.searchRequest request)
+        {
+            return base.Channel.search(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] search(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, string searchString, out SfDataBackup.WSDL.SearchResult result)
+        {
+            SfDataBackup.WSDL.searchRequest inValue = new SfDataBackup.WSDL.searchRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.searchString = searchString;
+            SfDataBackup.WSDL.searchResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).search(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.searchResponse> SfDataBackup.WSDL.Soap.searchAsync(SfDataBackup.WSDL.searchRequest request)
         {
             return base.Channel.searchAsync(request);
@@ -24316,6 +25484,22 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.getServerTimestampResponse SfDataBackup.WSDL.Soap.getServerTimestamp(SfDataBackup.WSDL.getServerTimestampRequest request)
+        {
+            return base.Channel.getServerTimestamp(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] getServerTimestamp(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, out SfDataBackup.WSDL.GetServerTimestampResult result)
+        {
+            SfDataBackup.WSDL.getServerTimestampRequest inValue = new SfDataBackup.WSDL.getServerTimestampRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            SfDataBackup.WSDL.getServerTimestampResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).getServerTimestamp(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.getServerTimestampResponse> SfDataBackup.WSDL.Soap.getServerTimestampAsync(SfDataBackup.WSDL.getServerTimestampRequest request)
         {
             return base.Channel.getServerTimestampAsync(request);
@@ -24327,6 +25511,24 @@ namespace SfDataBackup.WSDL
             inValue.SessionHeader = SessionHeader;
             inValue.CallOptions = CallOptions;
             return ((SfDataBackup.WSDL.Soap)(this)).getServerTimestampAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.setPasswordResponse SfDataBackup.WSDL.Soap.setPassword(SfDataBackup.WSDL.setPasswordRequest request)
+        {
+            return base.Channel.setPassword(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] setPassword(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, string userId, string password, out SfDataBackup.WSDL.SetPasswordResult result)
+        {
+            SfDataBackup.WSDL.setPasswordRequest inValue = new SfDataBackup.WSDL.setPasswordRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.userId = userId;
+            inValue.password = password;
+            SfDataBackup.WSDL.setPasswordResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).setPassword(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24346,6 +25548,24 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.changeOwnPasswordResponse SfDataBackup.WSDL.Soap.changeOwnPassword(SfDataBackup.WSDL.changeOwnPasswordRequest request)
+        {
+            return base.Channel.changeOwnPassword(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] changeOwnPassword(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, string oldPassword, string newPassword, out SfDataBackup.WSDL.ChangeOwnPasswordResult result)
+        {
+            SfDataBackup.WSDL.changeOwnPasswordRequest inValue = new SfDataBackup.WSDL.changeOwnPasswordRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.oldPassword = oldPassword;
+            inValue.newPassword = newPassword;
+            SfDataBackup.WSDL.changeOwnPasswordResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).changeOwnPassword(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.changeOwnPasswordResponse> SfDataBackup.WSDL.Soap.changeOwnPasswordAsync(SfDataBackup.WSDL.changeOwnPasswordRequest request)
         {
             return base.Channel.changeOwnPasswordAsync(request);
@@ -24359,6 +25579,24 @@ namespace SfDataBackup.WSDL
             inValue.oldPassword = oldPassword;
             inValue.newPassword = newPassword;
             return ((SfDataBackup.WSDL.Soap)(this)).changeOwnPasswordAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.resetPasswordResponse SfDataBackup.WSDL.Soap.resetPassword(SfDataBackup.WSDL.resetPasswordRequest request)
+        {
+            return base.Channel.resetPassword(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] resetPassword(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.EmailHeader EmailHeader, string userId, out SfDataBackup.WSDL.ResetPasswordResult result)
+        {
+            SfDataBackup.WSDL.resetPasswordRequest inValue = new SfDataBackup.WSDL.resetPasswordRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.EmailHeader = EmailHeader;
+            inValue.userId = userId;
+            SfDataBackup.WSDL.resetPasswordResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).resetPassword(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24378,6 +25616,22 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.getUserInfoResponse SfDataBackup.WSDL.Soap.getUserInfo(SfDataBackup.WSDL.getUserInfoRequest request)
+        {
+            return base.Channel.getUserInfo(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] getUserInfo(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, out SfDataBackup.WSDL.GetUserInfoResult result)
+        {
+            SfDataBackup.WSDL.getUserInfoRequest inValue = new SfDataBackup.WSDL.getUserInfoRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            SfDataBackup.WSDL.getUserInfoResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).getUserInfo(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.getUserInfoResponse> SfDataBackup.WSDL.Soap.getUserInfoAsync(SfDataBackup.WSDL.getUserInfoRequest request)
         {
             return base.Channel.getUserInfoAsync(request);
@@ -24389,6 +25643,34 @@ namespace SfDataBackup.WSDL
             inValue.SessionHeader = SessionHeader;
             inValue.CallOptions = CallOptions;
             return ((SfDataBackup.WSDL.Soap)(this)).getUserInfoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.deleteByExampleResponse SfDataBackup.WSDL.Soap.deleteByExample(SfDataBackup.WSDL.deleteByExampleRequest request)
+        {
+            return base.Channel.deleteByExample(request);
+        }
+        
+        public SfDataBackup.WSDL.DebuggingInfo deleteByExample(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.UserTerritoryDeleteHeader UserTerritoryDeleteHeader, SfDataBackup.WSDL.EmailHeader EmailHeader, SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, SfDataBackup.WSDL.AllOrNoneHeader AllOrNoneHeader, SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, SfDataBackup.WSDL.sObject[] sObjects, out SfDataBackup.WSDL.LimitInfo[] LimitInfoHeader, out SfDataBackup.WSDL.DeleteByExampleResult[] result)
+        {
+            SfDataBackup.WSDL.deleteByExampleRequest inValue = new SfDataBackup.WSDL.deleteByExampleRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.UserTerritoryDeleteHeader = UserTerritoryDeleteHeader;
+            inValue.EmailHeader = EmailHeader;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.AllOrNoneHeader = AllOrNoneHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.sObjects = sObjects;
+            SfDataBackup.WSDL.deleteByExampleResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).deleteByExample(inValue);
+            LimitInfoHeader = retVal.LimitInfoHeader;
+            result = retVal.result;
+            return retVal.DebuggingInfo;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24417,6 +25699,23 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.sendEmailMessageResponse SfDataBackup.WSDL.Soap.sendEmailMessage(SfDataBackup.WSDL.sendEmailMessageRequest request)
+        {
+            return base.Channel.sendEmailMessage(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] sendEmailMessage(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, string[] ids, out SfDataBackup.WSDL.SendEmailResult[] result)
+        {
+            SfDataBackup.WSDL.sendEmailMessageRequest inValue = new SfDataBackup.WSDL.sendEmailMessageRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.ids = ids;
+            SfDataBackup.WSDL.sendEmailMessageResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).sendEmailMessage(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.sendEmailMessageResponse> SfDataBackup.WSDL.Soap.sendEmailMessageAsync(SfDataBackup.WSDL.sendEmailMessageRequest request)
         {
             return base.Channel.sendEmailMessageAsync(request);
@@ -24429,6 +25728,23 @@ namespace SfDataBackup.WSDL
             inValue.CallOptions = CallOptions;
             inValue.ids = ids;
             return ((SfDataBackup.WSDL.Soap)(this)).sendEmailMessageAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.sendEmailResponse SfDataBackup.WSDL.Soap.sendEmail(SfDataBackup.WSDL.sendEmailRequest request)
+        {
+            return base.Channel.sendEmail(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] sendEmail(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.Email[] messages, out SfDataBackup.WSDL.SendEmailResult[] result)
+        {
+            SfDataBackup.WSDL.sendEmailRequest inValue = new SfDataBackup.WSDL.sendEmailRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.messages = messages;
+            SfDataBackup.WSDL.sendEmailResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).sendEmail(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24447,6 +25763,23 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.renderEmailTemplateResponse SfDataBackup.WSDL.Soap.renderEmailTemplate(SfDataBackup.WSDL.renderEmailTemplateRequest1 request)
+        {
+            return base.Channel.renderEmailTemplate(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] renderEmailTemplate(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.RenderEmailTemplateRequest[] renderRequests, out SfDataBackup.WSDL.RenderEmailTemplateResult[] result)
+        {
+            SfDataBackup.WSDL.renderEmailTemplateRequest1 inValue = new SfDataBackup.WSDL.renderEmailTemplateRequest1();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.renderRequests = renderRequests;
+            SfDataBackup.WSDL.renderEmailTemplateResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).renderEmailTemplate(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.renderEmailTemplateResponse> SfDataBackup.WSDL.Soap.renderEmailTemplateAsync(SfDataBackup.WSDL.renderEmailTemplateRequest1 request)
         {
             return base.Channel.renderEmailTemplateAsync(request);
@@ -24462,6 +25795,23 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.renderStoredEmailTemplateResponse SfDataBackup.WSDL.Soap.renderStoredEmailTemplate(SfDataBackup.WSDL.renderStoredEmailTemplateRequest1 request)
+        {
+            return base.Channel.renderStoredEmailTemplate(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] renderStoredEmailTemplate(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.RenderStoredEmailTemplateRequest request, out SfDataBackup.WSDL.RenderStoredEmailTemplateResult result)
+        {
+            SfDataBackup.WSDL.renderStoredEmailTemplateRequest1 inValue = new SfDataBackup.WSDL.renderStoredEmailTemplateRequest1();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.request = request;
+            SfDataBackup.WSDL.renderStoredEmailTemplateResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).renderStoredEmailTemplate(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.renderStoredEmailTemplateResponse> SfDataBackup.WSDL.Soap.renderStoredEmailTemplateAsync(SfDataBackup.WSDL.renderStoredEmailTemplateRequest1 request)
         {
             return base.Channel.renderStoredEmailTemplateAsync(request);
@@ -24474,6 +25824,51 @@ namespace SfDataBackup.WSDL
             inValue.CallOptions = CallOptions;
             inValue.request = request;
             return ((SfDataBackup.WSDL.Soap)(this)).renderStoredEmailTemplateAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.performQuickActionsResponse SfDataBackup.WSDL.Soap.performQuickActions(SfDataBackup.WSDL.performQuickActionsRequest request)
+        {
+            return base.Channel.performQuickActions(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] performQuickActions(
+                    SfDataBackup.WSDL.SessionHeader SessionHeader, 
+                    SfDataBackup.WSDL.CallOptions CallOptions, 
+                    SfDataBackup.WSDL.AssignmentRuleHeader AssignmentRuleHeader, 
+                    SfDataBackup.WSDL.MruHeader MruHeader, 
+                    SfDataBackup.WSDL.AllowFieldTruncationHeader AllowFieldTruncationHeader, 
+                    SfDataBackup.WSDL.DisableFeedTrackingHeader DisableFeedTrackingHeader, 
+                    SfDataBackup.WSDL.StreamingEnabledHeader StreamingEnabledHeader, 
+                    SfDataBackup.WSDL.AllOrNoneHeader AllOrNoneHeader, 
+                    SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, 
+                    SfDataBackup.WSDL.LocaleOptions LocaleOptions, 
+                    SfDataBackup.WSDL.DebuggingHeader DebuggingHeader, 
+                    SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, 
+                    SfDataBackup.WSDL.EmailHeader EmailHeader, 
+                    SfDataBackup.WSDL.OwnerChangeOption[] OwnerChangeOptions, 
+                    SfDataBackup.WSDL.PerformQuickActionRequest[] quickActions, 
+                    out SfDataBackup.WSDL.PerformQuickActionResult[] result)
+        {
+            SfDataBackup.WSDL.performQuickActionsRequest inValue = new SfDataBackup.WSDL.performQuickActionsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.AssignmentRuleHeader = AssignmentRuleHeader;
+            inValue.MruHeader = MruHeader;
+            inValue.AllowFieldTruncationHeader = AllowFieldTruncationHeader;
+            inValue.DisableFeedTrackingHeader = DisableFeedTrackingHeader;
+            inValue.StreamingEnabledHeader = StreamingEnabledHeader;
+            inValue.AllOrNoneHeader = AllOrNoneHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.DebuggingHeader = DebuggingHeader;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.EmailHeader = EmailHeader;
+            inValue.OwnerChangeOptions = OwnerChangeOptions;
+            inValue.quickActions = quickActions;
+            SfDataBackup.WSDL.performQuickActionsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).performQuickActions(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24504,6 +25899,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeQuickActionsResponse SfDataBackup.WSDL.Soap.describeQuickActions(SfDataBackup.WSDL.describeQuickActionsRequest request)
+        {
+            return base.Channel.describeQuickActions(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeQuickActions(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string[] quickActions, out SfDataBackup.WSDL.DescribeQuickActionResult[] result)
+        {
+            SfDataBackup.WSDL.describeQuickActionsRequest inValue = new SfDataBackup.WSDL.describeQuickActionsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.quickActions = quickActions;
+            SfDataBackup.WSDL.describeQuickActionsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeQuickActions(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeQuickActionsResponse> SfDataBackup.WSDL.Soap.describeQuickActionsAsync(SfDataBackup.WSDL.describeQuickActionsRequest request)
         {
             return base.Channel.describeQuickActionsAsync(request);
@@ -24518,6 +25932,26 @@ namespace SfDataBackup.WSDL
             inValue.LocaleOptions = LocaleOptions;
             inValue.quickActions = quickActions;
             return ((SfDataBackup.WSDL.Soap)(this)).describeQuickActionsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeQuickActionsForRecordTypeResponse SfDataBackup.WSDL.Soap.describeQuickActionsForRecordType(SfDataBackup.WSDL.describeQuickActionsForRecordTypeRequest request)
+        {
+            return base.Channel.describeQuickActionsForRecordType(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeQuickActionsForRecordType(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string[] quickActions, string recordTypeId, out SfDataBackup.WSDL.DescribeQuickActionResult[] result)
+        {
+            SfDataBackup.WSDL.describeQuickActionsForRecordTypeRequest inValue = new SfDataBackup.WSDL.describeQuickActionsForRecordTypeRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.quickActions = quickActions;
+            inValue.recordTypeId = recordTypeId;
+            SfDataBackup.WSDL.describeQuickActionsForRecordTypeResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeQuickActionsForRecordType(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24539,6 +25973,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeAvailableQuickActionsResponse SfDataBackup.WSDL.Soap.describeAvailableQuickActions(SfDataBackup.WSDL.describeAvailableQuickActionsRequest request)
+        {
+            return base.Channel.describeAvailableQuickActions(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeAvailableQuickActions(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string contextType, out SfDataBackup.WSDL.DescribeAvailableQuickActionResult[] result)
+        {
+            SfDataBackup.WSDL.describeAvailableQuickActionsRequest inValue = new SfDataBackup.WSDL.describeAvailableQuickActionsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.contextType = contextType;
+            SfDataBackup.WSDL.describeAvailableQuickActionsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeAvailableQuickActions(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.describeAvailableQuickActionsResponse> SfDataBackup.WSDL.Soap.describeAvailableQuickActionsAsync(SfDataBackup.WSDL.describeAvailableQuickActionsRequest request)
         {
             return base.Channel.describeAvailableQuickActionsAsync(request);
@@ -24553,6 +26006,26 @@ namespace SfDataBackup.WSDL
             inValue.LocaleOptions = LocaleOptions;
             inValue.contextType = contextType;
             return ((SfDataBackup.WSDL.Soap)(this)).describeAvailableQuickActionsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.retrieveQuickActionTemplatesResponse SfDataBackup.WSDL.Soap.retrieveQuickActionTemplates(SfDataBackup.WSDL.retrieveQuickActionTemplatesRequest request)
+        {
+            return base.Channel.retrieveQuickActionTemplates(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] retrieveQuickActionTemplates(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string[] quickActionNames, string contextId, out SfDataBackup.WSDL.QuickActionTemplateResult[] result)
+        {
+            SfDataBackup.WSDL.retrieveQuickActionTemplatesRequest inValue = new SfDataBackup.WSDL.retrieveQuickActionTemplatesRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.quickActionNames = quickActionNames;
+            inValue.contextId = contextId;
+            SfDataBackup.WSDL.retrieveQuickActionTemplatesResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).retrieveQuickActionTemplates(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24574,6 +26047,26 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.retrieveMassQuickActionTemplatesResponse SfDataBackup.WSDL.Soap.retrieveMassQuickActionTemplates(SfDataBackup.WSDL.retrieveMassQuickActionTemplatesRequest request)
+        {
+            return base.Channel.retrieveMassQuickActionTemplates(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] retrieveMassQuickActionTemplates(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string quickActionName, string[] contextIds, out SfDataBackup.WSDL.QuickActionTemplateResult[] result)
+        {
+            SfDataBackup.WSDL.retrieveMassQuickActionTemplatesRequest inValue = new SfDataBackup.WSDL.retrieveMassQuickActionTemplatesRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.quickActionName = quickActionName;
+            inValue.contextIds = contextIds;
+            SfDataBackup.WSDL.retrieveMassQuickActionTemplatesResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).retrieveMassQuickActionTemplates(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.retrieveMassQuickActionTemplatesResponse> SfDataBackup.WSDL.Soap.retrieveMassQuickActionTemplatesAsync(SfDataBackup.WSDL.retrieveMassQuickActionTemplatesRequest request)
         {
             return base.Channel.retrieveMassQuickActionTemplatesAsync(request);
@@ -24589,6 +26082,25 @@ namespace SfDataBackup.WSDL
             inValue.quickActionName = quickActionName;
             inValue.contextIds = contextIds;
             return ((SfDataBackup.WSDL.Soap)(this)).retrieveMassQuickActionTemplatesAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeVisualForceResponse SfDataBackup.WSDL.Soap.describeVisualForce(SfDataBackup.WSDL.describeVisualForceRequest request)
+        {
+            return base.Channel.describeVisualForce(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeVisualForce(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, bool includeAllDetails, string namespacePrefix, out SfDataBackup.WSDL.DescribeVisualForceResult result)
+        {
+            SfDataBackup.WSDL.describeVisualForceRequest inValue = new SfDataBackup.WSDL.describeVisualForceRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.includeAllDetails = includeAllDetails;
+            inValue.namespacePrefix = namespacePrefix;
+            SfDataBackup.WSDL.describeVisualForceResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeVisualForce(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -24609,6 +26121,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.findDuplicatesResponse SfDataBackup.WSDL.Soap.findDuplicates(SfDataBackup.WSDL.findDuplicatesRequest request)
+        {
+            return base.Channel.findDuplicates(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] findDuplicates(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, SfDataBackup.WSDL.sObject[] sObjects, out SfDataBackup.WSDL.FindDuplicatesResult[] result)
+        {
+            SfDataBackup.WSDL.findDuplicatesRequest inValue = new SfDataBackup.WSDL.findDuplicatesRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.sObjects = sObjects;
+            SfDataBackup.WSDL.findDuplicatesResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).findDuplicates(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.findDuplicatesResponse> SfDataBackup.WSDL.Soap.findDuplicatesAsync(SfDataBackup.WSDL.findDuplicatesRequest request)
         {
             return base.Channel.findDuplicatesAsync(request);
@@ -24626,6 +26157,25 @@ namespace SfDataBackup.WSDL
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.findDuplicatesByIdsResponse SfDataBackup.WSDL.Soap.findDuplicatesByIds(SfDataBackup.WSDL.findDuplicatesByIdsRequest request)
+        {
+            return base.Channel.findDuplicatesByIds(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] findDuplicatesByIds(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.DuplicateRuleHeader DuplicateRuleHeader, string[] ids, out SfDataBackup.WSDL.FindDuplicatesResult[] result)
+        {
+            SfDataBackup.WSDL.findDuplicatesByIdsRequest inValue = new SfDataBackup.WSDL.findDuplicatesByIdsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.DuplicateRuleHeader = DuplicateRuleHeader;
+            inValue.ids = ids;
+            SfDataBackup.WSDL.findDuplicatesByIdsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).findDuplicatesByIds(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<SfDataBackup.WSDL.findDuplicatesByIdsResponse> SfDataBackup.WSDL.Soap.findDuplicatesByIdsAsync(SfDataBackup.WSDL.findDuplicatesByIdsRequest request)
         {
             return base.Channel.findDuplicatesByIdsAsync(request);
@@ -24640,6 +26190,27 @@ namespace SfDataBackup.WSDL
             inValue.DuplicateRuleHeader = DuplicateRuleHeader;
             inValue.ids = ids;
             return ((SfDataBackup.WSDL.Soap)(this)).findDuplicatesByIdsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SfDataBackup.WSDL.describeNounsResponse SfDataBackup.WSDL.Soap.describeNouns(SfDataBackup.WSDL.describeNounsRequest request)
+        {
+            return base.Channel.describeNouns(request);
+        }
+        
+        public SfDataBackup.WSDL.LimitInfo[] describeNouns(SfDataBackup.WSDL.SessionHeader SessionHeader, SfDataBackup.WSDL.CallOptions CallOptions, SfDataBackup.WSDL.PackageVersion[] PackageVersionHeader, SfDataBackup.WSDL.LocaleOptions LocaleOptions, string[] nouns, bool onlyRenamed, bool includeFields, out SfDataBackup.WSDL.DescribeNounResult[] result)
+        {
+            SfDataBackup.WSDL.describeNounsRequest inValue = new SfDataBackup.WSDL.describeNounsRequest();
+            inValue.SessionHeader = SessionHeader;
+            inValue.CallOptions = CallOptions;
+            inValue.PackageVersionHeader = PackageVersionHeader;
+            inValue.LocaleOptions = LocaleOptions;
+            inValue.nouns = nouns;
+            inValue.onlyRenamed = onlyRenamed;
+            inValue.includeFields = includeFields;
+            SfDataBackup.WSDL.describeNounsResponse retVal = ((SfDataBackup.WSDL.Soap)(this)).describeNouns(inValue);
+            result = retVal.result;
+            return retVal.LimitInfoHeader;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

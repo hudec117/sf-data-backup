@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.IO.Abstractions;
 using System.Net;
 using System.Net.Http;
@@ -38,6 +37,7 @@ namespace SfDataBackup.Services
         {
             var pageResponse = await SendGetRequestToOrgAsync(options.ExportService.Page);
             var pageSource = await pageResponse.Content.ReadAsStringAsync();
+            logger.LogDebug("Downloaded Weekly Export Service page source");
 
             var links = new List<string>();
 
@@ -52,10 +52,12 @@ namespace SfDataBackup.Services
                 // Remove &amp; from relative URL
                 relativeUrl = relativeUrl.Replace("&amp;", "&");
 
-                logger.LogDebug("Extracted {url}", relativeUrl);
-
                 links.Add(relativeUrl);
+
+                logger.LogDebug("Extracted link: {url}", relativeUrl);
             }
+
+            logger.LogDebug("Found {number} link(s)", links.Count);
 
             return links;
         }
@@ -79,6 +81,8 @@ namespace SfDataBackup.Services
                 }
 
                 downloadedExportPaths.Add(filePath);
+
+                logger.LogDebug("Download export to {path}", filePath);
             }
 
             return downloadedExportPaths;
@@ -93,8 +97,8 @@ namespace SfDataBackup.Services
 
         private async Task<HttpResponseMessage> SendRequestToOrgAsync(HttpRequestMessage request)
         {
-            // Get access token
-            var sessionId = await authService.LoginAsync(options.Username, options.Password);
+            // Get session ID
+            var sessionId = await authService.GetSessionIdAsync(options.Username, options.Password);
 
             // Create oid/sid cookie header
             var cookieContainer = new CookieContainer();

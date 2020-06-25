@@ -3,7 +3,7 @@
 ## Required Software
 
 - Latest Node.js
-- Latest .NET Core SDK 3.1
+- Latest .NET Core 3.1 SDK
 - Azure Functions Core Tools v3
 - Microsoft Azure Storage Emulator
 
@@ -11,6 +11,8 @@
 
 - Visual Studio Code
   - Azure Account and Azure Functions extensions
+- dotnet-svcutil - WSDL service generation
+  - At the time of writing, this requires .NET Core 2.1 SDK to run. See [issue](https://github.com/dotnet/wcf/issues/4030).
 
 ## Project
 
@@ -44,5 +46,14 @@ To run/debug the function app, a `src/SfDataBackup/local.settings.json` file is 
  - `Salesforce:Username` is the username of the user you want to login as. DEVELOPMENT ONLY
  - `Salesforce:Password` is the password of the user you want to login as. DEVELOPMENT ONLY
  - `Salesforce:ExportService:Page` is the relative URL in Salesforce Classic to the Weekly Export Service page.
- - `Salesforce:ExportService:Regex` is the Regex used to extract the relative export download links from the page Weekly Export Service page.
-   - The code looks for a capture group called `relurl`
+ - `Salesforce:ExportService:Regex` is the Regex used to extract the relative export download links from the Weekly Export Service page.
+   - The code uses values from a capture group called `relurl`
+
+### WSDL & Service Reference Generation
+
+The service reference has already been generated and committed to the repo, in the unlikely event it needs to be regenerated, follow these steps:
+
+1. In `src/SfDataBackup/WSDL` execute `dotnet-svcutil partner.wsdl --sync --namespace *,SfDataBackup.WSDL --outputFile Partner.cs`
+2. Move `src/SfDataBackup/WSDL/ServiceReference/Partner.cs` to `src/SfDataBackup/WSDL/Partner.cs`
+3. Delete `src/SfDataBackup/WSDL/ServiceReference` folder
+4. Search and replace all occurences of `[][]` with `[]` in `src/SfDataBackup/WSDL/Partner.cs` (to avoid runtime error)
