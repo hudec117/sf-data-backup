@@ -12,13 +12,13 @@ namespace SfDataBackup
     {
         private ILogger<DownloadWeekly> logger;
         private ISfService service;
-        private ISfExportConsolidator exportConsolidator;
+        private IZipFileConsolidator exportConsolidator;
         private IFileSystem fileSystem;
 
         public DownloadWeekly(
             ILogger<DownloadWeekly> logger,
             ISfService service,
-            ISfExportConsolidator exportConsolidator,
+            IZipFileConsolidator exportConsolidator,
             IFileSystem fileSystem
         )
         {
@@ -58,11 +58,15 @@ namespace SfDataBackup
             // 3. CONSOLIDATE
             logger.LogInformation("Consolidating exports...");
 
-            var consolidatedExportPath = Path.Combine(context.FunctionDirectory, "export.zip");
-            var consolidatorResult = exportConsolidator.Consolidate(downloadExportPaths, consolidatedExportPath);
-            if (!consolidatorResult.Success)
+            var consolidatedExportPath = fileSystem.Path.Combine(context.FunctionDirectory, "export.zip");
+
+            try
             {
-                logger.LogError("Export consolidator unsuccessful.");
+                exportConsolidator.Consolidate(downloadExportPaths, consolidatedExportPath);
+            }
+            catch (ConsolidationException exception)
+            {
+                logger.LogError(exception, "Consolidator unsuccessful.");
                 return;
             }
 

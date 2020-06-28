@@ -18,7 +18,7 @@ namespace SfDataBackup.Tests
     {
         private Mock<ILogger<DownloadWeekly>> loggerMock;
         private Mock<ISfService> serviceMock;
-        private Mock<ISfExportConsolidator> consolidatorMock;
+        private Mock<IZipFileConsolidator> consolidatorMock;
         private MockFileSystem fileSystemMock;
 
         private TimerInfo dummyTimer;
@@ -44,14 +44,13 @@ namespace SfDataBackup.Tests
             serviceMock.Setup(x => x.DownloadExportsAsync(It.IsAny<string>(), It.IsAny<IList<string>>()))
                        .ReturnsAsync(dummyPaths);
 
-            consolidatorMock = new Mock<ISfExportConsolidator>();
+            consolidatorMock = new Mock<IZipFileConsolidator>();
             consolidatorMock.Setup(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<string>()))
                             .Callback(() =>
                             {
                                 var fileToAdd = Path.Combine(dummyExecutionContext.FunctionDirectory, "export.zip");
                                 fileSystemMock.AddFile(fileToAdd, new MockFileData(TestData.Export));
-                            })
-                            .Returns(new SfResult(true));
+                            });
 
             fileSystemMock = new MockFileSystem();
 

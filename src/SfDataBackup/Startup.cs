@@ -48,14 +48,14 @@ namespace SfDataBackup
             // Register zip file abstraction
             builder.Services.AddScoped<IZipFile, ZipFile>();
 
+            // Register ZIP file consolidator
+            builder.Services.AddScoped<IZipFileConsolidator, ZipFileConsolidator>();
+
             // Register the JWT authentication service
             builder.Services.AddScoped<ISfAuthService, SfAuthService>();
 
             // Register Salesforce Service
             builder.Services.AddScoped<ISfService, SfService>();
-
-            // Register export consolidator
-            builder.Services.AddScoped<ISfExportConsolidator, SfExportConsolidator>();
         }
     }
 }
