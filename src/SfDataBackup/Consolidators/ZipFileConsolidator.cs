@@ -23,7 +23,7 @@ namespace SfDataBackup.Consolidators
 
         public void Consolidate(IList<string> zipFilePaths, string outputZipFilePath)
         {
-            var tempFolderPath = Path.Combine(Path.GetDirectoryName(outputZipFilePath), TempFolderName);
+            var tempFolderPath = fileSystem.Path.Combine(Path.GetDirectoryName(outputZipFilePath), TempFolderName);
             logger.LogDebug("Using temporary folder {path}", tempFolderPath);
 
             // Extract each ZIP and delete ZIP after extracted.
@@ -49,7 +49,7 @@ namespace SfDataBackup.Consolidators
                 }
                 catch (IOException exception)
                 {
-                    var message = $"Failed to delete {exportPath} after extracting, the file may be in use or open.";
+                    var message = $"Failed to delete {exportPath} after extracting, the file may be in use.";
                     logger.LogDebug(message);
 
                     throw new ConsolidationException(message, exception);

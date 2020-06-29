@@ -18,6 +18,7 @@ namespace SfDataBackup.Tests
         private Mock<IZipFile> zipFileMock;
         private Mock<IFile> fileMock;
         private Mock<IDirectory> directoryMock;
+        private Mock<IPath> pathMock;
         private Mock<IFileSystem> fileSystemMock;
 
         private ZipFileConsolidator consolidator;
@@ -38,11 +39,17 @@ namespace SfDataBackup.Tests
 
             directoryMock = new Mock<IDirectory>();
 
+            pathMock = new Mock<IPath>();
+            pathMock.Setup(x => x.Combine(It.IsAny<string>(), It.IsAny<string>()))
+                    .Returns<string, string>((p1, p2) => Path.Combine(p1, p2));
+
             fileSystemMock = new Mock<IFileSystem>();
             fileSystemMock.SetupGet(x => x.File)
                           .Returns(fileMock.Object);
             fileSystemMock.SetupGet(x => x.Directory)
                           .Returns(directoryMock.Object);
+            fileSystemMock.SetupGet(x => x.Path)
+                          .Returns(pathMock.Object);
 
             consolidator = new ZipFileConsolidator(loggerMock.Object, zipFileMock.Object, fileSystemMock.Object);
         }

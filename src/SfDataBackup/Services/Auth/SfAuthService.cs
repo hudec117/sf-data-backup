@@ -13,13 +13,18 @@ namespace SfDataBackup.Services.Auth
         private SfDataBackup.WSDL.SoapClient logoutClient;
         private string sessionId;
 
+        protected bool disposed = false;
+
         public SfAuthService(ILogger<SfAuthService> logger)
         {
             this.logger = logger;
         }
 
-        public async Task<string> GetSessionIdAsync(string username, string password)
+        public virtual async Task<string> GetSessionIdAsync(string username, string password)
         {
+            if (disposed)
+                throw new ObjectDisposedException(nameof(SfAuthService));
+
             if (!string.IsNullOrWhiteSpace(sessionId))
             {
                 logger.LogDebug("Already logged in, returning session ID.");
@@ -44,17 +49,30 @@ namespace SfDataBackup.Services.Auth
 
         public void Dispose()
         {
-            logoutClient?.logout(
-                new SessionHeader
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
                 {
-                    sessionId = sessionId
-                },
-                new CallOptions()
-            );
+                    logoutClient?.logout(
+                        new SessionHeader
+                        {
+                            sessionId = sessionId
+                        },
+                        new CallOptions()
+                    );
 
-            sessionId = null;
+                    sessionId = null;
 
-            logger.LogDebug("Logged out successfully");
+                    logger.LogDebug("Logged out successfully");
+                }
+
+                disposed = true;
+            }
         }
     }
 }
