@@ -31,6 +31,7 @@ To run/debug the function app, a `src/SfDataBackup/local.settings.json` file is 
         "FUNCTIONS_WORKER_RUNTIME": "dotnet",
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",
         "Schedule": "<insert-cron-expression>",
+        "BackupStorage": "UseDevelopmentStorage=true",
         "Salesforce:OrganisationUrl": "<insert-org-url>",
         "Salesforce:Username": "<insert-username>",
         "Salesforce:Password": "<insert-password>",

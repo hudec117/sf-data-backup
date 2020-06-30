@@ -29,6 +29,7 @@ namespace SfDataBackup
         }
 
         [FunctionName(nameof(DownloadWeekly))]
+        [StorageAccount("BackupStorage")]
         public async Task RunAsync(
             [TimerTrigger("%Schedule%", RunOnStartup = true)] TimerInfo timer,
             [Blob("backups/{DateTime}.zip", FileAccess.Write)] Stream exportStream,
