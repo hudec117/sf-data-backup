@@ -117,5 +117,35 @@ namespace SfDataBackup.Tests
             // Assert
             zipFileMock.Verify(x => x.CreateFromDirectory(dummyTempFolderPath, dummyOutputZipFilePath));
         }
+
+        [Test]
+        public void Consolidate_ConsolidatedFileCreationThrowsIOException_ThrowsConsolidationException()
+        {
+            // Arrange
+            zipFileMock.Setup(x => x.CreateFromDirectory(It.IsAny<string>(), It.IsAny<string>()))
+                       .Throws<IOException>();
+
+            // Assert
+            Assert.Throws<ConsolidationException>(() =>
+            {
+                // Act
+                consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
+            });
+        }
+
+        [Test]
+        public void Consolidate_TempFolderDeletionThrowsIOException_ThrowsConsolidationException()
+        {
+            // Arrange
+            directoryMock.Setup(x => x.Delete(It.IsAny<string>(), It.IsAny<bool>()))
+                         .Throws<IOException>();
+
+            // Assert
+            Assert.Throws<ConsolidationException>(() =>
+            {
+                // Act
+                consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
+            });
+        }
     }
 }
