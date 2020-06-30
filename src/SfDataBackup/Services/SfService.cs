@@ -82,7 +82,7 @@ namespace SfDataBackup.Services
 
                 downloadedExportPaths.Add(filePath);
 
-                logger.LogDebug("Download export to {path}", filePath);
+                logger.LogDebug("Downloaded export to {path}", filePath);
             }
 
             return downloadedExportPaths;
