@@ -6,13 +6,13 @@ using SfDataBackup.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
+using System;
 
 namespace SfDataBackup.Tests
 {
     public class ZipFileConsolidatorTests
     {
         private List<string> dummyZipFilePaths;
-        private string dummyOutputZipFilePath;
         private string dummyTempFolderPath;
 
         private Mock<IZipFile> zipFileMock;
@@ -28,8 +28,6 @@ namespace SfDataBackup.Tests
         {
             dummyZipFilePaths = new List<string>();
             dummyZipFilePaths.Add("C:\\my\\dummy\\file0.zip");
-            dummyOutputZipFilePath = "C:\\my\\dummy\\file.zip";
-            dummyTempFolderPath = "C:\\my\\dummy\\" + ZipFileConsolidator.TempFolderName;
 
             var loggerMock = new Mock<ILogger<ZipFileConsolidator>>();
 
@@ -42,6 +40,10 @@ namespace SfDataBackup.Tests
             pathMock = new Mock<IPath>();
             pathMock.Setup(x => x.Combine(It.IsAny<string>(), It.IsAny<string>()))
                     .Returns<string, string>((p1, p2) => Path.Combine(p1, p2));
+            pathMock.Setup(x => x.GetTempPath())
+                    .Returns($"C:\\tmp");
+            pathMock.Setup(x => x.GetTempFileName())
+                    .Returns($"C:\\tmp\\{Guid.NewGuid()}.tmp");
 
             fileSystemMock = new Mock<IFileSystem>();
             fileSystemMock.SetupGet(x => x.File)
@@ -58,13 +60,11 @@ namespace SfDataBackup.Tests
         public void Consolidate_ExtractsEachFile()
         {
             // Act
-            consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
+            consolidator.Consolidate(dummyZipFilePaths);
 
             // Assert
             foreach (var filePath in dummyZipFilePaths)
-            {
-                zipFileMock.Verify(x => x.ExtractToDirectory(filePath, dummyTempFolderPath, true));
-            }
+                zipFileMock.Verify(x => x.ExtractToDirectory(filePath, It.IsAny<string>(), true));
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace SfDataBackup.Tests
             Assert.Throws<ConsolidationException>(() =>
             {
                 // Act
-                consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
+                consolidator.Consolidate(dummyZipFilePaths);
             });
         }
 
@@ -86,7 +86,7 @@ namespace SfDataBackup.Tests
         public void Consolidate_DeletesFileAfterExtraction()
         {
             // Act
-            consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
+            consolidator.Consolidate(dummyZipFilePaths);
 
             // Assert
             foreach (var filePath in dummyZipFilePaths)
@@ -94,28 +94,13 @@ namespace SfDataBackup.Tests
         }
 
         [Test]
-        public void Consolidate_FileDeletionThrowsIOException_ThrowsConsolidationException()
-        {
-            // Arrange
-            fileMock.Setup(x => x.Delete(It.IsAny<string>()))
-                    .Throws<IOException>();
-
-            // Assert
-            Assert.Throws<ConsolidationException>(() =>
-            {
-                // Act
-                consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
-            });
-        }
-
-        [Test]
         public void Consolidate_CreatesConsolidatedFile()
         {
             // Act
-            consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
+            consolidator.Consolidate(dummyZipFilePaths);
 
             // Assert
-            zipFileMock.Verify(x => x.CreateFromDirectory(dummyTempFolderPath, dummyOutputZipFilePath));
+            zipFileMock.Verify(x => x.CreateFromDirectory(It.IsAny<string>(), It.IsAny<string>()));
         }
 
         [Test]
@@ -129,22 +114,7 @@ namespace SfDataBackup.Tests
             Assert.Throws<ConsolidationException>(() =>
             {
                 // Act
-                consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
-            });
-        }
-
-        [Test]
-        public void Consolidate_TempFolderDeletionThrowsIOException_ThrowsConsolidationException()
-        {
-            // Arrange
-            directoryMock.Setup(x => x.Delete(It.IsAny<string>(), It.IsAny<bool>()))
-                         .Throws<IOException>();
-
-            // Assert
-            Assert.Throws<ConsolidationException>(() =>
-            {
-                // Act
-                consolidator.Consolidate(dummyZipFilePaths, dummyOutputZipFilePath);
+                consolidator.Consolidate(dummyZipFilePaths);
             });
         }
     }

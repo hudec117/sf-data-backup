@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Abstractions.TestingHelpers;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,13 +19,15 @@ namespace SfDataBackup.Tests.Services
 {
     public class SfServiceTests
     {
-        private const string dummyDownloadFolderPath = "C:\\dummy";
         private const string dummyAccessToken = "dummyaccesstoken";
 
         private Mock<HttpMessageHandler> httpMessageHandlerMock;
         private Mock<IHttpClientFactory> httpClientFactoryMock;
         private Mock<ISfAuthService> authServiceMock;
-        private MockFileSystem fileSystemMock;
+
+        private Mock<IFile> fileMock;
+        private Mock<IPath> pathMock;
+        private Mock<IFileSystem> fileSystemMock;
 
         private SfService service;
 
@@ -76,14 +78,25 @@ namespace SfDataBackup.Tests.Services
             authServiceMock.Setup(x => x.GetSessionIdAsync(It.IsAny<string>(), It.IsAny<string>()))
                            .ReturnsAsync(dummyAccessToken);
 
-            fileSystemMock = new MockFileSystem();
-            fileSystemMock.AddDirectory(dummyDownloadFolderPath);
+            fileMock = new Mock<IFile>();
+            fileMock.Setup(x => x.Open(It.IsAny<string>(), It.IsAny<FileMode>(), It.IsAny<FileAccess>()))
+                    .Returns(() => new MemoryStream());
+
+            pathMock = new Mock<IPath>();
+            pathMock.Setup(x => x.GetTempFileName())
+                    .Returns("C:\\tmp\\" + Guid.NewGuid());
+
+            fileSystemMock = new Mock<IFileSystem>();
+            fileSystemMock.Setup(x => x.File)
+                          .Returns(fileMock.Object);
+            fileSystemMock.Setup(x => x.Path)
+                          .Returns(pathMock.Object);
 
             service = new SfService(
                 logger.Object,
                 httpClientFactoryMock.Object,
                 authServiceMock.Object,
-                fileSystemMock,
+                fileSystemMock.Object,
                 TestData.OptionsProvider
             );
         }
@@ -156,7 +169,7 @@ namespace SfDataBackup.Tests.Services
             };
 
             // Act
-            await service.DownloadExportsAsync(dummyDownloadFolderPath, singleLinks);
+            await service.DownloadExportsAsync(singleLinks);
 
             // Assert
             var expectedRequestUrl = new Uri(TestData.Options.OrganisationUrl, singleLinks[0]);
@@ -173,7 +186,7 @@ namespace SfDataBackup.Tests.Services
         public async Task DownloadExportsAsync_MultipleLinks_RequestsMultipleFiles()
         {
             // Act
-            await service.DownloadExportsAsync(dummyDownloadFolderPath, TestData.ExportDownloadLinks);
+            await service.DownloadExportsAsync(TestData.ExportDownloadLinks);
 
             // Assert
             foreach (var exportDownloadLink in TestData.ExportDownloadLinks)
@@ -190,18 +203,31 @@ namespace SfDataBackup.Tests.Services
         }
 
         [Test]
+        public async Task DownloadExportsAsync_SavesResponseToTemporaryFile()
+        {
+            // Arrange
+            var dummyTmpFilePath = "C:\\tmp\\" + Guid.NewGuid();
+            pathMock.Setup(x => x.GetTempFileName())
+                    .Returns(dummyTmpFilePath);
+
+            // Act
+            await service.DownloadExportsAsync(TestData.ExportDownloadLinks);
+
+            // Assert
+            fileMock.Verify(
+                x => x.Open(dummyTmpFilePath, FileMode.OpenOrCreate, FileAccess.Write),
+                Times.Exactly(TestData.ExportDownloadLinks.Count)
+            );
+        }
+
+        [Test]
         public async Task DownloadExportsAsync_MultipleLinks_ReturnsMultipleFilePaths()
         {
             // Act
-            var downloadedExportFilePaths = await service.DownloadExportsAsync(dummyDownloadFolderPath, TestData.ExportDownloadLinks);
+            var downloadedExportFilePaths = await service.DownloadExportsAsync(TestData.ExportDownloadLinks);
 
             // Assert
-            for (var i = 0; i < TestData.ExportDownloadLinks.Count; i++)
-            {
-                var path = downloadedExportFilePaths[i];
-                var expectedPath = Path.Combine(dummyDownloadFolderPath, $"export{i + 1}.zip");
-                Assert.That(path, Is.EqualTo(expectedPath));
-            }
+            Assert.That(downloadedExportFilePaths.Count, Is.EqualTo(TestData.ExportDownloadLinks.Count));
         }
     }
 }

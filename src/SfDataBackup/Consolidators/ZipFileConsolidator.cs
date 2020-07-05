@@ -9,8 +9,6 @@ namespace SfDataBackup.Consolidators
 {
     public class ZipFileConsolidator : IZipFileConsolidator
     {
-        public const string TempFolderName = "consolidate";
-
         private ILogger<ZipFileConsolidator> logger;
         private IZipFile zipFile;
         private IFileSystem fileSystem;
@@ -22,17 +20,17 @@ namespace SfDataBackup.Consolidators
             this.fileSystem = fileSystem;
         }
 
-        public void Consolidate(IList<string> zipFilePaths, string outputZipFilePath)
+        public string Consolidate(IList<string> zipFilePaths)
         {
-            var tempFolderPath = fileSystem.Path.Combine(Path.GetDirectoryName(outputZipFilePath), TempFolderName);
-            logger.LogDebug("Using temporary folder {path}", tempFolderPath);
+            var tempConsolidationPath = GetTempConsolidationPath();
+            logger.LogDebug("Using temporary folder {path}", tempConsolidationPath);
 
             // Extract each ZIP and delete ZIP after extracted.
             foreach (var zipFilePath in zipFilePaths)
             {
                 try
                 {
-                    zipFile.ExtractToDirectory(zipFilePath, tempFolderPath, true);
+                    zipFile.ExtractToDirectory(zipFilePath, tempConsolidationPath, true);
                     logger.LogDebug("Extracted {path}", zipFilePath);
                 }
                 catch (InvalidDataException exception)
@@ -44,27 +42,18 @@ namespace SfDataBackup.Consolidators
                     );
                 }
 
-                try
-                {
-                    fileSystem.File.Delete(zipFilePath);
-                    logger.LogDebug("Deleted {path}", zipFilePath);
-                }
-                catch (IOException exception)
-                {
-                    // Catch in case a ZIP file path cannot be deleted.
-                    throw ConsolidationExceptionWithMessage(
-                        $"Failed to delete {zipFilePath} after extracting, the file may be in use.",
-                        exception
-                    );
-                }
+                fileSystem.File.Delete(zipFilePath);
+                logger.LogDebug("Deleted {path}", zipFilePath);
 
                 // TODO: how much larger are the extracted contents than archives?
             }
 
+            var consolidatedZipFilePath = fileSystem.Path.Combine(fileSystem.Path.GetTempPath(), $"{Guid.NewGuid()}.tmp");
+
             try
             {
-                zipFile.CreateFromDirectory(tempFolderPath, outputZipFilePath);
-                logger.LogDebug("Consolidated ZIP file created at {path}", outputZipFilePath);
+                zipFile.CreateFromDirectory(tempConsolidationPath, consolidatedZipFilePath);
+                logger.LogDebug("Consolidated ZIP file created at {path}", consolidatedZipFilePath);
             }
             catch (IOException exception)
             {
@@ -75,19 +64,18 @@ namespace SfDataBackup.Consolidators
                 );
             }
 
-            try
-            {
-                fileSystem.Directory.Delete(tempFolderPath, true);
-                logger.LogDebug("Deleted temporary folder");
-            }
-            catch (IOException exception)
-            {
-                // Catch in case the temporary folder cannot be deleted.
-                throw ConsolidationExceptionWithMessage(
-                    $"Failed delete temporary consolidation folder.",
-                    exception
-                );
-            }
+            fileSystem.Directory.Delete(tempConsolidationPath, true);
+            logger.LogDebug("Deleted temporary folder");
+
+            return consolidatedZipFilePath;
+        }
+
+        private string GetTempConsolidationPath()
+        {
+            var tempFolderPath = fileSystem.Path.GetTempPath();
+            var tempFolderName = Guid.NewGuid().ToString();
+
+            return fileSystem.Path.Combine(tempFolderPath, tempFolderName);
         }
 
         private ConsolidationException ConsolidationExceptionWithMessage(string message, Exception exception)

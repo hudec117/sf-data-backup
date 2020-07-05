@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Abstractions;
 using System.Net;
 using System.Net.Http;
@@ -62,7 +63,7 @@ namespace SfDataBackup.Services
             return links;
         }
 
-        public async Task<IList<string>> DownloadExportsAsync(string downloadFolderPath, IList<string> relativeExportUrls)
+        public async Task<IList<string>> DownloadExportsAsync(IList<string> relativeExportUrls)
         {
             var downloadedExportPaths = new List<string>();
 
@@ -74,8 +75,9 @@ namespace SfDataBackup.Services
                 var response = await SendGetRequestToOrgAsync(relativeExportUrl);
                 var responseStream = await response.Content.ReadAsStreamAsync();
 
-                var filePath = fileSystem.Path.Combine(downloadFolderPath, $"export{i + 1}.zip");
-                using (var fileStream = fileSystem.File.Create(filePath))
+                // Saves response to file
+                var filePath = fileSystem.Path.GetTempFileName();
+                using (var fileStream = fileSystem.File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write))
                 {
                     await responseStream.CopyToAsync(fileStream);
                 }

@@ -14,19 +14,19 @@ namespace SfDataBackup
     {
         private ILogger<DownloadWeekly> logger;
         private ISfService service;
-        private IZipFileConsolidator exportConsolidator;
+        private IZipFileConsolidator consolidator;
         private IFileSystem fileSystem;
 
         public DownloadWeekly(
             ILogger<DownloadWeekly> logger,
             ISfService service,
-            IZipFileConsolidator exportConsolidator,
+            IZipFileConsolidator consolidator,
             IFileSystem fileSystem
         )
         {
             this.logger = logger;
             this.service = service;
-            this.exportConsolidator = exportConsolidator;
+            this.consolidator = consolidator;
             this.fileSystem = fileSystem;
         }
 
@@ -48,16 +48,15 @@ namespace SfDataBackup
             // 2. DOWNLOAD
             logger.LogInformation("Downloading exports from Salesforce...");
 
-            var downloadExportPaths = await service.DownloadExportsAsync(context.FunctionDirectory, exportDownloadLinks);
+            var downloadExportPaths = await service.DownloadExportsAsync(exportDownloadLinks);
 
             // 3. CONSOLIDATE
             logger.LogInformation("Consolidating exports...");
 
-            var consolidatedExportPath = fileSystem.Path.Combine(context.FunctionDirectory, "export.zip");
-
+            string consolidatedExportPath;
             try
             {
-                exportConsolidator.Consolidate(downloadExportPaths, consolidatedExportPath);
+                consolidatedExportPath = consolidator.Consolidate(downloadExportPaths);
             }
             catch (ConsolidationException exception)
             {
@@ -78,6 +77,8 @@ namespace SfDataBackup
 
             // 5. CLEANUP
             logger.LogInformation("Cleaning up");
+
+            fileSystem.File.Delete(consolidatedExportPath);
 
             logger.LogInformation("Done");
         }

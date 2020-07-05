@@ -45,7 +45,7 @@ namespace SfDataBackup
             // Register file system
             builder.Services.AddScoped<IFileSystem, FileSystem>();
 
-            // Register zip file abstraction
+            // Register ZIP file abstraction
             builder.Services.AddScoped<IZipFile, ZipFile>();
 
             // Register ZIP file consolidator
