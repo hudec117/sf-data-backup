@@ -30,8 +30,8 @@ To run/debug the function app, a `src/SfDataBackup/local.settings.json` file is 
     "Values": {
         "FUNCTIONS_WORKER_RUNTIME": "dotnet",
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "Schedule": "<insert-cron-expression>",
         "BackupStorage": "UseDevelopmentStorage=true",
+        "Schedule": "<insert-cron-expression>",
         "Salesforce:OrganisationUrl": "<insert-org-url>",
         "Salesforce:Username": "<insert-username>",
         "Salesforce:Password": "<insert-password>",
@@ -41,6 +41,7 @@ To run/debug the function app, a `src/SfDataBackup/local.settings.json` file is 
 }
 ```
 
+ - `BackupStorage` is a connection string to an Azure Storage account which support for Blob containers.
  - `Schedule` is a CRON expression describing when the DownloadWeekly Timer function should be invoked.
    - See [here](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#ncrontab-expressions) for NCRONTAB expressions.
  - `Salesforce:OrganisationUrl` is the URL to your Salesforce Organisation in `https://myorg.my.salesforce` format.
