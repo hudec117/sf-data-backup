@@ -1,6 +1,8 @@
 using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using SfDataBackup.Consolidators;
@@ -32,7 +34,7 @@ namespace SfDataBackup
         [StorageAccount("BackupStorage")]
         public async Task RunAsync(
             [TimerTrigger("%Schedule%", RunOnStartup = true)] TimerInfo timer,
-            [Blob("backups/{DateTime}.zip", FileAccess.Write)] Stream exportStream,
+            [Blob("backups/{DateTime}.zip", FileAccess.Write)] ICloudBlob blob,
             ExecutionContext context
         )
         {
@@ -41,15 +43,7 @@ namespace SfDataBackup
 
             var exportDownloadLinks = await service.GetExportDownloadLinksAsync();
             if (exportDownloadLinks.Count == 0)
-            {
-                logger.LogWarning(
-                    "No export download links found. Check:\n" +
-                    "a) exports are available on Weekly Export Service page\n" +
-                    "b) \"Salesforce:ExportService:Page\" is a relative URL to the Weekly Export Service page\n" +
-                    "c) \"Salesforce:ExportService:Regex\" still applies to the Weekly Export Service page source"
-                );
-                return;
-            }
+                throw new DownloadWeeklyException("No export download links found.");
 
             // 2. DOWNLOAD
             logger.LogInformation("Downloading exports from Salesforce...");
@@ -67,16 +61,19 @@ namespace SfDataBackup
             }
             catch (ConsolidationException exception)
             {
-                logger.LogError(exception, "Consolidator unsuccessful.");
-                return;
+                throw new DownloadWeeklyException("Consolidator unsuccessful.", exception);
             }
 
             // 4. UPLOAD
             logger.LogInformation("Uploading export...");
 
-            using (var fileStream = fileSystem.File.Open(consolidatedExportPath, FileMode.Open))
+            try
             {
-                await fileStream.CopyToAsync(exportStream);
+                await blob.UploadFromFileAsync(consolidatedExportPath);
+            }
+            catch (StorageException exception)
+            {
+                throw new DownloadWeeklyException("Failed to upload consolidated export.", exception);
             }
 
             // 5. CLEANUP
@@ -84,5 +81,20 @@ namespace SfDataBackup
 
             logger.LogInformation("Done");
         }
+    }
+
+    [System.Serializable]
+    public class DownloadWeeklyException : System.Exception
+    {
+        public DownloadWeeklyException() { }
+
+        public DownloadWeeklyException(string message) : base(message) { }
+
+        public DownloadWeeklyException(string message, System.Exception inner) : base(message, inner) { }
+
+        protected DownloadWeeklyException(
+            System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context
+        ) : base(info, context) { }
     }
 }
