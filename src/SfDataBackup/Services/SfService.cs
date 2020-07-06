@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
@@ -63,7 +64,7 @@ namespace SfDataBackup.Services
             return links;
         }
 
-        public async Task<IList<string>> DownloadExportsAsync(IList<string> relativeExportUrls)
+        public async Task<IList<string>> DownloadExportsAsync(IList<string> relativeExportUrls, IProgress<int> downloadProgress = null)
         {
             var downloadedExportPaths = new List<string>();
 
@@ -83,6 +84,8 @@ namespace SfDataBackup.Services
                 }
 
                 downloadedExportPaths.Add(filePath);
+
+                downloadProgress?.Report(i + 1);
 
                 logger.LogDebug("Downloaded export to {path}", filePath);
             }

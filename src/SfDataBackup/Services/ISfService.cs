@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,6 +8,6 @@ namespace SfDataBackup.Services
     {
         Task<IList<string>> GetExportDownloadLinksAsync();
 
-        Task<IList<string>> DownloadExportsAsync(IList<string> relativeExportUrls);
+        Task<IList<string>> DownloadExportsAsync(IList<string> relativeExportUrls, IProgress<int> progress);
     }
 }

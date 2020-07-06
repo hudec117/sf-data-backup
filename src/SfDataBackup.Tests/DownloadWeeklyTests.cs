@@ -42,7 +42,7 @@ namespace SfDataBackup.Tests
             serviceMock = new Mock<ISfService>();
             serviceMock.Setup(x => x.GetExportDownloadLinksAsync())
                        .ReturnsAsync(TestData.ExportDownloadLinks);
-            serviceMock.Setup(x => x.DownloadExportsAsync(It.IsAny<IList<string>>()))
+            serviceMock.Setup(x => x.DownloadExportsAsync(It.IsAny<IList<string>>(), It.IsAny<IProgress<int>>()))
                        .ReturnsAsync(dummyPaths);
 
             consolidatorMock = new Mock<IZipFileConsolidator>();
@@ -84,7 +84,7 @@ namespace SfDataBackup.Tests
             await function.RunAsync(dummyTimer, blobMock.Object, dummyExecutionContext);
 
             // Assert
-            serviceMock.Verify(x => x.DownloadExportsAsync(It.IsAny<IList<string>>()));
+            serviceMock.Verify(x => x.DownloadExportsAsync(It.IsAny<IList<string>>(), It.IsAny<IProgress<int>>()));
         }
 
         [Test]

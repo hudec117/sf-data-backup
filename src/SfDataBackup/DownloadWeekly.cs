@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
@@ -48,7 +49,10 @@ namespace SfDataBackup
             // 2. DOWNLOAD
             logger.LogInformation("Downloading exports from Salesforce...");
 
-            var downloadExportPaths = await service.DownloadExportsAsync(exportDownloadLinks);
+            var downloadExportPaths = await service.DownloadExportsAsync(
+                exportDownloadLinks,
+                new Progress<int>(exportNum => logger.LogInformation("Downloaded export {exportNum} of {totalExports}", exportNum, exportDownloadLinks.Count))
+            );
 
             // 3. CONSOLIDATE
             logger.LogInformation("Consolidating exports...");
