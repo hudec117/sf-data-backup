@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Abstractions;
 using Microsoft.Extensions.Logging;
@@ -25,13 +26,18 @@ namespace SfDataBackup.Consolidators
             var tempConsolidationPath = GetTempConsolidationPath();
             logger.LogDebug("Using temporary folder {path}", tempConsolidationPath);
 
-            // Extract each ZIP and delete ZIP after extracted.
+            // Extract each ZIP and delete it after.
             foreach (var zipFilePath in zipFilePaths)
             {
                 try
                 {
+                    logger.LogDebug("Starting {path} extraction...", zipFilePath);
+
+                    var stopwatch = Stopwatch.StartNew();
                     zipFile.ExtractToDirectory(zipFilePath, tempConsolidationPath, true);
-                    logger.LogDebug("Extracted {path}", zipFilePath);
+                    stopwatch.Stop();
+
+                    logger.LogDebug("Extracted {path} in {seconds} seconds", zipFilePath, (int)stopwatch.Elapsed.TotalSeconds);
                 }
                 catch (InvalidDataException exception)
                 {
@@ -44,16 +50,19 @@ namespace SfDataBackup.Consolidators
 
                 fileSystem.File.Delete(zipFilePath);
                 logger.LogDebug("Deleted {path}", zipFilePath);
-
-                // TODO: how much larger are the extracted contents than archives?
             }
 
             var consolidatedZipFilePath = fileSystem.Path.Combine(fileSystem.Path.GetTempPath(), $"{Guid.NewGuid()}.tmp");
 
             try
             {
+                logger.LogDebug("Creating consolidated ZIP file...", consolidatedZipFilePath);
+
+                var stopwatch = Stopwatch.StartNew();
                 zipFile.CreateFromDirectory(tempConsolidationPath, consolidatedZipFilePath);
-                logger.LogDebug("Consolidated ZIP file created at {path}", consolidatedZipFilePath);
+                stopwatch.Stop();
+
+                logger.LogDebug("Consolidated ZIP file created at {path} in {seconds} seconds", consolidatedZipFilePath, (int)stopwatch.Elapsed.TotalSeconds);
             }
             catch (IOException exception)
             {
