@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Abstractions;
 using System.Net;
@@ -72,6 +73,10 @@ namespace SfDataBackup.Services
             {
                 var relativeExportUrl = relativeExportUrls[i];
 
+                logger.LogDebug("Starting download for export {url}", relativeExportUrl);
+
+                var stopwatch = Stopwatch.StartNew();
+
                 // Send request for export file
                 var response = await SendGetRequestToOrgAsync(relativeExportUrl);
                 var responseStream = await response.Content.ReadAsStreamAsync();
@@ -83,11 +88,13 @@ namespace SfDataBackup.Services
                     await responseStream.CopyToAsync(fileStream);
                 }
 
+                stopwatch.Stop();
+
                 downloadedExportPaths.Add(filePath);
 
                 downloadProgress?.Report(i + 1);
 
-                logger.LogDebug("Downloaded export to {path}", filePath);
+                logger.LogDebug("Downloaded export to {path} in {seconds} seconds", filePath, (int)stopwatch.Elapsed.TotalSeconds);
             }
 
             return downloadedExportPaths;

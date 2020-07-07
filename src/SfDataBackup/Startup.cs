@@ -24,6 +24,9 @@ namespace SfDataBackup
                             .ConfigureHttpClient(client =>
                             {
                                 client.BaseAddress = new Uri(Environment.GetEnvironmentVariable("Salesforce:OrganisationUrl"));
+
+                                // Salesforce servers can be slow
+                                client.Timeout = TimeSpan.FromMinutes(5);
                             })
                             .ConfigurePrimaryHttpMessageHandler(() =>
                             {
