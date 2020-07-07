@@ -8,6 +8,6 @@ namespace SfDataBackup.Services
     {
         Task<IList<string>> GetExportDownloadLinksAsync();
 
-        Task<IList<string>> DownloadExportsAsync(IList<string> relativeExportUrls, IProgress<int> progress);
+        Task<IList<string>> DownloadExportsAsync(IList<string> relativeExportUrls, IProgress<int> downloadProgress);
     }
 }
