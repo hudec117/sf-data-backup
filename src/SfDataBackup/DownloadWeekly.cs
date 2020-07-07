@@ -60,7 +60,10 @@ namespace SfDataBackup
             string consolidatedExportPath;
             try
             {
-                consolidatedExportPath = consolidator.Consolidate(downloadExportPaths);
+                consolidatedExportPath = consolidator.Consolidate(
+                    downloadExportPaths,
+                    new Progress<int>(exportNum => logger.LogInformation("Consolidated export {exportNum} of {totalExports}", exportNum, downloadExportPaths.Count))
+                );
             }
             catch (ConsolidationException exception)
             {

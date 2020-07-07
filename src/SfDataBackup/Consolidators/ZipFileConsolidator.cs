@@ -21,17 +21,19 @@ namespace SfDataBackup.Consolidators
             this.fileSystem = fileSystem;
         }
 
-        public string Consolidate(IList<string> zipFilePaths)
+        public string Consolidate(IList<string> zipFilePaths, IProgress<int> consolidateProgress = null)
         {
             var tempConsolidationPath = GetTempConsolidationPath();
             logger.LogDebug("Using temporary folder {path}", tempConsolidationPath);
 
             // Extract each ZIP and delete it after.
-            foreach (var zipFilePath in zipFilePaths)
+            for (var i = 0; i < zipFilePaths.Count; i++)
             {
+                var zipFilePath = zipFilePaths[i];
+
                 try
                 {
-                    logger.LogDebug("Starting {path} extraction...", zipFilePath);
+                    logger.LogDebug("Starting extraction for {path}", zipFilePath);
 
                     var stopwatch = Stopwatch.StartNew();
                     zipFile.ExtractToDirectory(zipFilePath, tempConsolidationPath, true);
@@ -47,6 +49,8 @@ namespace SfDataBackup.Consolidators
                         exception
                     );
                 }
+
+                consolidateProgress?.Report(i + 1);
 
                 fileSystem.File.Delete(zipFilePath);
                 logger.LogDebug("Deleted {path}", zipFilePath);

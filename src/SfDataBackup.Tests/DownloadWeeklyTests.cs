@@ -108,14 +108,14 @@ namespace SfDataBackup.Tests
             await function.RunAsync(dummyTimer, blobMock.Object, dummyExecutionContext);
 
             // Assert
-            consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>()));
+            consolidatorMock.Verify(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<IProgress<int>>()));
         }
 
         [Test]
         public void RunAsync_ConsolidatorThrowsConsolidationException_ThrowDownloadWeeklyException()
         {
             // Arrange
-            consolidatorMock.Setup(x => x.Consolidate(It.IsAny<IList<string>>()))
+            consolidatorMock.Setup(x => x.Consolidate(It.IsAny<IList<string>>(), It.IsAny<IProgress<int>>()))
                             .Throws<ConsolidationException>();
 
             // Assert
@@ -154,7 +154,7 @@ namespace SfDataBackup.Tests
         {
             // Arrange
             var consolidatedExportPath = "C:\\tmp\\" + Guid.NewGuid();
-            consolidatorMock.Setup(x => x.Consolidate(It.IsAny<List<string>>()))
+            consolidatorMock.Setup(x => x.Consolidate(It.IsAny<List<string>>(), It.IsAny<IProgress<int>>()))
                             .Returns(consolidatedExportPath);
 
             // Act
